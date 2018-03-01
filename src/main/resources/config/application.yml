@@ -1,0 +1,46 @@
+server:
+  port: 8080
+  session:
+    timeout: 10
+  tomcat:
+    uri-encoding: utf-8
+    basedir: target/tomcat
+    accesslog:
+      enabled: true
+spring:
+  template:
+    cache: false
+  thymeleaf:
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    content-type: text/html
+  devtools:
+    restart:
+      #热部署生效
+      enabled: true
+      #设置重启的目录
+      additional-paths: src/main/java
+      #classpath目录下的WEB-INF文件夹内容修改不重启
+      exclude: public/**,static/**
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://127.0.0.1:3306/teaching_quality_management?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    tomcat:
+      max-wait: 10000
+      min-idle: 5
+      initial-size: 5
+mybatis:
+  type-aliases-package: cn.edu.jsu.rjxy.entity
+  mapper-locations: classpath*:/mappers/*.xml
+  check-config-location: true
+  configuration:
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: true
+    map-underscore-to-camel-case: true
+#  mybatis.typeHandlersPackage：扫描typeHandlers的包
+#  mybatis.executorType：设置执行模式（SIMPLE, REUSE, BATCH），默认为SIMPLE

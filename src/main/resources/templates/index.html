@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include :: header(~{::title}, ~{::link}, ~{::script})">
+  <title>thymeleaf demo</title>
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+  <script type="text/javascript" th:src="@{/js/index.js}"></script>
+</head>
+<body>
+  <p th:text="${msg}">thymeleaf demo</p>
+  <p th:text="${text}">thymeleaf demo</p>
+  <p th:utext="${utext}">thymeleaf demo</p>
+</body>
+</html>

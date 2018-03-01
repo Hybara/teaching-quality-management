@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include :: header(~{::title}, ~{::link}, ~{::script})">
+  <title>thymeleaf demo</title>
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+  <script type="text/javascript" th:src="@{/js/index.js}"></script>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th width="50px">index</th>
+        <th width="50px">count</th>
+        <th width="100px">name</th>
+        <th width="100px">price</th>
+        <th width="100px">operate</th>
+      </tr>
+    </thead>
+    <tbody>
+    <style th:inline="css">
+      table{border-collapse:collapse;}
+      th,td{border:lightgray 1px solid;}
+      .even{background-color:lightgray;}
+    </style>
+    <!--状态变量在每个th:each属性中定义,并包含以下数据:-->
+    <!--当前迭代索引,从0开始。这是index属性。-->
+    <!--当前的迭代索引,从1开始。这是count属性。-->
+    <!--迭代变量中元素的总量。	这是size属性。-->
+    <!--每次迭代的iter变量。	这是current属性。-->
+    <!--当前的迭代是偶数还是奇数。	这些是even/odd布尔属性。-->
+    <!--当前的迭代是否是第一个迭代。	这是first布尔属性。-->
+    <!--当前的迭代是否是最后一个迭代。	这是last布尔属性。-->
+    <!--迭代状态变量(本示例中的iterStat)在th:each属性中通过在iter变量本身之后直接写其名称来定义,用逗号分隔-->
+      <th:block th:each="order,iterStat : ${orders}">
+      <tr th:class="${iterStat.even}?'even'">
+        <td th:text="${iterStat.index}">iterStat.index</td>
+        <td th:text="${iterStat.count}">iterStat.count</td>
+        <td th:text="${order.name}">order.name</td>
+        <td th:text="${order.price}">order.price</td>
+        <td>
+          <!--if是当条件满足时执行，而unless是当条件满足时不执行，相当于if not-->
+          <a th:if="${order.status}" th:href="@{/index(orderName=${order.name})}">if-view</a>
+          <a th:unless="${order.status}" th:href="@{/index/{name}(name=${order.name})}">unless-view</a>
+          <!--
+          switch模式
+          <td th:switch="${order.status}">
+            <a th:case="true" th:href="@{/index(orderName=${order.name})}">if-view</a>
+            <a th:case="false" th:href="@{/index/{name}(name=${order.name})}">unless-view</a>
+            <a th:case="*"></a> switch的default选项指定为 *
+          </td>
+          -->
+        </td>
+      </tr>
+      </th:block>
+    </tbody>
+  </table>
+</body>
+</html>
