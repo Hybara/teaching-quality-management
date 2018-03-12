@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-12 02:10:18
+Date: 2018-03-12 23:46:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,6 +29,11 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES ('1', 'admin', 'admin', '1', '2018-03-12 21:16:26');
+
+-- ----------------------------
 -- Table structure for classes
 -- ----------------------------
 DROP TABLE IF EXISTS `classes`;
@@ -39,6 +44,10 @@ CREATE TABLE `classes` (
   `term` int(11) NOT NULL COMMENT '学期，因为大学每个学期可能学生都不一样',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of classes
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for class_for_teacher
@@ -59,6 +68,10 @@ CREATE TABLE `class_for_teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of class_for_teacher
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for evaluate
 -- ----------------------------
 DROP TABLE IF EXISTS `evaluate`;
@@ -74,6 +87,10 @@ CREATE TABLE `evaluate` (
   `flag` tinyint(1) NOT NULL COMMENT '是否匿名标记',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of evaluate
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for for_question
@@ -92,6 +109,10 @@ CREATE TABLE `for_question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of for_question
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for major
 -- ----------------------------
 DROP TABLE IF EXISTS `major`;
@@ -102,6 +123,12 @@ CREATE TABLE `major` (
   `schooling` tinyint(4) NOT NULL COMMENT '学制',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of major
+-- ----------------------------
+INSERT INTO `major` VALUES ('1', '01', '软件工程', '4');
+INSERT INTO `major` VALUES ('2', '02', '土木工程', '4');
 
 -- ----------------------------
 -- Table structure for message
@@ -116,6 +143,10 @@ CREATE TABLE `message` (
   `create_time` datetime NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of message
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for question
@@ -133,6 +164,10 @@ CREATE TABLE `question` (
   `flag` tinyint(1) NOT NULL COMMENT '是否匿名标记',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of question
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for question_bank
@@ -155,6 +190,10 @@ CREATE TABLE `question_bank` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of question_bank
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for question_template
 -- ----------------------------
 DROP TABLE IF EXISTS `question_template`;
@@ -172,6 +211,10 @@ CREATE TABLE `question_template` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of question_template
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for question_type
 -- ----------------------------
 DROP TABLE IF EXISTS `question_type`;
@@ -180,6 +223,10 @@ CREATE TABLE `question_type` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of question_type
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for receive_message
@@ -195,6 +242,10 @@ CREATE TABLE `receive_message` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of receive_message
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for register
 -- ----------------------------
 DROP TABLE IF EXISTS `register`;
@@ -206,6 +257,11 @@ CREATE TABLE `register` (
   `header` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of register
+-- ----------------------------
+INSERT INTO `register` VALUES ('1', '020934', '德信', '123456', null);
 
 -- ----------------------------
 -- Table structure for report
@@ -227,6 +283,10 @@ CREATE TABLE `report` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of report
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for score
 -- ----------------------------
 DROP TABLE IF EXISTS `score`;
@@ -245,6 +305,10 @@ CREATE TABLE `score` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of score
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for score_type
 -- ----------------------------
 DROP TABLE IF EXISTS `score_type`;
@@ -253,6 +317,13 @@ CREATE TABLE `score_type` (
   `name` varchar(64) NOT NULL,
   PRIMARY KEY  (` id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of score_type
+-- ----------------------------
+INSERT INTO `score_type` VALUES ('1', '专业必修');
+INSERT INTO `score_type` VALUES ('2', '专业选修');
+INSERT INTO `score_type` VALUES ('3', '通识必修');
 
 -- ----------------------------
 -- Table structure for student
@@ -271,6 +342,11 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of student
+-- ----------------------------
+INSERT INTO `student` VALUES ('1', '20144206068', '欧文惠', '1', '430407199602102037', null, '102037', '2014-09-15 22:21:36');
+
+-- ----------------------------
 -- Table structure for stu_for_class
 -- ----------------------------
 DROP TABLE IF EXISTS `stu_for_class`;
@@ -280,6 +356,10 @@ CREATE TABLE `stu_for_class` (
   `class_id` int(11) NOT NULL COMMENT '班级编号',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stu_for_class
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for teacher
@@ -303,6 +383,11 @@ CREATE TABLE `teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of teacher
+-- ----------------------------
+INSERT INTO `teacher` VALUES ('1', '010943', '欧辰', '1', '123456', '1', '讲师', null, null, null, null, null, null);
+
+-- ----------------------------
 -- Table structure for term
 -- ----------------------------
 DROP TABLE IF EXISTS `term`;
@@ -313,3 +398,7 @@ CREATE TABLE `term` (
   `end_time` datetime NOT NULL COMMENT '学期结束时间',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of term
+-- ----------------------------
