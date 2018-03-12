@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-12 23:46:08
+Date: 2018-03-12 23:48:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -324,6 +324,7 @@ CREATE TABLE `score_type` (
 INSERT INTO `score_type` VALUES ('1', '专业必修');
 INSERT INTO `score_type` VALUES ('2', '专业选修');
 INSERT INTO `score_type` VALUES ('3', '通识必修');
+INSERT INTO `score_type` VALUES ('4', '通识选修');
 
 -- ----------------------------
 -- Table structure for student
