@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface AdminMapper {
 
-  @Select("select * from admin where id = #{id}")
-  @ResultMap("AdminResult")
-  Admin findById(@Param("id") long id);
+  @Select("select * from admin where id=#{id}")
+  Admin getById(@Param("id") long id);
+
+  @Select("select * from admin where account=#{account} and password=#{password}")
+  Admin getByAccountAndPassword(@Param("account") String account, @Param("password") String password);
 
 }

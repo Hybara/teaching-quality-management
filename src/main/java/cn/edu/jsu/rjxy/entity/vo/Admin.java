@@ -7,13 +7,13 @@ public class Admin {
   private long id;
   private String account;
   private String password;
-  private Admin creater;
+  private long creater;
   private Date createTime;
 
   public Admin() {
   }
 
-  public Admin(long id, String account, String password, Admin creater, Date createTime) {
+  public Admin(long id, String account, String password, long creater, Date createTime) {
     this.id = id;
     this.account = account;
     this.password = password;
@@ -45,11 +45,11 @@ public class Admin {
     this.password = password;
   }
 
-  public Admin getCreater() {
+  public long getCreater() {
     return creater;
   }
 
-  public void setCreater(Admin creater) {
+  public void setCreater(long creater) {
     this.creater = creater;
   }
 

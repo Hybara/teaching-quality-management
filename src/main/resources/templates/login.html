@@ -26,9 +26,17 @@
         <h2 class="form-login-heading">教学质量管理系统</h2>
         <div class="login-wrap">
           <div class="message"></div>
-          <input type="text" name="account" class="form-control" placeholder="请输入您的账号..." autofocus>
           <br/>
-          <input type="password" name="password" class="form-control" placeholder="请输入您的密码...">
+          <input type="text" name="account" class="form-control" placeholder="请输入您的账号..." autofocus />
+          <br/>
+          <input type="password" name="password" class="form-control" placeholder="请输入您的密码..." />
+          <br/>
+          <select class="form-control" name="type">
+            <option value="student">学生</option>
+            <option value="teacher">教师</option>
+            <option value="register">教务</option>
+            <option value="admin">管理员</option>
+          </select>
           <label class="checkbox">
 		                <span class="pull-right">
 		                    <a data-toggle="modal" href="login.html#myModal"> 忘记密码？</a>
