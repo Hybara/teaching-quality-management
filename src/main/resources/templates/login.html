@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>教学质量管理系统·登录</title>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="../static/plugins/bootstrap-3.3.7-dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="../static/plugins/bootstrap-3.3.7-dist/css/bootstrap-theme.css" />
+		<script src="../static/js/jquery-3.2.1.js"></script>
+		<script src="../static/plugins/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="../static/css/index.css" />
+		<script src="../static/js/jquery.backstretch.js"></script>
+		<script src="../static/js/index.js" ></script>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 col-lg-5"></div>
+				<div class="col-md-4 col-lg-2">
+					<form class="form-login" action="index.html">
+						<h2 class="form-login-heading">教学质量管理系统</h2>
+						<div class="login-wrap">
+							<div class="message"></div>
+							<input type="text" class="form-control" placeholder="请输入您的账号..." autofocus>
+							<br />
+							<input type="password" class="form-control" placeholder="请输入您的密码...">
+							<label class="checkbox">
+		                <span class="pull-right">
+		                    <a data-toggle="modal" href="login.html#myModal"> 忘记密码？</a>
+		                </span>
+		            </label>
+							<button class="btn btn-info btn-block" href="index.html" type="submit"><span class="glyphicon glyphicon-log-in"></span> 登录</button>
+							<hr />
+
+							<div class="registration">
+								<p> * 学生登录账号为学生学号<br/> * 密码为身份证后六位...</p>
+								<p> * 其他用户请联系管理员添加账号...</p>
+							</div>
+							<div class="registration">
+								您还有疑问？<br/>
+								<a class="" href="javascript:void">
+									联系我们！
+								</a>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-4 col-lg-5"></div>
+			</div>
+		</div>
+	</body>
+	
+</html>

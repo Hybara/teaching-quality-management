@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<style>
+		#wrapper {
+			min-height: 540px !important;
+		}</style>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta content="" name="description" />
+		<meta content="webthemez" name="author" />
+		<title>Bootstrap HTML5 Admin Template</title>
+		<!-- Bootstrap Styles-->
+		<link href="../../static/plugins/assets/css/bootstrap.css" rel="stylesheet" />
+		<!-- FontAwesome Styles-->
+		<link href="../../static/plugins/assets/css/font-awesome.css" rel="stylesheet" />
+		<!-- Custom Styles-->
+		<link href="../../static/plugins/assets/css/custom-styles.css" rel="stylesheet" />
+		<!-- Google Fonts-->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+		<link href="../../static/css/dashboard.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<nav class="navbar navbar-default top-navbar" role="navigation">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> 教学质量管理系统</strong></a>
+					<!--<div id="sideNav" href=""><i class="fa fa-bars icon"></i></div>-->
+				</div>
+
+				<ul class="nav navbar-top-links navbar-right">
+					<!-- /.dropdown -->
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+							<span style="color: gray;">20144206068 欧文惠 软件一班&nbsp;</span><i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-user">
+							<li>
+								<a href="info.html"><i class="fa fa-user fa-fw"></i> 用户信息</a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="#"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+							</li>
+						</ul>
+						<!-- /.dropdown-user -->
+					</li>
+					<!-- /.dropdown -->
+				</ul>
+			</nav>
+			<!--/. NAV TOP  -->
+			<nav class="navbar-default navbar-side" role="navigation">
+				<div class="sidebar-collapse">
+					<ul class="nav" id="main-menu">
+						<li>
+							<a href="index.html"><i class="fa fa-dashboard"></i> 仪表盘</a>
+						</li>
+						<li>
+							<a href="scores.html"><i class="fa fa-desktop"></i> 课程列表</a>
+						</li>
+						<li>
+							<a href="message.html"><i class="fa fa-desktop"></i> 系统公告</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!-- /. NAV SIDE  -->
+			<div id="page-wrapper">
+				<div class="header">
+					<h1 class="page-header">仪表盘</h1>
+					<ol class="breadcrumb">
+						<li class="active">dashboard</li>
+					</ol>
+				</div>
+				<div id="page-inner">
+					<div class="row">
+						<div class="col-sm-5">
+							<!--   Basic Table  -->
+								<div class="panel panel-default">
+									<div class="panel-heading">基本信息</div>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table class="table">
+												<tbody>
+													<tr>
+														<td width="70px">姓名：</td>
+														<td>欧文惠</td>
+														<td width="70px">学号：</td>
+														<td>20144206068</td>
+													</tr>
+													<tr>
+														<td>专业：</td>
+														<td>软件工程</td>
+														<td>性别：</td>
+														<td>男</td>
+													</tr>
+													<tr>
+														<td>年级：</td>
+														<td>2014级</td>
+														<td>生日：</td>
+														<td>xxxx-xx-xx</td>
+													</tr>
+													<tr>
+														<td>班级：</td>
+														<td colspan="3">软件一班</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- End  Basic Table  -->
+
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										系统公告
+									</div>
+									<div class="panel-body">
+										<div class="list-group">
+											<a href="#" class="list-group-item">
+												<span class="badge">7 minutes ago</span>
+												<i class="fa fa-fw fa-comment"></i> Commented on a post
+											</a>
+											<a href="#" class="list-group-item">
+												<span class="badge">16 minutes ago</span>
+												<i class="fa fa-fw fa-truck"></i> Order 392 shipped
+											</a>
+											<a href="#" class="list-group-item">
+												<span class="badge">36 minutes ago</span>
+												<i class="fa fa-fw fa-globe"></i> Invoice 653 has paid
+											</a>
+											<a href="#" class="list-group-item">
+												<span class="badge">1 hour ago</span>
+												<i class="fa fa-fw fa-user"></i> A new user has been added
+											</a>
+											<a href="#" class="list-group-item">
+												<span class="badge">1 hour ago</span>
+												<i class="fa fa-fw fa-user"></i> A new user has been added
+											</a>
+											<a href="#" class="list-group-item">
+												<span class="badge">1 hour ago</span>
+												<i class="fa fa-fw fa-user"></i> A new user has been added
+											</a>
+										</div>
+									</div>
+								</div>
+						</div>
+						<div class="col-sm-7">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									信息更新
+								</div>
+								<style>
+									.media p {
+										padding-top: 0px;white-space:nowrap; text-overflow:ellipsis; overflow:hidden;
+									}
+								</style>
+								<div class="panel-body">
+									<li class="list-group-item">
+									<div class="media">
+										<div class="media-left media-middle">
+											<a href="#">
+												<img class="media-object" height="50px" width="50px" src="../../public/header.jpg" alt="还没有图片...">
+											</a>
+										</div>
+										<div class="media-body">
+											<h5 class="media-heading">用户名</h5>
+											<p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈...</p>
+										</div>
+									</div>
+									</li>
+									<li class="list-group-item">
+									<div class="media">
+										<div class="media-left media-middle">
+											<a href="#">
+												<img class="media-object" height="50px" width="50px" src="../../public/header.jpg" alt="还没有图片...">
+											</a>
+										</div>
+										<div class="media-body">
+											<h5 class="media-heading">用户名</h5>
+											<p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃...</p>
+										</div>
+									</div>
+									</li>
+									<li class="list-group-item">
+									<div class="media">
+										<div class="media-left media-middle">
+											<a href="#">
+												<img class="media-object" height="50px" width="50px" src="../../public/header.jpg" alt="还没有图片...">
+											</a>
+										</div>
+										<div class="media-body">
+											<h5 class="media-heading">用户名</h5>
+											<p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢哦哦哦噢噢噢噢噢噢噢噢噢噢噢噢噢...</p>
+										</div>
+									</div>
+									</li>
+									<li class="list-group-item">
+									<div class="media">
+										<div class="media-left media-middle">
+											<a href="#">
+												<img class="media-object" height="50px" width="50px" src="../../public/header.jpg" alt="还没有图片...">
+											</a>
+										</div>
+										<div class="media-body">
+											<h5 class="media-heading">用户名</h5>
+											<p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦...</p>
+										</div>
+									</div>
+									</li>
+									<li class="list-group-item">
+									<div class="media">
+										<div class="media-left media-middle">
+											<a href="#">
+												<img class="media-object" height="50px" width="50px" src="../../public/header.jpg" alt="还没有图片...">
+											</a>
+										</div>
+										<div class="media-body">
+											<h5 class="media-heading">用户名</h5>
+											<p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦...</p>
+										</div>
+									</div>
+									</li>
+								</div>
+							</div>
+						</div>
+					</div>
+					<footer class="text-center">
+						<p>Copyright &copy; 2016.Company name All rights reserved.
+							<a target="_blank" href="http://www.cssmoban.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+						</p>
+					</footer>
+				</div>
+				<!-- /. PAGE INNER  -->
+			</div>
+			<!-- /. PAGE WRAPPER  -->
+		</div>
+		<!-- /. WRAPPER  -->
+		<!-- JS Scripts-->
+		<!-- jQuery Js -->
+		<script src="../../static/plugins/assets/js/jquery-1.10.2.js"></script>
+		<!-- Bootstrap Js -->
+		<script src="../../static/plugins/assets/js/bootstrap.min.js"></script>
+
+	</body>
+
+</html>

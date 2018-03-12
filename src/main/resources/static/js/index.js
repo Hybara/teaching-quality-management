@@ -1,3 +1,5 @@
 $(function() {
-	alert("hello thymeleaf")
+	$.backstretch("../public/login-bg.jpg", {
+		speed: 500
+	});
 });
