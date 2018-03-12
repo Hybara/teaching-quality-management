@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RouteController {
 
-  @RequestMapping({"/", "/index"})
+  @RequestMapping({"/", "/index", "/login"})
   public String index() {
-    return "index";
+    return "login";
   }
 }

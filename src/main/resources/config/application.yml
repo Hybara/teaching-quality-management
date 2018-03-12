@@ -23,7 +23,7 @@ spring:
       #设置重启的目录
       additional-paths: src/main/java
       #classpath目录下的WEB-INF文件夹内容修改不重启
-      exclude: public/**,static/**
+      exclude: static/**
   datasource:
     url: jdbc:mysql://127.0.0.1:33066/teach?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root

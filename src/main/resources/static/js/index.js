@@ -1,5 +1,5 @@
 $(function() {
-	$.backstretch("../public/login-bg.jpg", {
+	$.backstretch("/img/login-bg.jpg", {
 		speed: 500
 	});
 });
