@@ -54,7 +54,7 @@ CREATE TABLE `class_for_teacher` (
   `question_grade` decimal(10,0) default NULL,
   `question_count` int(11) default NULL,
   `assessment_grade` decimal(10,0) default NULL,
-  `assessment_count` int(11) NOT NULL,
+  `assessment_count` int(11) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -126,7 +126,7 @@ CREATE TABLE `question` (
   `class_for_teacher` int(11) NOT NULL,
   `title` varchar(255) default NULL,
   `text` text NOT NULL,
-  `result` varchar(64) NOT NULL,
+  `result` varchar(64) default NULL,
   `creater` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
   `creater_type` varchar(32) NOT NULL,
@@ -144,9 +144,9 @@ CREATE TABLE `question_bank` (
   `title` varchar(255) NOT NULL,
   `remarks` text,
   `content_A` varchar(255) NOT NULL,
-  `result_A` decimal(10,0) default NULL,
+  `result_A` decimal(10,0) NOT NULL,
   `content_B` varchar(255) NOT NULL,
-  `result_B` decimal(10,0) default NULL,
+  `result_B` decimal(10,0) NOT NULL,
   `content_C` varchar(255) default NULL,
   `result_C` decimal(10,0) default NULL,
   `content_D` varchar(255) default NULL,
@@ -203,7 +203,7 @@ CREATE TABLE `register` (
   `number` varchar(32) NOT NULL,
   `name` varchar(64) NOT NULL,
   `password` varchar(16) NOT NULL,
-  `header` varchar(255) NOT NULL,
+  `header` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -290,13 +290,13 @@ CREATE TABLE `teacher` (
   `number` varchar(32) NOT NULL,
   `name` varchar(32) NOT NULL,
   `sex` tinyint(1) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `major` int(11) NOT NULL,
   `business` varchar(64) default NULL COMMENT '职称',
   `email` varchar(128) default NULL,
   `phone` varchar(16) default NULL,
   `QQ` varchar(32) default NULL,
   `wechat` varchar(64) default NULL,
-  `password` varchar(16) NOT NULL,
-  `major` int(11) NOT NULL,
   `header` varchar(255) default NULL,
   `evaluate` varchar(255) default NULL COMMENT '总评',
   PRIMARY KEY  (`id`)

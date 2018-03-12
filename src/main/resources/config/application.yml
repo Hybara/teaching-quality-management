@@ -35,7 +35,7 @@ spring:
       min-idle: 5
       initial-size: 5
 mybatis:
-  type-aliases-package: cn.edu.jsu.rjxy.entity
+  type-aliases-package: cn.edu.jsu.rjxy.entity.vo
   mapper-locations: classpath*:/mappers/*.xml
   check-config-location: true
   configuration:
