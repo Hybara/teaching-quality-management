@@ -24,7 +24,7 @@ public class LoginService {
 
   public boolean login(String account, String password, String type) {
     if ("student".equals(type)) {
-      if (studentMapper.getByStuIdAndPassword(account, password)!=null) {
+      if (studentMapper.getByNumberAndPassword(account, password)!=null) {
         return true;
       }
     }

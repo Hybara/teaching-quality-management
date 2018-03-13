@@ -5,7 +5,7 @@ import java.util.Date;
 public class Student {
 
   private long id;
-  private String stuId;
+  private String number;
   private String name;
   private int sex;
   private String idCard;
@@ -16,9 +16,9 @@ public class Student {
   public Student() {
   }
 
-  public Student(String stuId, String name, int sex, String idCard, String password,
+  public Student(String number, String name, int sex, String idCard, String password,
       Date timeOfEnrollment) {
-    this.stuId = stuId;
+    this.number = number;
     this.name = name;
     this.sex = sex;
     this.idCard = idCard;
@@ -26,10 +26,10 @@ public class Student {
     this.timeOfEnrollment = timeOfEnrollment;
   }
 
-  public Student(long id, String stuId, String name, int sex, String idCard, String header,
+  public Student(long id, String number, String name, int sex, String idCard, String header,
       String password, Date timeOfEnrollment) {
     this.id = id;
-    this.stuId = stuId;
+    this.number = number;
     this.name = name;
     this.sex = sex;
     this.idCard = idCard;
@@ -46,12 +46,12 @@ public class Student {
     this.id = id;
   }
 
-  public String getStuId() {
-    return stuId;
+  public String getNumber() {
+    return number;
   }
 
-  public void setStuId(String stuId) {
-    this.stuId = stuId;
+  public void setNumber(String number) {
+    this.number = number;
   }
 
   public String getName() {
@@ -106,7 +106,7 @@ public class Student {
   public String toString() {
     return "Student{" +
         "id=" + id +
-        ", stuId='" + stuId + '\'' +
+        ", number='" + number + '\'' +
         ", name='" + name + '\'' +
         ", sex=" + sex +
         ", idCard='" + idCard + '\'' +

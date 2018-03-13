@@ -41,7 +41,7 @@ public class StuForClass {
 
   @Override
   public String toString() {
-    return "StuForClass{" +
+    return "StuForClassMapper{" +
         "id=" + id +
         ", student=" + student +
         ", classes=" + classes +

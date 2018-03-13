@@ -25,7 +25,9 @@ spring:
       #classpath目录下的WEB-INF文件夹内容修改不重启
       exclude: static/**
   datasource:
-    url: jdbc:mysql://127.0.0.1:33066/teach?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/teach?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://127.0.0.1:33066/teach?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://127.0.0.1:3306/tea-company-sales?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver

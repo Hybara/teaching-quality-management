@@ -3,7 +3,7 @@ package cn.edu.jsu.rjxy.entity.vo;
 public class Question {
 
   private long id;
-  private ClassForTeacher classForTeacher;
+  private ScoreForTeacher scoreForTeacher;
   private String title;
   private String text;
   private String result;
@@ -14,9 +14,9 @@ public class Question {
   public Question() {
   }
 
-  public Question(ClassForTeacher classForTeacher, String text, String result, long creater,
+  public Question(ScoreForTeacher scoreForTeacher, String text, String result, long creater,
       String createrType, boolean flag) {
-    this.classForTeacher = classForTeacher;
+    this.scoreForTeacher = scoreForTeacher;
     this.text = text;
     this.result = result;
     this.creater = creater;
@@ -24,10 +24,10 @@ public class Question {
     this.flag = flag;
   }
 
-  public Question(long id, ClassForTeacher classForTeacher, String title, String text,
+  public Question(long id, ScoreForTeacher scoreForTeacher, String title, String text,
       String result, long creater, String createrType, boolean flag) {
     this.id = id;
-    this.classForTeacher = classForTeacher;
+    this.scoreForTeacher = scoreForTeacher;
     this.title = title;
     this.text = text;
     this.result = result;
@@ -44,12 +44,12 @@ public class Question {
     this.id = id;
   }
 
-  public ClassForTeacher getClassForTeacher() {
-    return classForTeacher;
+  public ScoreForTeacher getScoreForTeacher() {
+    return scoreForTeacher;
   }
 
-  public void setClassForTeacher(ClassForTeacher classForTeacher) {
-    this.classForTeacher = classForTeacher;
+  public void setScoreForTeacher(ScoreForTeacher scoreForTeacher) {
+    this.scoreForTeacher = scoreForTeacher;
   }
 
   public String getTitle() {
@@ -104,7 +104,7 @@ public class Question {
   public String toString() {
     return "Evaluate{" +
         "id=" + id +
-        ", classForTeacher=" + classForTeacher +
+        ", scoreForTeacher=" + scoreForTeacher +
         ", title='" + title + '\'' +
         ", text='" + text + '\'' +
         ", result='" + result + '\'' +

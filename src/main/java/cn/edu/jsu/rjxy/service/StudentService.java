@@ -16,7 +16,7 @@ public class StudentService {
   private StudentMapper studentMapper;
 
   public Student getLoginer(String account, String password) {
-    return studentMapper.getByStuIdAndPassword(account, password);
+    return studentMapper.getByNumberAndPassword(account, password);
   }
 
 }

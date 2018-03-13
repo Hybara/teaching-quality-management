@@ -7,7 +7,6 @@ public class Score {
   private Major major;
   private Term term;
   private ScoreType type;
-  private Double result;
   private Double credit;
   private Double hours;
   private String testWay;
@@ -23,14 +22,13 @@ public class Score {
     this.type = type;
   }
 
-  public Score(long id, String name, Major major, Term term, ScoreType type, Double result,
+  public Score(long id, String name, Major major, Term term, ScoreType type,
       Double credit, Double hours, String testWay, String remarks) {
     this.id = id;
     this.name = name;
     this.major = major;
     this.term = term;
     this.type = type;
-    this.result = result;
     this.credit = credit;
     this.hours = hours;
     this.testWay = testWay;
@@ -77,14 +75,6 @@ public class Score {
     this.type = type;
   }
 
-  public Double getResult() {
-    return result;
-  }
-
-  public void setResult(Double result) {
-    this.result = result;
-  }
-
   public Double getCredit() {
     return credit;
   }
@@ -125,7 +115,6 @@ public class Score {
         ", major=" + major +
         ", term=" + term +
         ", type=" + type +
-        ", result=" + result +
         ", credit=" + credit +
         ", hours=" + hours +
         ", testWay='" + testWay + '\'' +

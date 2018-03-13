@@ -27,17 +27,16 @@
 <div id="wrapper">
   <nav class="navbar navbar-default top-navbar" role="navigation">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i>
-        教学质量管理系统</strong></a>
+      <a class="navbar-brand" href="index.html" th:href="@{/student/login/token(token=${token})}">
+        <strong><i class="icon fa fa-plane"></i>教学质量管理系统</strong></a>
       <!--<div id="sideNav" href=""><i class="fa fa-bars icon"></i></div>-->
     </div>
-
     <ul class="nav navbar-top-links navbar-right">
       <!-- /.dropdown -->
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
           <span style="color: gray;">
-            [[${(#httpSession.getAttribute(token)).stuId}]]
+            [[${(#httpSession.getAttribute(token)).number}]]
             [[${(#httpSession.getAttribute(token)).name}]]
           </span>
           <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
@@ -66,13 +65,16 @@
         <li>
           <a href="scores.html"><i class="fa fa-sitemap"></i> 课程列表</a>
           <ul class="nav nav-second-level">
+            <li>
+              <a href="#" th:href="@{/student/getScores/all(stuId=${(#httpSession.getAttribute(token)).id})}">全部课程</a>
+            </li>
             <th:block th:each="scoreType,iterStat : ${scoreTypes}">
-              <li>
-                <a href="scores.html">[[${scoreType.name}]]</a>
-              </li>
+            <li>
+              <a href="scores.html">[[${scoreType.name}]]</a>
+            </li>
             </th:block>
             <li>
-              <form class="form-inline" style="margin: 10px 0 10px 5px;">
+              <form method="post" action="" class="form-inline" style="margin: 10px 0 10px 5px;">
                 <div class="form-group">
                   <input style="width: 160px;" type="text" class="form-control" id="search" placeholder="请输入课程名称...">
                   <!--<span class="input-group-btn">-->
@@ -296,6 +298,8 @@ th:src="@{/plugins/assets/js/jquery.metisMenu.js}"></script>
 <script src="../../static/plugins/assets/js/chart.min.js"
 th:src="@{/plugins/assets/js/chart.min.js}" ></script>
 <!-- My Js -->
+<script src="../../static/js/jquery-3.2.1.min.js"
+        th:src="@{/js/jquery-3.2.1.min.js}" ></script>
 <script src="../../static/js/student/scores.js"
 th:src="@{/js/student/scores.js}" ></script>
 <!-- Custom Js -->

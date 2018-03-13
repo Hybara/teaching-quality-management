@@ -1,11 +1,12 @@
 package cn.edu.jsu.rjxy.entity.vo;
 
-public class ClassForTeacher {
+public class ScoreForTeacher {
 
   private long id;
   private Score score;
   private Teacher teacher;
-  private Classes classes;
+  private StuForClass stuForClass;
+  private Double result;
   private Double evaluateGrade;
   private Integer evaluateCount;
   private Double questionGrade;
@@ -13,22 +14,30 @@ public class ClassForTeacher {
   private Double assessmentGrade;
   private Integer assessmentCount;
 
-  public ClassForTeacher() {
+  public ScoreForTeacher() {
   }
 
-  public ClassForTeacher(Score score, Teacher teacher, Classes classes) {
+  public ScoreForTeacher(Score score, Teacher teacher, StuForClass stuForClass) {
     this.score = score;
     this.teacher = teacher;
-    this.classes = classes;
+    this.stuForClass = stuForClass;
   }
 
-  public ClassForTeacher(long id, Score score, Teacher teacher,
-      Classes classes, Double evaluateGrade, Integer evaluateCount, Double questionGrade,
+  public ScoreForTeacher(Score score, Teacher teacher, StuForClass stuForClass, Double result) {
+    this.score = score;
+    this.teacher = teacher;
+    this.stuForClass = stuForClass;
+    this.result = result;
+  }
+
+  public ScoreForTeacher(long id, Score score, Teacher teacher,
+      StuForClass stuForClass, Double result, Double evaluateGrade, Integer evaluateCount, Double questionGrade,
       Integer questionCount, Double assessmentGrade, Integer assessmentCount) {
     this.id = id;
     this.score = score;
     this.teacher = teacher;
-    this.classes = classes;
+    this.stuForClass = stuForClass;
+    this.result = result;
     this.evaluateGrade = evaluateGrade;
     this.evaluateCount = evaluateCount;
     this.questionGrade = questionGrade;
@@ -61,12 +70,20 @@ public class ClassForTeacher {
     this.teacher = teacher;
   }
 
-  public Classes getClasses() {
-    return classes;
+  public StuForClass getStuForClass() {
+    return stuForClass;
   }
 
-  public void setClasses(Classes classes) {
-    this.classes = classes;
+  public void setStuForClass(StuForClass stuForClass) {
+    this.stuForClass = stuForClass;
+  }
+
+  public Double getResult() {
+    return result;
+  }
+
+  public void setResult(Double result) {
+    this.result = result;
   }
 
   public Double getEvaluateGrade() {
@@ -119,11 +136,12 @@ public class ClassForTeacher {
 
   @Override
   public String toString() {
-    return "ClassForTeacher{" +
+    return "ScoreForTeacher{" +
         "id=" + id +
         ", score=" + score +
         ", teacher=" + teacher +
-        ", classes=" + classes +
+        ", stuForClass=" + stuForClass +
+        ", result=" + result +
         ", evaluateGrade=" + evaluateGrade +
         ", evaluateCount=" + evaluateCount +
         ", questionGrade=" + questionGrade +

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jsu.rjxy.mappers.StuForClassMapper">
+  
+  <resultMap id="StuForClassMap" type="StuForClass">
+    <id property="id" column="id"/>
+    <association property="student" column="stu_id" select="cn.edu.jsu.rjxy.mappers.StudentMapper.getById" />
+    <association property="classes" column="class_id" select="cn.edu.jsu.rjxy.mappers.ClassesMapper.getById" />
+  </resultMap>
+
+  <select id="getStudentClassesInCurrentTermByStuId" resultType="StuForClass">
+    SELECT sfc.* FROM stu_for_class sfc
+      LEFT JOIN classes cl ON sfc.class_id=cl.id
+      LEFT JOIN term t ON cl.term=t.id
+      WHERE sfc.stu_id=#{stuId} AND (NOW() BETWEEN t.start_time AND t.end_time)
+  </select>
+</mapper>
