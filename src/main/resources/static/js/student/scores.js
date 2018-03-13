@@ -27,7 +27,11 @@ $(function() {
         data: [65, 59, 80, 81]
      }]
   };
-  
+  var canvasParent = $('#radar-chart').parents("div.col-md-8");
+  $('#radar-chart').css({
+    "width": canvasParent.css("width"),
+    "height": canvasParent.css("height")
+  });
   ctx = $('#radar-chart').get(0).getContext('2d');
   myBarChart = new Chart(ctx).Radar(data, option_bars);
   for(var i=1; i<=11; i++) {

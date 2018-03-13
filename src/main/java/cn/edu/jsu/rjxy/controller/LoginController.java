@@ -31,10 +31,12 @@ public class LoginController {
 
   @RequestMapping("/login")
   public String login(String account, String password, String type, Model model, HttpSession session) {
-    String path = "/index";
+    String path = "/login";
     if (loginService.login(account, password, type)) {
-      model.addAttribute("token", createToken(account, password, type, session));
-      path = "/"+type+path;
+      String token = createToken(account, password, type, session);
+      model.addAttribute("token", token);
+      path = "forward:/"+type+path+"/"+token;
+//      System.out.println("path : "+path);
     } else {
       model.addAttribute("message", "账号或密码错误");
     }
