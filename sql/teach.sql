@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-12 23:48:14
+Date: 2018-03-14 00:24:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,28 +48,7 @@ CREATE TABLE `classes` (
 -- ----------------------------
 -- Records of classes
 -- ----------------------------
-
--- ----------------------------
--- Table structure for class_for_teacher
--- ----------------------------
-DROP TABLE IF EXISTS `class_for_teacher`;
-CREATE TABLE `class_for_teacher` (
-  `id` int(11) NOT NULL auto_increment,
-  `score` int(11) NOT NULL,
-  `teacher` int(11) NOT NULL,
-  `class` int(11) NOT NULL,
-  `evaluate_grade` decimal(10,0) default NULL,
-  `evaluate_count` int(11) default NULL,
-  `question_grade` decimal(10,0) default NULL,
-  `question_count` int(11) default NULL,
-  `assessment_grade` decimal(10,0) default NULL,
-  `assessment_count` int(11) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of class_for_teacher
--- ----------------------------
+INSERT INTO `classes` VALUES ('1', '2014级软件一班', '1', '1');
 
 -- ----------------------------
 -- Table structure for evaluate
@@ -296,7 +275,6 @@ CREATE TABLE `score` (
   `major` int(11) NOT NULL,
   `term` int(11) NOT NULL,
   `type` int(11) NOT NULL,
-  `result` decimal(10,0) default NULL COMMENT '成绩',
   `credit` decimal(10,0) default NULL COMMENT '学分',
   `hours` decimal(10,0) default NULL COMMENT '学时 单位：课时',
   `test_way` varchar(64) default NULL COMMENT '考核方式',
@@ -307,6 +285,31 @@ CREATE TABLE `score` (
 -- ----------------------------
 -- Records of score
 -- ----------------------------
+INSERT INTO `score` VALUES ('1', '软件工程', '1', '1', '1', null, null, null, null);
+
+-- ----------------------------
+-- Table structure for score_for_teacher
+-- ----------------------------
+DROP TABLE IF EXISTS `score_for_teacher`;
+CREATE TABLE `score_for_teacher` (
+  `id` int(11) NOT NULL auto_increment,
+  `score` int(11) NOT NULL,
+  `teacher` int(11) NOT NULL,
+  `class` int(11) NOT NULL COMMENT '是stu_for_class的主键',
+  `result` decimal(10,0) default NULL COMMENT '成绩',
+  `evaluate_grade` decimal(10,0) default NULL,
+  `evaluate_count` int(11) default NULL,
+  `question_grade` decimal(10,0) default NULL,
+  `question_count` int(11) default NULL,
+  `assessment_grade` decimal(10,0) default NULL,
+  `assessment_count` int(11) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of score_for_teacher
+-- ----------------------------
+INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for score_type
@@ -332,7 +335,7 @@ INSERT INTO `score_type` VALUES ('4', '通识选修');
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `id` int(11) NOT NULL auto_increment COMMENT '主键',
-  `stu_id` varchar(32) NOT NULL COMMENT '学号',
+  `number` varchar(32) NOT NULL COMMENT '学号',
   `name` varchar(64) NOT NULL COMMENT '名称',
   `sex` tinyint(1) NOT NULL COMMENT '性别',
   `id_card` char(18) NOT NULL COMMENT '身份证',
@@ -345,7 +348,7 @@ CREATE TABLE `student` (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('1', '20144206068', '欧文惠', '1', '430404199612112037', null, '102037', '2014-09-15 22:21:36');
+INSERT INTO `student` VALUES ('1', '20144206068', '欧文惠', '1', '430407199602102037', null, '102037', '2014-09-15 22:21:36');
 
 -- ----------------------------
 -- Table structure for stu_for_class
@@ -361,6 +364,7 @@ CREATE TABLE `stu_for_class` (
 -- ----------------------------
 -- Records of stu_for_class
 -- ----------------------------
+INSERT INTO `stu_for_class` VALUES ('1', '1', '1');
 
 -- ----------------------------
 -- Table structure for teacher
@@ -403,3 +407,4 @@ CREATE TABLE `term` (
 -- ----------------------------
 -- Records of term
 -- ----------------------------
+INSERT INTO `term` VALUES ('1', '2017-2018年下学期', '2018-03-01 00:00:00', '2018-07-02 00:00:00');
