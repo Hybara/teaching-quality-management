@@ -316,9 +316,9 @@ INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', null, null, null, nu
 -- ----------------------------
 DROP TABLE IF EXISTS `score_type`;
 CREATE TABLE `score_type` (
-  ` id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(64) NOT NULL,
-  PRIMARY KEY  (` id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

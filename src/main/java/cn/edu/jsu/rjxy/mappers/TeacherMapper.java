@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface TeacherMapper {
 
-  @Select("select * from teacher where number=#{number} and password=#{password}")
+  @Select("SELECT * FROM teacher WHERE id=#{id}")
+  Teacher getById(@Param("id") long id);
+
+  @Select("SELECT * FROM teacher WHERE number=#{number} AND password=#{password}")
   Teacher getByNumberAndPassword(@Param("number") String number, @Param("password") String password);
 }

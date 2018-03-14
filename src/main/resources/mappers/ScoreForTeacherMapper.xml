@@ -4,7 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper">
 
-  <select id="getScoresForClasses" resultType="ScoreForTeacher">
+  <resultMap id="ScoreForTeacherMap" type="ScoreForTeacher">
+    <id column="id" property="id"/>
+    <result column="result" property="result"/>
+    <result column="evaluate_grade" property="evaluateGrade"/>
+    <result column="evaluate_count" property="evaluateCount"/>
+    <result column="question_grade" property="questionGrade"/>
+    <result column="question_count" property="questionCount"/>
+    <result column="assessment_grade" property="assessmentGrade"/>
+    <result column="assessment_count" property="assessmentCount"/>
+    <association property="score" column="score" select="cn.edu.jsu.rjxy.mappers.ScoreMapper.getById"/>
+    <association property="teacher" column="teacher" select="cn.edu.jsu.rjxy.mappers.TeacherMapper.getById"/>
+    <association property="stuForClass" column="class" select="cn.edu.jsu.rjxy.mappers.StuForClassMapper.getById"/>
+  </resultMap>
+
+  <select id="getScoresForClasses" resultMap="ScoreForTeacherMap">
     SELECT * FROM score_for_teacher
     WHERE class IN
     <foreach collection="classes" item="class" open="(" separator="," close=")">

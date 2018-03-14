@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jsu.rjxy.mappers.ScoreMapper">
+  <resultMap id="ScoreMap" type="Score">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="credit" column="credit"/>
+    <result property="hours" column="hours"/>
+    <result property="testWay" column="test_way"/>
+    <result property="remarks" column="remarks"/>
+    <association property="major" column="major" select="cn.edu.jsu.rjxy.mappers.MajorMapper.getById"/>
+    <association property="term" column="term" select="cn.edu.jsu.rjxy.mappers.TermMapper.getById"/>
+    <association property="type" column="type" select="cn.edu.jsu.rjxy.mappers.ScoreTypeMapper.getById"/>
+  </resultMap>
+</mapper>
