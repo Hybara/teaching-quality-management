@@ -4,8 +4,8 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 #page-wrapper {
-	min-height: 550px !important;
+	min-height: 450px !important;
 }
 #page-inner {
-	min-height: 550px !important;
+	min-height: 450px !important;
 }

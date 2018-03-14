@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-14 00:24:26
+Date: 2018-03-15 01:49:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -286,6 +286,14 @@ CREATE TABLE `score` (
 -- Records of score
 -- ----------------------------
 INSERT INTO `score` VALUES ('1', '软件工程', '1', '1', '1', null, null, null, null);
+INSERT INTO `score` VALUES ('2', '编译原理', '1', '1', '1', null, null, null, null);
+INSERT INTO `score` VALUES ('3', '计算机系统', '1', '1', '1', null, null, null, null);
+INSERT INTO `score` VALUES ('4', '数据结构与算法', '1', '1', '1', null, null, null, null);
+INSERT INTO `score` VALUES ('5', 'Java Web', '1', '1', '1', null, null, null, null);
+INSERT INTO `score` VALUES ('6', 'C++', '1', '1', '1', null, null, null, null);
+INSERT INTO `score` VALUES ('7', 'C程序设计基础', '1', '1', '1', null, null, null, null);
+INSERT INTO `score` VALUES ('8', '茶艺', '1', '1', '4', null, null, null, null);
+INSERT INTO `score` VALUES ('9', '旅游', '1', '1', '4', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for score_for_teacher
@@ -310,6 +318,14 @@ CREATE TABLE `score_for_teacher` (
 -- Records of score_for_teacher
 -- ----------------------------
 INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', null, null, null, null, null, null, null);
+INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', '1', null, null, null, null, null, null, null);
+INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', '1', null, null, null, null, null, null, null);
+INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', '1', null, null, null, null, null, null, null);
+INSERT INTO `score_for_teacher` VALUES ('5', '5', '2', '1', null, null, null, null, null, null, null);
+INSERT INTO `score_for_teacher` VALUES ('6', '6', '3', '1', null, null, null, null, null, null, null);
+INSERT INTO `score_for_teacher` VALUES ('7', '7', '2', '1', null, null, null, null, null, null, null);
+INSERT INTO `score_for_teacher` VALUES ('8', '8', '3', '1', null, null, null, null, null, null, null);
+INSERT INTO `score_for_teacher` VALUES ('9', '9', '3', '1', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for score_type
@@ -391,6 +407,8 @@ CREATE TABLE `teacher` (
 -- Records of teacher
 -- ----------------------------
 INSERT INTO `teacher` VALUES ('1', '010943', '欧辰', '1', '123456', '1', '讲师', null, null, null, null, null, null);
+INSERT INTO `teacher` VALUES ('2', '010944', '张珊', '0', '123456', '1', '教授', null, null, null, null, null, null);
+INSERT INTO `teacher` VALUES ('3', '010945', '学尔森', '1', '123456', '1', '讲师', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for term

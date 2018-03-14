@@ -17,6 +17,10 @@ public interface ScoreForTeacherMapper {
   @ResultMap("ScoreForTeacherMap")
   ScoreForTeacher getById(@Param("id") long id);
 
-  List<ScoreForTeacher> getScoresForClasses(@Param("classes") List<StuForClass> classes);
+  List<ScoreForTeacher> getScoresForClasses(@Param("type") String scoreType,
+      @Param("classes") List<StuForClass> classes, @Param("step") Integer step,
+      @Param("size") Integer size, @Param("search") String search);
 
+  int getScoresCountForClasses(@Param("type") String scoreType,
+      @Param("classes") List<StuForClass> classes, @Param("search") String search);
 }
