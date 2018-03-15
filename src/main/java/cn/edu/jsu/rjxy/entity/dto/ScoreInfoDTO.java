@@ -72,7 +72,7 @@ public class ScoreInfoDTO {
     } else {
       this.evaluateGrade = scoreForTeacher.getEvaluateGrade()/scoreForTeacher.getEvaluateCount();
     }
-    if (this.evaluateCount==0) {
+    if (this.questionCount==0) {
       this.questionGrade = 0.0;
     } else {
       this.questionGrade = scoreForTeacher.getQuestionGrade()/scoreForTeacher.getQuestionGrade();

@@ -120,10 +120,10 @@ function initRaderData(scoreName, evaluate, question, assessment, result) {
       pointHighlightFill: "#fff",
       pointHighlightStroke: "#1ABC9C",
       data: [
-        isNaN(evaluate) ? NO_DATA : evaluate,
-        isNaN(question) ? NO_DATA : question,
+        evaluate==null || isNaN(evaluate) ? NO_DATA : evaluate,
+        question==null || isNaN(question) ? NO_DATA : question,
         result==null || isNaN(result) ? NO_DATA : result,
-        isNaN(assessment) ? NO_DATA : assessment]
+        assessment==null || isNaN(assessment) ? NO_DATA : assessment]
     }]
   };
   return data;
