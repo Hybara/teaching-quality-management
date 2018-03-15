@@ -2,6 +2,7 @@ package cn.edu.jsu.rjxy.controller;
 
 import cn.edu.jsu.rjxy.entity.dto.ScoreDTO;
 import cn.edu.jsu.rjxy.entity.vo.Student;
+import cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
 import java.util.HashMap;
@@ -38,8 +39,7 @@ public class StudentController {
     model.addAttribute("token", token);
     int scoreCount = scoreService.getScoresCountInCurrentTerm(ALL_SCORE_TYPE, student.getId(), NO_SEARCH);
 //    System.out.println(scoreCount);
-    model.addAttribute("scoreCount",
-        scoreCount == NO_DATA ? NO_DATA : scoreCount/SCORES_PAGE_SIZE+1);
+    model.addAttribute("scoreCount", scoreCount == NO_DATA ? NO_DATA : scoreCount/SCORES_PAGE_SIZE+1);
     return "/student/scores";
   }
 
@@ -59,5 +59,19 @@ public class StudentController {
     scoresMap.put("scores", scores);
     scoresMap.put("count", scoreCount == NO_DATA ? NO_DATA : scoreCount/SCORES_PAGE_SIZE+1);
     return scoresMap;
+  }
+
+  @RequestMapping("/getScore/{id}/{token}")
+  public String getScore(@PathVariable Long id, @PathVariable String token, HttpSession session, Model model) {
+//    System.out.println("get Score token"+token);
+    if (session.getAttribute(token)==null) {
+      return "/login";
+    } else if (id==null) {
+      return "/student/getScores/all/"+token;
+    }
+    model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
+    System.out.println(scoreService.getScoreByScoreForTeacherId(id));
+    model.addAttribute("token", token);
+    return "/student/score";
   }
 }

@@ -1,6 +1,7 @@
 package cn.edu.jsu.rjxy.service;
 
 import cn.edu.jsu.rjxy.entity.dto.ScoreDTO;
+import cn.edu.jsu.rjxy.entity.dto.ScoreInfoDTO;
 import cn.edu.jsu.rjxy.entity.vo.Score;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.StuForClass;
@@ -20,6 +21,10 @@ public class ScoreService {
   ScoreForTeacherMapper scoreForTeacherMapper;
   @Autowired
   StuForClassMapper stuForClassMapper;
+
+  public ScoreInfoDTO getScoreByScoreForTeacherId(long scoreForTeacherId) {
+    return new ScoreInfoDTO(scoreForTeacherMapper.getById(scoreForTeacherId));
+  }
 
   public List<ScoreDTO> getScoresInCurrentTerm(String scoreType, long stuId, Integer index,
       Integer size, String search) {

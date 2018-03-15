@@ -1,6 +1,5 @@
 package cn.edu.jsu.rjxy.controller;
 
-import cn.edu.jsu.rjxy.entity.vo.Student;
 import cn.edu.jsu.rjxy.service.AdminService;
 import cn.edu.jsu.rjxy.service.LoginService;
 import cn.edu.jsu.rjxy.service.RegisterService;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -58,6 +58,12 @@ public class LoginController {
       session.setMaxInactiveInterval(SESSION_LIVE_TIME);
     }
     return sessionKey;
+  }
+
+  @RequestMapping("/logout/{token}")
+  public String logout(@PathVariable String token, HttpSession session) {
+    session.removeAttribute("token");
+    return "/login";
   }
 
 }

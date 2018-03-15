@@ -79,10 +79,20 @@ function initScoresList(type, page, search) {
         } else {
           $item.css("display", "block");
           initScore($item, scoreList.scores[i]);
-          var evaluate = scoreList.scores[i].evaluateGrade/scoreList.scores[i].evaluateCount;
-          var question = scoreList.scores[i].questionGrade/scoreList.scores[i].questionCount;
-          var assessment = scoreList.scores[i].assessmentGrade/scoreList.scores[i].assessmentCount;
-          var data = initRaderData(scoreList.scores[i].scoreName, evaluate, question, assessment, scoreList.scores[i].result);
+          var scoreItem = scoreList.scores[i];
+          var evaluate = null;
+          if (scoreItem.evaluateCount!=0) {
+            evaluate = scoreItem.evaluateGrade/scoreItem.evaluateCount;
+          }
+          var question = null;
+          if (scoreItem.questionCount!=0) {
+            question = scoreItem.questionGrade/scoreItem.questionCount;
+          }
+          var assessment = null;
+          if (scoreItem.assessmentCount!=0) {
+            assessment = scoreItem.assessmentGrade/scoreItem.assessmentCount;
+          }
+          var data = initRaderData(scoreItem.scoreName, evaluate, question, assessment, scoreItem.result);
           initRader($item, data);
         }
       }
@@ -92,7 +102,8 @@ function initScoresList(type, page, search) {
 
 function initScore($item, score) {
   var token = $("body").attr("data-token");
-  $item.find("h4").find("a").attr("href", "/getScore/"+score.id+"/"+token).text(score.scoreName);
+  console.log("a href", "/getScore/"+score.id+"/"+token);
+  $item.find("h4").find("a").attr("href", "/student/getScore/"+score.id+"/"+token).text(score.scoreName);
   $item.find("h6").find("small").text(score.scoreType);
   $item.find("h5").html(score.teacherName+"<br/><small>"+score.teacherBusiness+"</small>");
 }
