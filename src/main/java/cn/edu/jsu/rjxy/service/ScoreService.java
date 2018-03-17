@@ -32,8 +32,8 @@ public class ScoreService {
       scoreType = null;
     }
     search = constructQueryConditions(search);
+
     List<StuForClass> classes = stuForClassMapper.getStudentClassesInCurrentTermByStuId(stuId);
-//    System.out.println(classes);
     List<ScoreForTeacher> scoresForTeacher = scoreForTeacherMapper
         .getScoresForClasses(scoreType, classes, (index - 1) * size, size, search);
 
@@ -51,7 +51,6 @@ public class ScoreService {
     }
     search = constructQueryConditions(search);
     List<StuForClass> classes = stuForClassMapper.getStudentClassesInCurrentTermByStuId(stuId);
-//    System.out.println(classes);
     return scoreForTeacherMapper.getScoresCountForClasses(scoreType, classes, search);
   }
 
@@ -63,7 +62,6 @@ public class ScoreService {
         search += searchArray[i]+"%";
       }
     }
-    System.out.println("search: "+search);
     return search;
   }
 

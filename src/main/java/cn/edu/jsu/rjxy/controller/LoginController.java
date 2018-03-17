@@ -32,11 +32,11 @@ public class LoginController {
   @RequestMapping("/login")
   public String login(String account, String password, String type, Model model, HttpSession session) {
     String path = "/login";
-    if (loginService.login(account, password, type)) {
+    if (type!=null && loginService.login(account, password, type)) {
       String token = createToken(account, password, type, session);
       model.addAttribute("token", token);
       path = "forward:/"+type+path+"/"+token;
-    } else {
+    } else if (type!=null) {
       model.addAttribute("message", "账号或密码错误");
     }
     return path;
@@ -51,7 +51,7 @@ public class LoginController {
       session.setAttribute(sessionKey, teacherService.getLoginer(account, password));
     } else if ("register".equals(type)) {
       session.setAttribute(sessionKey, registerService.getLoginer(account, password));
-    } else {
+    } else if ("admin".equals(type)) {
       session.setAttribute(sessionKey, adminService.getLoginer(account, password));
     }
     if (session.getMaxInactiveInterval()!=SESSION_LIVE_TIME) {

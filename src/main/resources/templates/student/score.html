@@ -1,27 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta content="" name="description"/>
-  <meta content="webthemez" name="author"/>
-  <title>Bootstrap HTML5 Admin Template</title>
-  <!-- Bootstrap Styles-->
-  <link href="../../static/plugins/assets/css/bootstrap.css"
-        th:href="@{/plugins/assets/css/bootstrap.css}" rel="stylesheet"/>
-  <!-- FontAwesome Styles-->
-  <link href="../../static/plugins/assets/css/font-awesome.css"
-        th:href="@{/plugins/assets/css/font-awesome.css}" rel="stylesheet"/>
-  <!-- Custom Styles-->
-  <link href="../../static/plugins/assets/css/custom-styles.css"
-        th:href="@{/plugins/assets/css/custom-styles.css}" rel="stylesheet"/>
-  <!-- Google Fonts-->
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-  <!-- my css -->
-  <link href="../../static/css/dashboard.css"
-        th:href="@{/css/dashboard.css}" rel="stylesheet"/>
-</head>
+<head th:replace="student/header :: header"></head>
 
 <body data-token="" th:attr="data-token=${token}">
 <div id="wrapper">
@@ -183,27 +162,10 @@
   <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<!-- JS Scripts-->
-<!-- jQuery Js -->
-<script src="../../static/plugins/assets/js/jquery-1.10.2.js"
-        th:src="@{/plugins/assets/js/jquery-1.10.2.js}"></script>
-<!-- Bootstrap Js -->
-<script src="../../static/plugins/assets/js/bootstrap.min.js"
-        th:src="@{/plugins/assets/js/bootstrap.min.js}"></script>
-<!-- Metis Menu Js -->
-<script src="../../static/plugins/assets/js/jquery.metisMenu.js"
-        th:src="@{/plugins/assets/js/jquery.metisMenu.js}"></script>
-<!-- Chart Js -->
-<script src="../../static/plugins/assets/js/chart.min.js"
-        th:src="@{/plugins/assets/js/chart.min.js}"></script>
-<!-- My Js -->
-<!--<script src="../../static/js/jquery-3.2.1.min.js"-->
-<!--th:src="@{/js/jquery-3.2.1.min.js}" ></script>-->
-<script src="../../static/js/student/score.js"
-        th:src="@{/js/student/score.js}"></script>
-<!-- Custom Js -->
-<script src="../../static/plugins/assets/js/custom-scripts.js"
-        th:src="@{/plugins/assets/js/custom-scripts.js}"></script>
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script src="../../static/js/student/score.js" th:src="@{/js/student/score.js}"></script>
+</th:block>
 </body>
 
 </html>

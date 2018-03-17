@@ -69,17 +69,17 @@ function initScoresList(type, page, search) {
     success: function (scoreList) {
       var ctx, myBarChart;
       Chart.defaults.global.responsive = true;
-      console.log("scoreList", scoreList);
+      // console.log("scoreList", scoreList);
       page_count = scoreList.count;
       initPageButton(page_count, page);
-      for(var i=0; i<9; i++) {
+      for(var i=0; i<$(".scoreItem").length; i++) {
         $item = $($(".scoreItem").get(i));
-        if (scoreList.scores[i]==undefined || scoreList.scores[i]==null) {
+        if (scoreList.data[i]==undefined || scoreList.data[i]==null) {
           $item.css("display", "none");
         } else {
           $item.css("display", "block");
-          initScore($item, scoreList.scores[i]);
-          var scoreItem = scoreList.scores[i];
+          initScore($item, scoreList.data[i]);
+          var scoreItem = scoreList.data[i];
           var evaluate = null;
           if (scoreItem.evaluateCount!=0) {
             evaluate = scoreItem.evaluateGrade/scoreItem.evaluateCount;
@@ -102,7 +102,7 @@ function initScoresList(type, page, search) {
 
 function initScore($item, score) {
   var token = $("body").attr("data-token");
-  console.log("a href", "/getScore/"+score.id+"/"+token);
+  // console.log("a href", "/getScore/"+score.id+"/"+token);
   $item.find("h4").find("a").attr("href", "/student/getScore/"+score.id+"/"+token).text(score.scoreName);
   $item.find("h6").find("small").text(score.scoreType);
   $item.find("h5").html(score.teacherName+"<br/><small>"+score.teacherBusiness+"</small>");
@@ -148,7 +148,7 @@ function initPageButton(count, page) {
   }
   $("ul.pagination li").show();
   $("ul.pagination li.pageItem").hide();
-  console.log("count", count);
+  // console.log("count", count);
   for(var i=0; i<count; i++) {
     $($("ul.pagination li.pageItem")[i]).show().removeClass("active");
   }

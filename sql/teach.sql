@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-15 23:24:05
+Date: 2018-03-18 01:43:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -134,6 +134,7 @@ CREATE TABLE `message` (
 -- ----------------------------
 -- Records of message
 -- ----------------------------
+INSERT INTO `message` VALUES ('1', '评教通知', '评教通知', '1', 'admin', '2018-03-17 17:47:20');
 
 -- ----------------------------
 -- Table structure for question
@@ -231,6 +232,7 @@ CREATE TABLE `receive_message` (
 -- ----------------------------
 -- Records of receive_message
 -- ----------------------------
+INSERT INTO `receive_message` VALUES ('1', '1', '1', 'student', '1');
 
 -- ----------------------------
 -- Table structure for register

@@ -7,4 +7,22 @@
   </p>
 </footer>
 </body>
+<th:block th:fragment="scripte_domain(scripts)">
+  <script src="../../static/plugins/assets/js/jquery-1.10.2.js"
+          th:src="@{/plugins/assets/js/jquery-1.10.2.js}"></script>
+  <!-- Bootstrap Js -->
+  <script src="../../static/plugins/assets/js/bootstrap.min.js"
+          th:src="@{/plugins/assets/js/bootstrap.min.js}"></script>
+  <!-- Metis Menu Js -->
+  <script src="../../static/plugins/assets/js/jquery.metisMenu.js"
+          th:src="@{/plugins/assets/js/jquery.metisMenu.js}"></script>
+  <!-- Chart Js -->
+  <script src="../../static/plugins/assets/js/chart.min.js"
+          th:src="@{/plugins/assets/js/chart.min.js}"></script>
+  <!-- My Js -->
+  <th:block th:replace="${scripts}" />
+  <!-- Custom Js -->
+  <script src="../../static/plugins/assets/js/custom-scripts.js"
+          th:src="@{/plugins/assets/js/custom-scripts.js}"></script>
+</th:block>
 </html>
