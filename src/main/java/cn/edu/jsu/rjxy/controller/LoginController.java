@@ -46,7 +46,6 @@ public class LoginController {
     String sessionKey = UUID.randomUUID().toString();
     if ("student".equals(type)) {
       session.setAttribute(sessionKey, studentService.getLoginer(account, password));
-      System.out.println(session.getAttribute(sessionKey));
     } else if ("teacher".equals(type)) {
       session.setAttribute(sessionKey, teacherService.getLoginer(account, password));
     } else if ("register".equals(type)) {

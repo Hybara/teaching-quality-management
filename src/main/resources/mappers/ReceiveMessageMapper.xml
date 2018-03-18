@@ -12,9 +12,11 @@
   </resultMap>
 
   <select id="getMessagesByRecipientAndRecipientType" resultMap="ReceiveMessageMap">
-    SELECT * FROM receive_message
-    WHERE recipient=#{recipientId} AND recipient_type=#{recipientType}
-    <if test="flag!=null"> AND flag=#{flag} </if>
+    SELECT rm.* FROM receive_message rm
+    LEFT JOIN message m ON rm.message=m.id
+    WHERE rm.recipient=#{recipientId} AND rm.recipient_type=#{recipientType}
+    <if test="flag!=null"> AND rm.flag=#{flag} </if>
+    ORDER BY m.create_time
     <if test="step!=null and size!=null"> LIMIT #{step},#{size}</if>
   </select>
 

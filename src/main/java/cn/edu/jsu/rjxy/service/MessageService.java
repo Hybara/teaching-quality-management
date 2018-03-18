@@ -41,4 +41,12 @@ public class MessageService {
     return receiveMessageMapper
         .getMessagesCountByRecipientAndRecipientTypeAndFlag(recipientId, recipientType, flag);
   }
+
+  public boolean deleteOneOwnMessageByReceiveMessageId(long receiveMessageId) {
+    return receiveMessageMapper.deleteOneOwnMessageByReceiveMessageId(receiveMessageId);
+  }
+
+  public boolean readOneOwnMessage(long receiveMessageId) {
+    return receiveMessageMapper.updateOneOwnMessageByReceiveMessageId(receiveMessageId);
+  }
 }

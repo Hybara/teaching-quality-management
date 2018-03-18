@@ -53,19 +53,18 @@ $(function () {
 
 function initScoresList(type, page, search) {
   var token = $("body").attr("data-token");
-  var url;
+  var data;
   if (search=="") {
-    url = "/student/getScores/"+type+"/"+token+"?page="+page;
+    data = {page: page};
   } else {
-    url = "/student/getScores/"+type+"/"+token+"?page="+page+"&search="+search;
-
+    data = {page: page, search: search};
   }
   $.ajax({
-    url: url,
+    url: "/student/getScores/"+type+"/"+token,
     type: "post",
     method: "post",
     dataType: "json",
-    data: "",
+    data: data,
     success: function (scoreList) {
       var ctx, myBarChart;
       Chart.defaults.global.responsive = true;
