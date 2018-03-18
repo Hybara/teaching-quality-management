@@ -44,7 +44,7 @@ public class StudentController {
     int scoreCount = scoreService
         .getScoresCountInCurrentTerm(ALL_SCORE_TYPE, student.getId(), NO_SEARCH);
     model.addAttribute("scoreCount",
-        scoreCount == NO_DATA ? NO_DATA : scoreCount / SCORES_PAGE_SIZE + 1);
+        scoreCount == NO_DATA ? NO_DATA : (int)Math.ceil(scoreCount / SCORES_PAGE_SIZE));
     model.addAttribute("noReadMessage", messageService
         .getMessagesCountByRecipientAndRecipientTypeAndFlag(student.getId(), MESSAGE_RECIPIENT_TYPE,
             NO_READ_MESSAGE_TYPE));
@@ -58,7 +58,7 @@ public class StudentController {
         .getMessagesCountByRecipientAndRecipientTypeAndFlag(student.getId(), MESSAGE_RECIPIENT_TYPE,
             DEFAULT_MESSAGE_TYPE);
     model.addAttribute("count",
-        messageCount == NO_DATA ? NO_DATA : messageCount / MESSAGE_PAGE_SIZE + 1);
+        messageCount == NO_DATA ? NO_DATA : (int)Math.ceil(messageCount / MESSAGE_PAGE_SIZE));
     if (student != null) {
       return "/student/message";
     } else {
@@ -81,7 +81,7 @@ public class StudentController {
         messageService
             .getMessagesByRecipientAndRecipientTypeAndFlag(student.getId(), MESSAGE_RECIPIENT_TYPE,
                 type, page, MESSAGE_PAGE_SIZE),
-        messageCount == NO_DATA ? NO_DATA : messageCount / MESSAGE_PAGE_SIZE + 1);
+        messageCount == NO_DATA ? NO_DATA : (int)Math.ceil(messageCount/MESSAGE_PAGE_SIZE));
   }
 
   @RequestMapping("/getScores/{type}/{token}")
@@ -95,7 +95,7 @@ public class StudentController {
     int scoreCount = scoreService.getScoresCountInCurrentTerm(type, student.getId(), search);
     return structuralResponseMap(
         scoreService.getScoresInCurrentTerm(type, student.getId(), page, SCORES_PAGE_SIZE, search),
-        scoreCount == NO_DATA ? NO_DATA : scoreCount / SCORES_PAGE_SIZE + 1);
+        scoreCount == NO_DATA ? NO_DATA : (int)Math.ceil(scoreCount / SCORES_PAGE_SIZE));
   }
 
   @RequestMapping("/getScore/{id}/{token}")
