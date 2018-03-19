@@ -59,12 +59,64 @@ $(function () {
     }, "text");
   });
 
+  $(".readAllMessage").on("click", function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var token = $("body").attr("data-token");
+    if (confirm("这将把所有公告标记为已读，您确认要这么做？")) {
+      var token = $("body").attr("data-token");
+      $.post("/student/readAllMessages", {token: token}, function (response) {
+        if (response == "ok") {
+          alert("操作成功");
+          window.location.href = "/student/message/" + token;
+        } else if (response == "none") {
+          alert("操作失败");
+        } else if (response == "logout") {
+          window.location.href = "/logout/" + token;
+        }
+      }, "text");
+    }
+  });
+
   $("a.del").on("click", function (event) {
     event.stopPropagation();
     event.preventDefault();
-    if (confirm("确认删除这条公告？")) {
+    var token = $("body").attr("data-token");
+    var id = $($(this).siblings("a.collapsed")[0]).attr("data-id");
+    if (confirm("这将删除这条公告，您确认要这么做？")) {
       var token = $("body").attr("data-token");
-      $.post($(this).attr("href"), function (response) {
+      $.post($(this).attr("href"), {
+        token: token,
+        id: id,
+      }, function (response) {
+        if (response == "ok") {
+          alert("删除成功");
+          window.location.href = "/student/message/" + token;
+        } else if (response == "none") {
+          alert("删除失败");
+        } else if (response == "logout") {
+          window.location.href = "/logout/" + token;
+        }
+      }, "text");
+    }
+  });
+
+  $(".clearMessage").on("click", function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var token = $("body").attr("data-token");
+    var message;
+    if (type == ALL_MESSAGE_TYPE) {
+      message = "这将删除所有公告，您确认要这么做？";
+    } else {
+      message = "这将删除所有未读公告，您确认要这么做？";
+    }
+    if (confirm(message)) {
+      var token = $("body").attr("data-token");
+      $.post("/student/delAllMessages", {
+        token: token,
+        type: type
+      }, function (response) {
         if (response == "ok") {
           alert("删除成功");
           window.location.href = "/student/message/" + token;
@@ -174,6 +226,5 @@ function initMessagePanel($item, message, token) {
         message.id).addClass("noread");
   }
   $item.find(".panel-body").text(message.content);
-  $item.find("a.del").attr("href", "/student/delMessage/" + token + "/"
-      + message.id);
+  $item.find("a.del").attr("href", "/student/delMessage/");
 }

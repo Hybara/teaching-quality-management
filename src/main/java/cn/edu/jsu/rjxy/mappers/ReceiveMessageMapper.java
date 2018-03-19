@@ -21,9 +21,21 @@ public interface ReceiveMessageMapper {
   int getMessagesCountByRecipientAndRecipientTypeAndFlag(@Param("recipientId") long recipient,
       @Param("recipientType") String recipientType, @Param("flag") Boolean flag);
 
+  @Update("UPDATE receive_message SET flag=1 WHERE id=#{id}")
+  boolean updateOneOwnMessageByReceiveMessageId(@Param("id") long receiveMessageId);
+
+  @Update("UPDATE receive_message SET flag=1 WHERE recipient=#{recipientId} AND recipient_type=#{recipientType}")
+  boolean updateOwnMessagesFlagByRecipientAndRecipientType(@Param("recipientId") long recipient,
+      @Param("recipientType") String recipientType);
+
   @Delete("DELETE FROM receive_message WHERE id=#{id}")
   boolean deleteOneOwnMessageByReceiveMessageId(@Param("id") long receiveMessageId);
 
-  @Update("UPDATE receive_message SET flag=1 WHERE id=#{id}")
-  boolean updateOneOwnMessageByReceiveMessageId(@Param("id") long receiveMessageId);
+  @Delete("DELETE FROM receive_message WHERE recipient=#{recipientId} AND recipient_type=#{recipientType}")
+  boolean deleteOwnMessagesByRecipientAndRecipientType(@Param("recipientId") long recipient,
+      @Param("recipientType") String recipientType);
+
+  @Delete("DELETE FROM receive_message WHERE recipient=#{recipientId} AND recipient_type=#{recipientType} AND flag=0")
+  boolean deleteOwnNoReadMessagesByRecipientAndRecipientType(@Param("recipientId") long recipient,
+      @Param("recipientType") String recipientType);
 }

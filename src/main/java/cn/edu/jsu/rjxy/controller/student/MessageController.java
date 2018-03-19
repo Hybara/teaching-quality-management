@@ -57,9 +57,37 @@ public class MessageController {
         messageCount == NO_DATA ? NO_DATA : Math.ceil((double) messageCount / MESSAGE_PAGE_SIZE));
   }
 
-  @RequestMapping("/student/delMessage/{token}/{id}")
+  @RequestMapping("/student/readMessage")
   @ResponseBody
-  public String getMessages(@PathVariable String token, @PathVariable Long id,
+  public String readMessage(String token, long id, HttpSession session) {
+    Student student = (Student) session.getAttribute(token);
+    if (student == null) {
+      return "logout";
+    }
+    if (messageService.readOneOwnMessage(id)) {
+      return "ok";
+    } else {
+      return "none";
+    }
+  }
+
+  @RequestMapping("/student/readAllMessages")
+  @ResponseBody
+  public String readAllMessages(String token, HttpSession session) {
+    Student student = (Student) session.getAttribute(token);
+    if (student == null) {
+      return "logout";
+    }
+    if (messageService.readAllOwnMessages(student.getId(), MESSAGE_RECIPIENT_TYPE)) {
+      return "ok";
+    } else {
+      return "none";
+    }
+  }
+
+  @RequestMapping("/student/delMessage")
+  @ResponseBody
+  public String delMessage(String token, Long id,
       HttpSession session) {
     Student student = (Student) session.getAttribute(token);
     if (student == null) {
@@ -75,14 +103,14 @@ public class MessageController {
     }
   }
 
-  @RequestMapping("/student/readMessage")
+  @RequestMapping("/student/delAllMessages")
   @ResponseBody
-  public String getScores(String token, long id, HttpSession session) {
+  public String delAllMessages(String token, String type, HttpSession session) {
     Student student = (Student) session.getAttribute(token);
     if (student == null) {
       return "logout";
     }
-    if (messageService.readOneOwnMessage(id)) {
+    if (messageService.deleteAllOwnMessage(student.getId(), MESSAGE_RECIPIENT_TYPE, type)) {
       return "ok";
     } else {
       return "none";

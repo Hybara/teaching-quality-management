@@ -42,11 +42,28 @@ public class MessageService {
         .getMessagesCountByRecipientAndRecipientTypeAndFlag(recipientId, recipientType, flag);
   }
 
+  public boolean readOneOwnMessage(long receiveMessageId) {
+    return receiveMessageMapper.updateOneOwnMessageByReceiveMessageId(receiveMessageId);
+  }
+
+  public boolean readAllOwnMessages(long stuId, String recipientType) {
+    return receiveMessageMapper
+        .updateOwnMessagesFlagByRecipientAndRecipientType(stuId, recipientType);
+  }
+
   public boolean deleteOneOwnMessageByReceiveMessageId(long receiveMessageId) {
     return receiveMessageMapper.deleteOneOwnMessageByReceiveMessageId(receiveMessageId);
   }
 
-  public boolean readOneOwnMessage(long receiveMessageId) {
-    return receiveMessageMapper.updateOneOwnMessageByReceiveMessageId(receiveMessageId);
+  public boolean deleteAllOwnMessage(long stuId, String recipientType, String deleteType) {
+    if (deleteType == null) {
+      return false;
+    } else if ("all".equals(deleteType)) {
+      return receiveMessageMapper
+          .deleteOwnMessagesByRecipientAndRecipientType(stuId, recipientType);
+    } else {
+      return receiveMessageMapper
+          .deleteOwnNoReadMessagesByRecipientAndRecipientType(stuId, recipientType);
+    }
   }
 }
