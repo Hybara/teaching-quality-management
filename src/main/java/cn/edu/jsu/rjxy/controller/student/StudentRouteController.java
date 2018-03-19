@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class StudentController {
+public class StudentRouteController {
 
   @Autowired
   private ScoreTypeService scoreTypeService;
@@ -27,6 +27,9 @@ public class StudentController {
   private String NO_SEARCH = null;
   private String MESSAGE_RECIPIENT_TYPE = "student";
   private String NO_READ_MESSAGE_TYPE = "noread";
+
+  private String DEFAULT_MESSAGE_TYPE = "all";
+  private int MESSAGE_PAGE_SIZE = 8;
 
   @RequestMapping("/student/login/{token}")
   public String login(@PathVariable String token, HttpSession session, Model model) {
@@ -43,4 +46,42 @@ public class StudentController {
     return "/student/scores";
   }
 
+  @RequestMapping("/student/goScore/{id}/{token}")
+  public String goScore(@PathVariable Long id, @PathVariable String token, HttpSession session,
+      Model model) {
+    if (session.getAttribute(token) == null) {
+      return "forward:/logout/"+token;
+    } else if (id == null) {
+      return "/student/getScores/all/" + token;
+    }
+    model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
+    model.addAttribute("token", token);
+    return "/student/score";
+  }
+
+  @RequestMapping("/student/goEvaluate/{token}")
+  public String goEvaluate(@PathVariable String token, HttpSession session) {
+    Student student = (Student) session.getAttribute(token);
+    System.out.println(student);
+    if (student == null) {
+      return "forward:/logout/"+token;
+    } else {
+      return "/student/evaluate";
+    }
+  }
+
+  @RequestMapping("/student/goMessage/{token}")
+  public String goMessage(@PathVariable String token, HttpSession session, Model model) {
+    Student student = (Student) session.getAttribute(token);
+    int messageCount = messageService
+        .getMessagesCountByRecipientAndRecipientTypeAndFlag(student.getId(), MESSAGE_RECIPIENT_TYPE,
+            DEFAULT_MESSAGE_TYPE);
+    model.addAttribute("count",
+        messageCount == NO_DATA ? NO_DATA : Math.ceil((double) messageCount / MESSAGE_PAGE_SIZE));
+    if (student != null) {
+      return "/student/message";
+    } else {
+      return "forward:/logout/"+token;
+    }
+  }
 }

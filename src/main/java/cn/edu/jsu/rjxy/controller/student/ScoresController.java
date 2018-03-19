@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,16 +35,4 @@ public class ScoresController {
         scoreCount == NO_DATA ? NO_DATA : Math.ceil((double) scoreCount / SCORES_PAGE_SIZE));
   }
 
-  @RequestMapping("/student/getScore/{id}/{token}")
-  public String getScore(@PathVariable Long id, @PathVariable String token, HttpSession session,
-      Model model) {
-    if (session.getAttribute(token) == null) {
-      return "/login";
-    } else if (id == null) {
-      return "/student/getScores/all/" + token;
-    }
-    model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
-    model.addAttribute("token", token);
-    return "/student/score";
-  }
 }

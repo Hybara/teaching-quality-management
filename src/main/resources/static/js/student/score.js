@@ -3,19 +3,21 @@ $(function () {
   $(".board .panel").css({
     "cursor": "pointer"
   }).on("click", function () {
-    var title = $(this).find("h4").text()
-    var url = ''
+    var token = $("body").attr("data-token");
+    var title = $(this).find("h4").text();
+    var url = '';
+    console.log(title);
     if (title == '评价') {
-      url = 'evaluate.html'
+      url = '/student/goEvaluate/'+token;
     } else if (title == '提问') {
-      url = 'questions.html'
+      url = 'questions.html';
     } else {
-      url = 'assessment.html'
+      url = 'assessment.html';
     }
-    window.location.href = url
+    window.location.href = url;
   })
 
-})
+});
 
 var NO_DATA = 0;
 
@@ -35,7 +37,7 @@ $(function () {
     barDatasetSpacing: 1,
     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
   };
-  var result = isNaN($(".chartJs").attr("data-result"))? NO_DATA : $(".chartJs").attr("data-result");
+  var result = isNaN($(".chartJs").attr("data-result")) ? NO_DATA : $(".chartJs").attr("data-result");
   var evaluate = $("#evaluate").text();
   var question = $("#question").text();
   var assessment = $("#assessment").text();

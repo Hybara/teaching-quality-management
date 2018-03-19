@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,23 +20,7 @@ public class MessageController {
   private int NO_DATA = 0;
   private int INDEX_PAGE_NUMBER = 1;
   private String MESSAGE_RECIPIENT_TYPE = "student";
-  private String DEFAULT_MESSAGE_TYPE = "all";
   private int MESSAGE_PAGE_SIZE = 8;
-
-  @RequestMapping("/student/message/{token}")
-  public String goMessage(@PathVariable String token, HttpSession session, Model model) {
-    Student student = (Student) session.getAttribute(token);
-    int messageCount = messageService
-        .getMessagesCountByRecipientAndRecipientTypeAndFlag(student.getId(), MESSAGE_RECIPIENT_TYPE,
-            DEFAULT_MESSAGE_TYPE);
-    model.addAttribute("count",
-        messageCount == NO_DATA ? NO_DATA : Math.ceil((double) messageCount / MESSAGE_PAGE_SIZE));
-    if (student != null) {
-      return "/student/message";
-    } else {
-      return "/login";
-    }
-  }
 
   @RequestMapping("/student/getMessages/{token}")
   @ResponseBody
