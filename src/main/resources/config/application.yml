@@ -8,6 +8,12 @@ server:
     accesslog:
       enabled: true
 spring:
+  resources:
+    static-locations: classpath:static/,file:static/
+  http:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 30MB
   template:
     cache: false
   thymeleaf:

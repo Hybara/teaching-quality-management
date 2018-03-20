@@ -19,4 +19,8 @@ public class StudentService {
     return studentMapper.getByNumberAndPassword(account, password);
   }
 
+  public boolean setHeader(long id, String header) {
+    return studentMapper.setStudentHeader(id, header);
+  }
+
 }

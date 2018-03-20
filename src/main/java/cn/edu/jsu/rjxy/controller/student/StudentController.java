@@ -4,15 +4,21 @@ import cn.edu.jsu.rjxy.entity.vo.Student;
 import cn.edu.jsu.rjxy.service.MessageService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
+import cn.edu.jsu.rjxy.service.StudentService;
+import java.io.File;
+import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-public class StudentRouteController {
+public class StudentController {
 
   @Autowired
   private ScoreTypeService scoreTypeService;
@@ -20,6 +26,8 @@ public class StudentRouteController {
   private ScoreService scoreService;
   @Autowired
   private MessageService messageService;
+  @Autowired
+  private StudentService studentService;
 
   private int NO_DATA = 0;
   private int SCORES_PAGE_SIZE = 8;
@@ -50,7 +58,7 @@ public class StudentRouteController {
   public String goScore(@PathVariable Long id, @PathVariable String token, HttpSession session,
       Model model) {
     if (session.getAttribute(token) == null) {
-      return "forward:/logout/"+token;
+      return "forward:/logout/" + token;
     } else if (id == null) {
       return "/student/getScores/all/" + token;
     }
@@ -64,7 +72,7 @@ public class StudentRouteController {
     Student student = (Student) session.getAttribute(token);
     System.out.println(student);
     if (student == null) {
-      return "forward:/logout/"+token;
+      return "forward:/logout/" + token;
     } else {
       return "/student/evaluate";
     }
@@ -81,7 +89,82 @@ public class StudentRouteController {
     if (student != null) {
       return "/student/message";
     } else {
-      return "forward:/logout/"+token;
+      return "forward:/logout/" + token;
     }
   }
+
+  @RequestMapping("/student/goHeader/{token}")
+  public String goHeader(@PathVariable String token, HttpSession session, Model model) {
+    Student student = (Student) session.getAttribute(token);
+    model.addAttribute("message", "");
+    if (student != null) {
+      return "/student/changeHeader";
+    } else {
+      return "forward:/logout/" + token;
+    }
+  }
+
+  //https://my.oschina.net/qjedu/blog/1550704
+  @RequestMapping("/student/changeHeader/{token}")
+  public String changeHeader(@RequestParam(value = "file") MultipartFile file,
+      @PathVariable String token, HttpSession session, Model model) {
+    Student student = (Student) session.getAttribute(token);
+    if (student == null) {
+      return "forward:/logout/" + token;
+    }
+    if (file.isEmpty()) {
+      model.addAttribute("message", "文件为空");
+      return "/student/changeHeader";
+    }
+    if (uploadHeader(file, student)) {
+      String fileName = student.getNumber().getBytes().toString();
+      String suffixName = file.getOriginalFilename()
+          .substring(file.getOriginalFilename().lastIndexOf("."));
+      String header = fileName + suffixName;
+      if (studentService.setHeader(student.getId(), header)) {
+        student = studentService.getLoginer(student.getNumber(), student.getPassword());
+        session.setAttribute(token, student);
+        model.addAttribute("message", "上传成功");
+      } else {
+        model.addAttribute("message", "上传失败");
+      }
+    } else {
+      model.addAttribute("message", "上传失败");
+    }
+    return "/student/changeHeader";
+  }
+
+  private boolean uploadHeader(MultipartFile file, Student student) {
+    // 设置文件名
+    String fileName = student.getNumber().getBytes().toString();
+    // 获取文件的后缀名
+    String suffixName = file.getOriginalFilename()
+        .substring(file.getOriginalFilename().lastIndexOf("."));
+
+    try {
+
+      //获取跟目录
+      File path = new File(ResourceUtils.getURL("classpath:").getPath());
+      if (!path.exists()) {
+        path = new File("");
+      }
+
+      //如果上传目录为/static/images/upload/，则可以如下获取：
+      File filePath = new File(path.getAbsolutePath(), "static/img/header/");
+      if (!filePath.exists()) {
+        filePath.mkdirs();
+      }
+
+      File dest = new File(filePath + fileName + suffixName);
+      if (!dest.getParentFile().exists()) {
+        dest.getParentFile().mkdirs();
+      }
+      file.transferTo(dest);
+    } catch (IllegalStateException | IOException e) {
+      e.printStackTrace();
+      return false;
+    }
+    return true;
+  }
+
 }
