@@ -7,14 +7,20 @@ import cn.edu.jsu.rjxy.service.ScoreTypeService;
 import cn.edu.jsu.rjxy.service.StudentService;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -38,6 +44,11 @@ public class StudentController {
 
   private String DEFAULT_MESSAGE_TYPE = "all";
   private int MESSAGE_PAGE_SIZE = 8;
+
+
+  public static final String ROOT = "header";
+  @Autowired
+  private ResourceLoader resourceLoader;
 
   @RequestMapping("/student/login/{token}")
   public String login(@PathVariable String token, HttpSession session, Model model) {
@@ -70,7 +81,6 @@ public class StudentController {
   @RequestMapping("/student/goEvaluate/{token}")
   public String goEvaluate(@PathVariable String token, HttpSession session) {
     Student student = (Student) session.getAttribute(token);
-    System.out.println(student);
     if (student == null) {
       return "forward:/logout/" + token;
     } else {
@@ -121,6 +131,7 @@ public class StudentController {
       String suffixName = file.getOriginalFilename()
           .substring(file.getOriginalFilename().lastIndexOf("."));
       String header = fileName + suffixName;
+
       if (studentService.setHeader(student.getId(), header)) {
         student = studentService.getLoginer(student.getNumber(), student.getPassword());
         session.setAttribute(token, student);
@@ -140,31 +151,28 @@ public class StudentController {
     // 获取文件的后缀名
     String suffixName = file.getOriginalFilename()
         .substring(file.getOriginalFilename().lastIndexOf("."));
-
+    File targetFile = new File(ROOT);
+    if(!targetFile.exists()){
+      targetFile.mkdirs();
+    }
     try {
-
-      //获取跟目录
-      File path = new File(ResourceUtils.getURL("classpath:").getPath());
-      if (!path.exists()) {
-        path = new File("");
-      }
-
-      //如果上传目录为/static/images/upload/，则可以如下获取：
-      File filePath = new File(path.getAbsolutePath(), "static/img/header/");
-      if (!filePath.exists()) {
-        filePath.mkdirs();
-      }
-
-      File dest = new File(filePath + fileName + suffixName);
-      if (!dest.getParentFile().exists()) {
-        dest.getParentFile().mkdirs();
-      }
-      file.transferTo(dest);
-    } catch (IllegalStateException | IOException e) {
+      Files.copy(file.getInputStream(), Paths.get(ROOT, fileName+suffixName));
+    } catch (IOException e) {
       e.printStackTrace();
       return false;
     }
+
     return true;
   }
 
+  @RequestMapping(method = RequestMethod.POST, value = "/student/getHeader")
+  @ResponseBody
+  public ResponseEntity<?> getFile(String filename) {
+    System.out.println(filename);
+    try {
+      return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
+    } catch (Exception e) {
+      return ResponseEntity.notFound().build();
+    }
+  }
 }

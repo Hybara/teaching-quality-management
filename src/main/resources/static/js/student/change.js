@@ -17,5 +17,11 @@ $(function () {
     });
   }
 
+  $.post("/student/getHeader",
+      {filename: $("#stu_header").attr("data-src")},
+      function (response) {
+        // console.log("response", response);
+        $("#stu_header").attr("src", response);
+  }, "json");
 
 });
