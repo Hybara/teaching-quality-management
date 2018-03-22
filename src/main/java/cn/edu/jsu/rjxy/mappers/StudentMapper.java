@@ -22,4 +22,7 @@ public interface StudentMapper {
   @Update("UPDATE student SET header=#{header} WHERE id=#{id}")
   boolean setStudentHeader(@Param("id") long id, @Param("header") String header);
 
+  @Update("UPDATE student SET password=#{password} WHERE id=#{id}")
+  boolean setStudentPassword(@Param("id") long id, @Param("password") String password);
+
 }

@@ -12,7 +12,8 @@
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
         <li>
-          <a href="index.html"><i class="fa fa-dashboard"></i> 首页</a>
+          <a href="index.html" th:href="@{/student/login/{token}(token=${token})}">
+            <i class="fa fa-dashboard"></i> 首页</a>
         </li>
       </ul>
     </div>
@@ -20,7 +21,7 @@
   <!-- /. NAV SIDE  -->
   <div id="page-wrapper">
     <div class="header">
-      <h1 class="page-header">仪表盘</h1>
+      <h1 class="page-header">个人信息</h1>
       <ol class="breadcrumb">
         <li class="active">修改头像</li>
       </ol>

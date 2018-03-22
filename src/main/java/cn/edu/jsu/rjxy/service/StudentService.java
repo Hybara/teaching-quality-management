@@ -15,12 +15,20 @@ public class StudentService {
   @Autowired
   private StudentMapper studentMapper;
 
+  public Student getStudent(long id) {
+    return studentMapper.getById(id);
+  }
+
   public Student getLoginer(String account, String password) {
     return studentMapper.getByNumberAndPassword(account, password);
   }
 
   public boolean setHeader(long id, String header) {
     return studentMapper.setStudentHeader(id, header);
+  }
+
+  public boolean setPassword(long id, String password) {
+    return studentMapper.setStudentPassword(id, password);
   }
 
 }

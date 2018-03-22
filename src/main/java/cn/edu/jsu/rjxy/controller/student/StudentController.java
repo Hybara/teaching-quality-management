@@ -103,6 +103,45 @@ public class StudentController {
     }
   }
 
+  @RequestMapping("/student/goPassword/{token}")
+  public String goPassword(@PathVariable String token, HttpSession session) {
+    Student student = (Student) session.getAttribute(token);
+    if (student == null) {
+      return "forward:/logout/" + token;
+    } else {
+      return "/student/changePassword";
+    }
+  }
+
+  @RequestMapping("/student/checkPassword")
+  @ResponseBody
+  public String chechPassword(String token, String password, HttpSession session) {
+    Student student = (Student) session.getAttribute(token);
+    if (student == null) {
+      return "logout";
+    }
+    if (password!=null && student.getPassword().equals(password)) {
+      return "ok";
+    } else {
+      return "error";
+    }
+  }
+
+  @RequestMapping("/student/changePassword")
+  @ResponseBody
+  public String changePassword(String token, String password, HttpSession session) {
+    Student student = (Student) session.getAttribute(token);
+    if (student == null) {
+      return "logout";
+    }
+    if (studentService.setPassword(student.getId(), password)) {
+      session.setAttribute(token, studentService.getStudent(student.getId()));
+      return "ok";
+    } else {
+      return "error";
+    }
+  }
+
   @RequestMapping("/student/goHeader/{token}")
   public String goHeader(@PathVariable String token, HttpSession session, Model model) {
     Student student = (Student) session.getAttribute(token);
@@ -168,7 +207,6 @@ public class StudentController {
   @RequestMapping(method = RequestMethod.POST, value = "/student/getHeader")
   @ResponseBody
   public ResponseEntity<?> getFile(String filename) {
-    System.out.println(filename);
     try {
       return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
     } catch (Exception e) {
