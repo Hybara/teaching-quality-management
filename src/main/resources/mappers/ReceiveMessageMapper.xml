@@ -11,7 +11,7 @@
     <association property="message" column="message" select="cn.edu.jsu.rjxy.mappers.MessageMapper.getById" />
   </resultMap>
 
-  <select id="getMessagesByRecipientAndRecipientType" resultMap="ReceiveMessageMap">
+  <select id="getMessages" resultMap="ReceiveMessageMap">
     SELECT rm.* FROM receive_message rm
     LEFT JOIN message m ON rm.message=m.id
     WHERE rm.recipient=#{recipientId} AND rm.recipient_type=#{recipientType}

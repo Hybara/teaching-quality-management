@@ -13,6 +13,10 @@ public class Admin {
   public Admin() {
   }
 
+  public Admin(long id) {
+    this.id = id;
+  }
+
   public Admin(long id, String account, String password, long creater, Date createTime) {
     this.id = id;
     this.account = account;

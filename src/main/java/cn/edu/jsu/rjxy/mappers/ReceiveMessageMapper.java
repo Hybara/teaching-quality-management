@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface ReceiveMessageMapper {
 
-  List<ReceiveMessage> getMessagesByRecipientAndRecipientType(
+  List<ReceiveMessage> getMessages(
       @Param("recipientId") long recipient, @Param("recipientType") String recipientType,
       @Param("flag") Boolean flag,
       @Param("step") Integer step, @Param("size") Integer size);

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jsu.rjxy.mappers.EvaluateMapper">
+
+  <select id="getScoreEvaluates" resultType="Evaluate">
+    SELECT e.*
+    FROM evaluate e
+      LEFT JOIN system s ON e.result=s.value AND s.key LIKE 'evaluate.%'
+    WHERE e.score_for_teacher=#{scoreForTeacherId}
+    <if test="type!=null"> AND s.key=CONCAT('evaluate.', #{type})</if>
+    ORDER BY e.create_time
+    <if test="step!=null and size!=null">
+    LIMIT #{step},#{size}
+    </if>
+  </select>
+
+  <select id="getScoreEvaluatesCount" resultType="Integer">
+    SELECT COUNT(*)
+    FROM evaluate e
+    LEFT JOIN system s ON e.result=s.value AND s.key LIKE 'evaluate.%'
+    WHERE e.score_for_teacher=#{scoreForTeacherId}
+    <if test="type!=null"> AND s.key=CONCAT('evaluate.', #{type})</if>
+  </select>
+</mapper>

@@ -17,6 +17,10 @@ public class ScoreForTeacher {
   public ScoreForTeacher() {
   }
 
+  public ScoreForTeacher(long id) {
+    this.id = id;
+  }
+
   public ScoreForTeacher(Score score, Teacher teacher, StuForClass stuForClass) {
     this.score = score;
     this.teacher = teacher;

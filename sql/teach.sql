@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-18 18:06:04
+Date: 2018-03-25 23:15:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -56,10 +56,10 @@ INSERT INTO `classes` VALUES ('1', '2014级软件一班', '1', '1');
 DROP TABLE IF EXISTS `evaluate`;
 CREATE TABLE `evaluate` (
   `id` int(11) NOT NULL auto_increment,
-  `class_for_teacher` int(11) NOT NULL,
+  `score_for_teacher` int(11) NOT NULL,
   `title` varchar(255) default NULL,
   `text` text NOT NULL,
-  `result` varchar(64) NOT NULL,
+  `result` decimal(10,2) NOT NULL,
   `creater` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
   `creater_type` varchar(32) NOT NULL,
@@ -70,14 +70,15 @@ CREATE TABLE `evaluate` (
 -- ----------------------------
 -- Records of evaluate
 -- ----------------------------
-INSERT INTO `evaluate` VALUES ('1', '1', null, '很好', '90', '1', '2017-12-15 15:05:26', 's', '0');
-INSERT INTO `evaluate` VALUES ('2', '1', null, '很认真负责，对学生很友好', '80', '2', '2017-12-27 20:06:35', 's', '0');
-INSERT INTO `evaluate` VALUES ('3', '1', null, '讲课细致认真，能及时解决学生问题', '90', '3', '2018-01-17 23:08:30', 's', '0');
-INSERT INTO `evaluate` VALUES ('4', '1', null, '老师授课有条理，有重点，对同学既热情又严格', '90', '4', '2018-02-21 23:10:25', 's', '0');
-INSERT INTO `evaluate` VALUES ('5', '1', null, '最开始，老师授课速度有些快，但是，后来学生提建议给老师，老师欣然接受并调整了授课速度。所以，总体感觉老师讲得很好', '80', '5', '2018-02-02 23:11:04', 's', '0');
-INSERT INTO `evaluate` VALUES ('6', '1', null, '老师对学生课堂作业的批改总结认真，能及时，准确的发现同学们存在的问题并认真讲解，解决问题', '80', '1', '2018-02-13 23:11:39', 's', '1');
-INSERT INTO `evaluate` VALUES ('7', '1', null, '关心学生，认真负责', '80', '2', '2018-02-13 23:13:15', 's', '0');
-INSERT INTO `evaluate` VALUES ('8', '1', null, '很能带动学生学习积极性', '90', '2', '2018-02-21 23:14:16', 't', '0');
+INSERT INTO `evaluate` VALUES ('1', '1', null, '很好', '90.00', '1', '2017-12-15 15:05:26', 'student', '0');
+INSERT INTO `evaluate` VALUES ('2', '1', null, '很认真负责，对学生很友好', '80.00', '2', '2017-12-27 20:06:35', 'student', '0');
+INSERT INTO `evaluate` VALUES ('3', '1', null, '讲课细致认真，能及时解决学生问题', '90.00', '3', '2018-01-17 23:08:30', 'student', '0');
+INSERT INTO `evaluate` VALUES ('4', '1', null, '老师授课有条理，有重点，对同学既热情又严格', '90.00', '4', '2018-02-21 23:10:25', 'student', '0');
+INSERT INTO `evaluate` VALUES ('5', '1', null, '最开始，老师授课速度有些快，但是，后来学生提建议给老师，老师欣然接受并调整了授课速度。所以，总体感觉老师讲得很好', '80.00', '5', '2018-02-02 23:11:04', 'student', '0');
+INSERT INTO `evaluate` VALUES ('6', '1', null, '老师对学生课堂作业的批改总结认真，能及时，准确的发现同学们存在的问题并认真讲解，解决问题', '80.00', '1', '2018-02-13 23:11:39', 'student', '1');
+INSERT INTO `evaluate` VALUES ('7', '1', null, '关心学生，认真负责', '80.00', '2', '2018-02-13 23:13:15', 'student', '0');
+INSERT INTO `evaluate` VALUES ('8', '1', null, '很能带动学生学习积极性', '90.00', '2', '2018-02-21 23:14:16', 'teacher', '0');
+INSERT INTO `evaluate` VALUES ('9', '1', null, '挺好', '90.00', '1', '2018-03-25 18:04:45', 'student', '1');
 
 -- ----------------------------
 -- Table structure for for_question
@@ -248,7 +249,7 @@ INSERT INTO `receive_message` VALUES ('5', '5', '1', 'student', '0');
 INSERT INTO `receive_message` VALUES ('6', '6', '1', 'student', '0');
 INSERT INTO `receive_message` VALUES ('7', '7', '1', 'student', '0');
 INSERT INTO `receive_message` VALUES ('8', '8', '1', 'student', '0');
-INSERT INTO `receive_message` VALUES ('9', '9', '1', 'student', '0');
+INSERT INTO `receive_message` VALUES ('9', '9', '1', 'student', '1');
 
 -- ----------------------------
 -- Table structure for register
@@ -390,7 +391,7 @@ CREATE TABLE `student` (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('1', '20144206068', '欧文惠', '1', '430407199602102037', null, '102037', '2014-09-15 22:21:36');
+INSERT INTO `student` VALUES ('1', '20144206068', '欧文惠', '1', '430407199602102037', '[B@3516aaaa.png', '102037', '2014-09-15 22:21:36');
 INSERT INTO `student` VALUES ('2', '20144206999', '阿萨辛', '1', '430408199702163548', null, '163548', '2014-09-14 22:48:08');
 INSERT INTO `student` VALUES ('3', '20144206998', '冯超', '1', '430408199701126482', null, '126482', '2014-09-14 22:48:08');
 INSERT INTO `student` VALUES ('4', '20144206997', '华瑞', '0', '430406199708120315', null, '120315', '2014-09-14 22:48:08');
@@ -415,6 +416,30 @@ INSERT INTO `stu_for_class` VALUES ('2', '2', '1');
 INSERT INTO `stu_for_class` VALUES ('3', '3', '1');
 INSERT INTO `stu_for_class` VALUES ('4', '4', '1');
 INSERT INTO `stu_for_class` VALUES ('5', '5', '1');
+
+-- ----------------------------
+-- Table structure for system
+-- ----------------------------
+DROP TABLE IF EXISTS `system`;
+CREATE TABLE `system` (
+  `id` int(11) NOT NULL auto_increment,
+  `key` varchar(255) NOT NULL,
+  `value` decimal(10,2) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of system
+-- ----------------------------
+INSERT INTO `system` VALUES ('1', 'evaluate.perfect', '90.00');
+INSERT INTO `system` VALUES ('2', 'evaluate.good', '80.00');
+INSERT INTO `system` VALUES ('3', 'evaluate.medium', '70.00');
+INSERT INTO `system` VALUES ('4', 'evaluate.dissatisfactory', '60.00');
+INSERT INTO `system` VALUES ('5', 'question.perfect', '90.00');
+INSERT INTO `system` VALUES ('6', 'question.good', '80.00');
+INSERT INTO `system` VALUES ('7', 'question.medium', '70.00');
+INSERT INTO `system` VALUES ('8', 'question.dissatisfactory', '60.00');
+INSERT INTO `system` VALUES ('9', 'evaluate.cycle', '15.00');
 
 -- ----------------------------
 -- Table structure for teacher

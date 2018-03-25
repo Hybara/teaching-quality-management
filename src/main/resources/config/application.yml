@@ -27,7 +27,7 @@ spring:
       #热部署生效
       enabled: true
       #设置重启的目录
-      additional-paths: src/main/java
+      additional-paths: src/main/java,src/main/resources
       #classpath目录下的WEB-INF文件夹内容修改不重启
 #      exclude: static/**
   datasource:

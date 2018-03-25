@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface RegisterMapper {
 
-  @Select("select * from register where number=#{number} and password=#{password}")
+  @Select("SELECT * FROM register WHERE id=#{id}")
+  Register getById(@Param("id") long id);
+
+  @Select("SELECT * FROM register WHERE number=#{number} AND password=#{password}")
   Register getByNumberAndPassword(@Param("number") String number, @Param("password") String password);
 
 }

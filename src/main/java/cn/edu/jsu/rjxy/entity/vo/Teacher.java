@@ -19,6 +19,10 @@ public class Teacher {
   public Teacher() {
   }
 
+  public Teacher(long id) {
+    this.id = id;
+  }
+
   public Teacher(String number, String name, int sex, String password,
       Major major) {
     this.number = number;

@@ -17,6 +17,10 @@ public class QuestionTemplate {
   public QuestionTemplate() {
   }
 
+  public QuestionTemplate(long id) {
+    this.id = id;
+  }
+
   public QuestionTemplate(String name, String questionList, long creater,
       String createrType, Date createTime) {
     this.name = name;

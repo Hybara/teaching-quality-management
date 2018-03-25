@@ -14,6 +14,10 @@ public class Message {
   public Message() {
   }
 
+  public Message(long id) {
+    this.id = id;
+  }
+
   public Message(String title, String content, long creater, String createrType,
       Date createTime) {
     this.title = title;

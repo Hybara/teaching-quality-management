@@ -21,8 +21,7 @@ public class MessageService {
       flag = false;
     }
     List<ReceiveMessage> receiveMessages = receiveMessageMapper
-        .getMessagesByRecipientAndRecipientType(recipientId, recipientType, flag, (page - 1) * size,
-            size);
+        .getMessages(recipientId, recipientType, flag, (page - 1) * size, size);
 
     List<MessageReaderDTO> messages = new ArrayList<>();
     for (ReceiveMessage receiveMessage : receiveMessages) {

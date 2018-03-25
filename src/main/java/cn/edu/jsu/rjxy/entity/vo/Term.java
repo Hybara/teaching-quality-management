@@ -12,6 +12,10 @@ public class Term {
   public Term() {
   }
 
+  public Term(long id) {
+    this.id = id;
+  }
+
   public Term(long id, String name, Date startTime, Date endTime) {
     this.id = id;
     this.name = name;

@@ -18,6 +18,10 @@ public class QuestionBank {
   public QuestionBank() {
   }
 
+  public QuestionBank(long id) {
+    this.id = id;
+  }
+
   public QuestionBank(QuestionType questionType, String title, String remarks,
       String contentA, double resultA, String contentB, double resultB) {
     this.questionType = questionType;

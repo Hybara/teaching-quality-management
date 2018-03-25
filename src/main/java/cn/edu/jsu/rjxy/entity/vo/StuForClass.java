@@ -9,6 +9,10 @@ public class StuForClass {
   public StuForClass() {
   }
 
+  public StuForClass(long id) {
+    this.id = id;
+  }
+
   public StuForClass(long id, Student student, Classes classes) {
     this.id = id;
     this.student = student;

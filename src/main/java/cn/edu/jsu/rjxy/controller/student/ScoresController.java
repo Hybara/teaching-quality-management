@@ -17,9 +17,9 @@ public class ScoresController {
   @Autowired
   private ScoreService scoreService;
 
-  private int NO_DATA = 0;
-  private int SCORES_PAGE_SIZE = 8;
-  private int INDEX_PAGE_NUMBER = 1;
+  private static final int NO_DATA = 0;
+  private static final int SCORES_PAGE_SIZE = 8;
+  private static final int INDEX_PAGE_NUMBER = 1;
 
   @RequestMapping("/student/getScores/{type}/{token}")
   @ResponseBody

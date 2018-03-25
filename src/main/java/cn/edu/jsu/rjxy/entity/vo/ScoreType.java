@@ -8,6 +8,10 @@ public class ScoreType {
   public ScoreType() {
   }
 
+  public ScoreType(long id) {
+    this.id = id;
+  }
+
   public ScoreType(String name) {
     this.name = name;
   }

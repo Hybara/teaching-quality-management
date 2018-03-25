@@ -11,6 +11,10 @@ public class Register {
   public Register() {
   }
 
+  public Register(long id) {
+    this.id = id;
+  }
+
   public Register(String number, String name, String password) {
     this.number = number;
     this.name = name;

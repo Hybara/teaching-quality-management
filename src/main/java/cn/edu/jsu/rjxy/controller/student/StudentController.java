@@ -1,6 +1,7 @@
 package cn.edu.jsu.rjxy.controller.student;
 
 import cn.edu.jsu.rjxy.entity.vo.Student;
+import cn.edu.jsu.rjxy.service.EvaluateService;
 import cn.edu.jsu.rjxy.service.MessageService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
@@ -34,17 +35,20 @@ public class StudentController {
   private MessageService messageService;
   @Autowired
   private StudentService studentService;
+  @Autowired
+  private EvaluateService evaluateService;
 
-  private int NO_DATA = 0;
-  private int SCORES_PAGE_SIZE = 8;
-  private String ALL_SCORE_TYPE = "all";
-  private String NO_SEARCH = null;
-  private String MESSAGE_RECIPIENT_TYPE = "student";
-  private String NO_READ_MESSAGE_TYPE = "noread";
+  private static final int NO_DATA = 0;
+  private static final int SCORES_PAGE_SIZE = 8;
+  private static final String ALL_SCORE_TYPE = "all";
+  private static final String NO_SEARCH = null;
+  private static final String MESSAGE_RECIPIENT_TYPE = "student";
+  private static final String NO_READ_MESSAGE_TYPE = "noread";
 
-  private String DEFAULT_MESSAGE_TYPE = "all";
-  private int MESSAGE_PAGE_SIZE = 8;
+  private static final String DEFAULT_MESSAGE_TYPE = "all";
+  private static final int MESSAGE_PAGE_SIZE = 8;
 
+  private static final String EVALUATE_CREATER_TYPE = "student";
 
   public static final String ROOT = "header";
   @Autowired
@@ -78,12 +82,18 @@ public class StudentController {
     return "/student/score";
   }
 
-  @RequestMapping("/student/goEvaluate/{token}")
-  public String goEvaluate(@PathVariable String token, HttpSession session) {
+  @RequestMapping("/student/goEvaluate/{id}/{token}")
+  public String goEvaluate(@PathVariable String token, @PathVariable Long id, HttpSession session,
+      Model model) {
     Student student = (Student) session.getAttribute(token);
     if (student == null) {
       return "forward:/logout/" + token;
+    } else if (id == null) {
+      return "/student/getScores/all/" + token;
     } else {
+      model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
+      model.addAttribute("timeLine",
+          evaluateService.getEvaluateTimeLine(id, student.getId(), EVALUATE_CREATER_TYPE));
       return "/student/evaluate";
     }
   }
@@ -120,7 +130,7 @@ public class StudentController {
     if (student == null) {
       return "logout";
     }
-    if (password!=null && student.getPassword().equals(password)) {
+    if (password != null && student.getPassword().equals(password)) {
       return "ok";
     } else {
       return "error";
@@ -191,11 +201,11 @@ public class StudentController {
     String suffixName = file.getOriginalFilename()
         .substring(file.getOriginalFilename().lastIndexOf("."));
     File targetFile = new File(ROOT);
-    if(!targetFile.exists()){
+    if (!targetFile.exists()) {
       targetFile.mkdirs();
     }
     try {
-      Files.copy(file.getInputStream(), Paths.get(ROOT, fileName+suffixName));
+      Files.copy(file.getInputStream(), Paths.get(ROOT, fileName + suffixName));
     } catch (IOException e) {
       e.printStackTrace();
       return false;
@@ -208,7 +218,8 @@ public class StudentController {
   @ResponseBody
   public ResponseEntity<?> getFile(String filename) {
     try {
-      return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
+      return ResponseEntity
+          .ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
     } catch (Exception e) {
       return ResponseEntity.notFound().build();
     }

@@ -8,6 +8,10 @@ public class QuestionType {
   public QuestionType() {
   }
 
+  public QuestionType(long id) {
+    this.id = id;
+  }
+
   public QuestionType(String name) {
     this.name = name;
   }

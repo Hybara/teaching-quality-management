@@ -49,8 +49,8 @@ $(function () {
     });
     
     $("#check_password").on("keyup", function () {
-      const newPassword = $("#new_password").val();
-      const checkPassword = $(this).val();
+      var newPassword = $("#new_password").val();
+      var checkPassword = $(this).val();
       if (checkPassword=="") {
         $($(this).siblings("span").get(0)).text("该项不能为空").addClass("text-danger").removeClass("text-success");
         $(this).focus();
@@ -68,8 +68,8 @@ $(function () {
     $("#password_form").on("submit", function (event) {
       event.stopPropagation();
       event.preventDefault();
-      const password = $("#new_password").val();
-      const check_password = $("#check_password").val();
+      var password = $("#new_password").val();
+      var check_password = $("#check_password").val();
       if (password=="") {
         $($("#new_password").siblings("span").get(0)).text("该项不能为空").addClass("text-danger").removeClass("text-success");
         $("#new_password").focus();

@@ -10,6 +10,10 @@ public class Classes {
   public Classes() {
   }
 
+  public Classes(long id) {
+    this.id = id;
+  }
+
   public Classes(long id, String name, Major major, Term term) {
     this.id = id;
     this.name = name;

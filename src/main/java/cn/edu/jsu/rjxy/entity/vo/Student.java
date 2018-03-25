@@ -16,6 +16,10 @@ public class Student {
   public Student() {
   }
 
+  public Student(long id) {
+    this.id = id;
+  }
+
   public Student(String number, String name, int sex, String idCard, String password,
       Date timeOfEnrollment) {
     this.number = number;

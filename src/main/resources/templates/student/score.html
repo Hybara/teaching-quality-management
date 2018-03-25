@@ -19,7 +19,7 @@
   <!-- /. NAV SIDE  -->
   <div id="page-wrapper">
     <div class="header">
-      <h1 class="page-header">[[${scoreInfo.scoreName}]]
+      <h1 class="page-header" data-id="" th:attr="data-id=${scoreInfo.id}">[[${scoreInfo.scoreName}]]
         <small>[[${scoreInfo.teacherName}]] [[${scoreInfo.teacherBusiness}]]</small>
       </h1>
       <ol class="breadcrumb">
@@ -83,7 +83,7 @@
                   <div class="number">
                     <h3>
                       <h4>评价</h4>
-                      <small>评价数 [[${scoreInfo.evaluateCount}]] <br/>评分 <span id="evaluate">[[${scoreInfo.evaluateGrade}]]<span></small>
+                      <small>评价数 [[${scoreInfo.evaluateCount}]] <br/>评分 <span id="evaluate">[[${scoreInfo.evaluateGrade}]]</span></small>
                     </h3>
                   </div>
                   <div class="icon">

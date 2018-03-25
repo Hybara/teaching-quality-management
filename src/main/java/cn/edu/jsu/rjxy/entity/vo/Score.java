@@ -15,6 +15,10 @@ public class Score {
   public Score() {
   }
 
+  public Score(long id) {
+    this.id = id;
+  }
+
   public Score(String name, Major major, Term term, ScoreType type) {
     this.name = name;
     this.major = major;

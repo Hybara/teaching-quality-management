@@ -19,9 +19,6 @@ public class ScoreDTO {
   private Double assessmentGrade;
   private Integer assessmentCount;
 
-  @Autowired
-  private ScoreForTeacherMapper scoreForTeacherMapper;
-
   public ScoreDTO(ScoreForTeacher scoreForTeacher) {
     this.id = scoreForTeacher.getId();
     this.scoreName = scoreForTeacher.getScore().getName();
@@ -35,10 +32,6 @@ public class ScoreDTO {
     this.questionCount = scoreForTeacher.getQuestionCount();
     this.assessmentGrade = scoreForTeacher.getAssessmentGrade();
     this.assessmentCount = scoreForTeacher.getAssessmentCount();
-  }
-
-  public ScoreForTeacher toScoreForTeacher() {
-    return scoreForTeacherMapper.getById(this.id);
   }
 
   public long getId() {

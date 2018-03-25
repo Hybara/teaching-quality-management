@@ -13,6 +13,10 @@ public class ForQuestion {
   public ForQuestion() {
   }
 
+  public ForQuestion(long id) {
+    this.id = id;
+  }
+
   public ForQuestion(long id, Question question, String text, long creater,
       String createrType, boolean flag) {
     this.id = id;

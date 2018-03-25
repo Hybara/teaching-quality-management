@@ -19,6 +19,10 @@ public class Report {
   public Report() {
   }
 
+  public Report(long id) {
+    this.id = id;
+  }
+
   public Report(long reportedId, String reportedType, String reason, long reporterId,
       String reporterType, long creater, String createrType, Date createTime) {
     this.reportedId = reportedId;

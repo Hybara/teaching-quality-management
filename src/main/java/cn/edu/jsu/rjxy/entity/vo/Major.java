@@ -2,12 +2,16 @@ package cn.edu.jsu.rjxy.entity.vo;
 
 public class Major {
 
-  private int id;
+  private long id;
   private String number;
   private String name;
   private Integer schooling;
 
   public Major() {
+  }
+
+  public Major(long id) {
+    this.id = id;
   }
 
   public Major(int id, String number, String name, Integer schooling) {
@@ -17,11 +21,11 @@ public class Major {
     this.schooling = schooling;
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 

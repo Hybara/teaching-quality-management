@@ -17,10 +17,10 @@ public class MessageController {
   @Autowired
   private MessageService messageService;
 
-  private int NO_DATA = 0;
-  private int INDEX_PAGE_NUMBER = 1;
-  private String MESSAGE_RECIPIENT_TYPE = "student";
-  private int MESSAGE_PAGE_SIZE = 8;
+  private static final int NO_DATA = 0;
+  private static final int INDEX_PAGE_NUMBER = 1;
+  private static final String MESSAGE_RECIPIENT_TYPE = "student";
+  private static final int MESSAGE_PAGE_SIZE = 8;
 
   @RequestMapping("/student/getMessages/{token}")
   @ResponseBody

@@ -1,4 +1,4 @@
-var options = {
+const options = {
   scaleBeginAtZero: true,
   scaleShowGridLines: true,
   scaleGridLineColor: "rgba(0,0,0,.05)",
@@ -12,8 +12,8 @@ var options = {
   legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 };
 
-var PAGE_ONE = 1;
-var NO_DATA = 0;
+const PAGE_ONE = 1;
+const NO_DATA = 0;
 
 var type = "all";
 var page_count = 0;

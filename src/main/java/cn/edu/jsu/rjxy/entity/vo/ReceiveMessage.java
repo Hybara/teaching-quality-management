@@ -11,6 +11,10 @@ public class ReceiveMessage {
   public ReceiveMessage() {
   }
 
+  public ReceiveMessage(long id) {
+    this.id = id;
+  }
+
   public ReceiveMessage(Message message, long recipient, String recipientType, boolean flag) {
     this.message = message;
     this.recipient = recipient;

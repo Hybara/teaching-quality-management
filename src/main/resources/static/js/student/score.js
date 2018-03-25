@@ -6,9 +6,10 @@ $(function () {
     var token = $("body").attr("data-token");
     var title = $(this).find("h4").text();
     var url = '';
-    console.log(title);
+    // console.log(title);
+    var id = $("h1.page-header").attr("data-id");
     if (title == '评价') {
-      url = '/student/goEvaluate/'+token;
+      url = '/student/goEvaluate/'+id+"/"+token;
     } else if (title == '提问') {
       url = 'questions.html';
     } else {
@@ -19,7 +20,7 @@ $(function () {
 
 });
 
-var NO_DATA = 0;
+const NO_DATA = 0;
 
 $(function () {
   var ctx, data, myBarChart, option_bars;

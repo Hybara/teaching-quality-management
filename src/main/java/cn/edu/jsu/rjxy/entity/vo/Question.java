@@ -14,6 +14,10 @@ public class Question {
   public Question() {
   }
 
+  public Question(long id) {
+    this.id = id;
+  }
+
   public Question(ScoreForTeacher scoreForTeacher, String text, String result, long creater,
       String createrType, boolean flag) {
     this.scoreForTeacher = scoreForTeacher;

@@ -1,8 +1,7 @@
-var DEFAULT_MESSAGE_TYPE = "all";
-var ALL_MESSAGE_TYPE = "all";
-var NOREAD_MESSAGE_TYPE = "noread";
-var DEFAULT_MESSAGE_PAGE = 1;
-var PAGINATION_PAGINTEM_NUMBER = 5;
+const DEFAULT_MESSAGE_TYPE = "all";
+const ALL_MESSAGE_TYPE = "all";
+const DEFAULT_MESSAGE_PAGE = 1;
+const PAGINATION_PAGINTEM_NUMBER = 5;
 
 var type_all_page_count = 0;
 var type_noread_page_count = 0;
