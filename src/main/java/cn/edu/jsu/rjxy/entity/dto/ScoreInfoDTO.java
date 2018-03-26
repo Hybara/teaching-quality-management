@@ -4,6 +4,7 @@ import cn.edu.jsu.rjxy.entity.vo.Score;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
 import cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper;
+import java.text.DecimalFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ScoreInfoDTO {
@@ -67,17 +68,17 @@ public class ScoreInfoDTO {
     if (this.evaluateCount==0) {
       this.evaluateGrade = 0.0;
     } else {
-      this.evaluateGrade = scoreForTeacher.getEvaluateGrade()/scoreForTeacher.getEvaluateCount();
+      this.evaluateGrade = Double.parseDouble(String.format("%.2f", scoreForTeacher.getEvaluateGrade()/scoreForTeacher.getEvaluateCount()));
     }
     if (this.questionCount==0) {
       this.questionGrade = 0.0;
     } else {
-      this.questionGrade = scoreForTeacher.getQuestionGrade()/scoreForTeacher.getQuestionGrade();
+      this.questionGrade = Double.parseDouble(String.format("%.2f", scoreForTeacher.getQuestionGrade()/scoreForTeacher.getQuestionCount()));
     }
     if (this.assessmentCount==0) {
       this.assessmentGrade = 0.0;
     } else {
-      this.assessmentGrade = scoreForTeacher.getAssessmentGrade()/scoreForTeacher.getAssessmentGrade();
+      this.assessmentGrade = Double.parseDouble(String.format("%.2f", scoreForTeacher.getAssessmentGrade()/scoreForTeacher.getAssessmentCount()));
     }
   }
 

@@ -1,27 +1,28 @@
 const INDEX_PAGE = 1;
 const DEFAULT_TYPE = "all";
-const EVALUATE_ALL_TYPE = "all";
-const EVALUATE_PERFECT_TYPE = "perfect";
-const EVALUATE_GOOD_TYPE = "good";
-const EVALUATE_MEDIUM_TYPE = "medium";
-const EVALUATE_DISSATISFACTORY_TYPE = "dissatisfactory";
+const QUESTION_ALL_TYPE = "all";
+const QUESTION_PERFECT_TYPE = "perfect";
+const QUESTION_GOOD_TYPE = "good";
+const QUESTION_MEDIUM_TYPE = "medium";
+const QUESTION_DISSATISFACTORY_TYPE = "dissatisfactory";
+const QUESTION_NOTANSWER_TYPE = "notAnswer";
 const PAGINATION_PAGINTEM_NUMBER = 5;
 
-var evaluate_type = DEFAULT_TYPE;
-var evaluate_all_count;
-var evaluate_perfect_count;
-var evaluate_good_count;
-var evaluate_medium_count;
-var evaluate_dissatisfactory_count;
+var question_type = DEFAULT_TYPE;
+var question_all_count;
+var question_perfect_count;
+var question_good_count;
+var question_medium_count;
+var question_dissatisfactory_count;
+var question_notAnswer_count;
 
 $(function () {
 
-  debugger;
   let timeLine = $("form").attr("data-timeline");
   let now = new Date();
   if (now.getTime() < timeLine) {
     $("form").find("textarea")
-      .text("下次可评论的时间为：" + format(new Date(parseInt(timeLine))))
+      .text("下次可提问的时间为：" + format(new Date(parseInt(timeLine))))
       .attr("disabled", true);
     $("form").find("button[type=submit]").attr("disabled", true);
   } else {
@@ -29,20 +30,22 @@ $(function () {
     $("form").find("button[type=submit]").attr("disabled", false);
   }
 
-  initEvaluateList(DEFAULT_TYPE, INDEX_PAGE);
+  initQuestionList(DEFAULT_TYPE, INDEX_PAGE);
 
   $("ul.pagination a").on("click", function () {
     var page_count;
-    if (evaluate_type == EVALUATE_ALL_TYPE) {
-      page_count = evaluate_all_count;
-    } else if (evaluate_type == EVALUATE_PERFECT_TYPE) {
-      page_count = evaluate_perfect_count;
-    } else if (evaluate_type == EVALUATE_GOOD_TYPE) {
-      page_count = evaluate_good_count;
-    } else if (evaluate_type == EVALUATE_MEDIUM_TYPE) {
-      page_count = evaluate_medium_count;
-    } else if (evaluate_type == EVALUATE_DISSATISFACTORY_TYPE) {
-      page_count = evaluate_dissatisfactory_count;
+    if (question_type == QUESTION_ALL_TYPE) {
+      page_count = question_all_count;
+    } else if (question_type == QUESTION_PERFECT_TYPE) {
+      page_count = question_perfect_count;
+    } else if (question_type == QUESTION_GOOD_TYPE) {
+      page_count = question_good_count;
+    } else if (question_type == QUESTION_MEDIUM_TYPE) {
+      page_count = question_medium_count;
+    } else if (question_type == QUESTION_DISSATISFACTORY_TYPE) {
+      page_count = question_dissatisfactory_count;
+    } else if (question_type == QUESTION_NOTANSWER_TYPE) {
+      page_count = question_notAnswer_count;
     }
 
     var page = $(this).text();
@@ -54,17 +57,18 @@ $(function () {
       var now = $(this).parents("ul.pagination").find("li.active").text();
       page = (now == page_count) ? page_count : (parseInt(now) + 1);
     } else if ($(this).attr("id") == "first") {
-      page = 1;
+      page = INDEX_PAGE;
     } else if ($(this).attr("id") == "end") {
       page = page_count;
     }
-    initEvaluateList(evaluate_type, page);
+    initQuestionList(question_type, page);
   });
 
   $("a[data-toggle=tab]").on("click", function () {
+    debugger;
     let type = $(this).attr("href");
     type = type.substring(1, type.length);
-    initEvaluateList(type, INDEX_PAGE);
+    initQuestionList(type, INDEX_PAGE);
   });
 
   $("form").on("submit", function (event) {
@@ -79,9 +83,9 @@ $(function () {
       result: $("input[type=radio][name=result]").val(),
       flag: $("input[type=checkbox][name=flag]").val() == "on" ? true : false
     };
-    $.post("/student/evaluate", data, function (response) {
+    $.post("/student/question", data, function (response) {
       if (response == "ok") {
-        window.location.href = '/student/goEvaluate/' + $(
+        window.location.href = '/student/goQuestions/' + $(
             "h1.page-header").attr("data-id") + "/" + token;
       } else if (response == "logout") {
         window.location.href = "/logout/" + token;
@@ -107,26 +111,27 @@ function format(date) {
   return date.getFullYear() + "-" + monthNum + "-" + day;
 }
 
-function initEvaluateList(type, page) {
+function initQuestionList(type, page) {
   let token = $("body").attr("data-token");
-
-  $.post("/student/getScoreEvaluates", {
+  $.post("/student/getScoreQuestions", {
     token: token,
     scoreForClassId: $("h1.page-header").attr("data-id"),
     type: type,
     page: page
   }, function (response) {
-    evaluate_type = type;
+    console.log("questions", response);
+
+    question_type = type;
     initPageButton(response.count, page);
     ininPageCount(response.count);
 
-    let $liItems = structuralEvaluateLiDOM(type);
+    let $liItems = structuralQuestionLiDOM(type);
     $liItems.show();
     $liItems.each(function (index) {
       if (response.data[index] != undefined
           && response.data[index] != null) {
         $(this).show();
-        initEvaluatePanel($(this), response.data[index]);
+        initQuestionPanel($(this), response.data[index]);
       } else {
         $(this).hide();
       }
@@ -135,7 +140,7 @@ function initEvaluateList(type, page) {
 }
 
 function initPageButton(count, page) {
-  let $pagination = structuralPainationDOM(evaluate_type);
+  let $pagination = structuralPainationDOM(question_type);
   $pagination.show();
   if (count == 0) {
     $pagination.hide();
@@ -171,67 +176,77 @@ function initPageButton(count, page) {
 }
 
 function structuralPainationDOM(type) {
-  if (type == EVALUATE_ALL_TYPE) {
+  if (type == QUESTION_ALL_TYPE) {
     return $("div#all").find("ul.pagination");
-  } else if (type == EVALUATE_PERFECT_TYPE) {
+  } else if (type == QUESTION_PERFECT_TYPE) {
     return $("div#perfect").find("ul.pagination");
-  } else if (type == EVALUATE_GOOD_TYPE) {
+  } else if (type == QUESTION_GOOD_TYPE) {
     return $("div#good").find("ul.pagination");
-  } else if (type == EVALUATE_MEDIUM_TYPE) {
+  } else if (type == QUESTION_MEDIUM_TYPE) {
     return $("div#medium").find("ul.pagination");
-  } else if (type == EVALUATE_DISSATISFACTORY_TYPE) {
+  } else if (type == QUESTION_DISSATISFACTORY_TYPE) {
     return $("div#dissatisfactory").find("ul.pagination");
+  } else if (question_type == QUESTION_NOTANSWER_TYPE) {
+    return $("div#notAnswer").find("ul.pagination");
   }
 }
 
 function ininPageCount(count) {
-  if (evaluate_type == EVALUATE_ALL_TYPE) {
-    evaluate_all_count = count;
-  } else if (evaluate_type == EVALUATE_PERFECT_TYPE) {
-    evaluate_perfect_count = count;
-  } else if (evaluate_type == EVALUATE_GOOD_TYPE) {
-    evaluate_good_count = count;
-  } else if (evaluate_type == EVALUATE_MEDIUM_TYPE) {
-    evaluate_medium_count = count;
-  } else if (evaluate_type == EVALUATE_DISSATISFACTORY_TYPE) {
-    evaluate_dissatisfactory_count = count;
+  if (question_type == QUESTION_ALL_TYPE) {
+    question_all_count = count;
+  } else if (question_type == QUESTION_PERFECT_TYPE) {
+    question_perfect_count = count;
+  } else if (question_type == QUESTION_GOOD_TYPE) {
+    question_good_count = count;
+  } else if (question_type == QUESTION_MEDIUM_TYPE) {
+    question_medium_count = count;
+  } else if (question_type == QUESTION_DISSATISFACTORY_TYPE) {
+    question_dissatisfactory_count = count;
+  } else if (question_type == QUESTION_NOTANSWER_TYPE) {
+    question_notAnswer_count = count;
   }
 }
 
-function structuralEvaluateLiDOM(type) {
-  if (type == EVALUATE_ALL_TYPE) {
+function structuralQuestionLiDOM(type) {
+  if (type == QUESTION_ALL_TYPE) {
     return $("div#all").find("li.list-group-item");
-  } else if (type == EVALUATE_PERFECT_TYPE) {
+  } else if (type == QUESTION_PERFECT_TYPE) {
     return $("div#perfect").find("li.list-group-item");
-  } else if (type == EVALUATE_GOOD_TYPE) {
+  } else if (type == QUESTION_GOOD_TYPE) {
     return $("div#good").find("li.list-group-item");
-  } else if (type == EVALUATE_MEDIUM_TYPE) {
+  } else if (type == QUESTION_MEDIUM_TYPE) {
     return $("div#medium").find("li.list-group-item");
-  } else if (type == EVALUATE_DISSATISFACTORY_TYPE) {
+  } else if (type == QUESTION_DISSATISFACTORY_TYPE) {
     return $("div#dissatisfactory").find("li.list-group-item");
+  } else if (type == QUESTION_NOTANSWER_TYPE) {
+    return $("div#notAnswer").find("li.list-group-item");
   }
 }
 
-function initEvaluatePanel($li, data) {
+function initQuestionPanel($li, data) {
+  let token = $("body").attr("data-token");
   $li.find("img").attr("src", data.userHeader);
   $li.find("div.media-left span").text(data.userName);
-  $li.find("div.media-body h4").text(data.title == null ? "" : data.title);
-  $li.find("div.media-body p").text(data.text);
+  $li.find("div.media-body h4").find("a").attr("href", "/student/goQuestion/"+data.id+"/"+token).text(data.title == null ? "" : data.title);
+  $li.find("div.media-body p").find("a").attr("href", "/student/goQuestion/"+data.id+"/"+token).text(data.text);
   structuralResult($li, data.result);
 }
 
 function structuralResult($li, result) {
-  if (result == EVALUATE_PERFECT_TYPE) {
+  if (result == QUESTION_PERFECT_TYPE) {
     $li.find("div.media-body div").text("评价：优").addClass(
         "text-success").removeClass("text-info text-warning text-danger");
-  } else if (result == EVALUATE_GOOD_TYPE) {
+  } else if (result == QUESTION_GOOD_TYPE) {
     $li.find("div.media-body div").text("评价：良").addClass(
         "text-info").removeClass("text-success text-warning text-danger");
-  } else if (result == EVALUATE_MEDIUM_TYPE) {
+  } else if (result == QUESTION_MEDIUM_TYPE) {
     $li.find("div.media-body div").text("评价：中").addClass(
         "text-warning").removeClass("text-info text-success text-danger");
-  } else if (result == EVALUATE_DISSATISFACTORY_TYPE) {
+  } else if (result == QUESTION_DISSATISFACTORY_TYPE) {
     $li.find("div.media-body div").text("评价：不够理想").addClass(
         "text-danger").removeClass("text-info text-warning text-success");
+  } else if (result == QUESTION_NOTANSWER_TYPE) {
+    $li.find("div.media-body div").text("未终止的问答").addClass(
+          "text-danger").removeClass("text-info text-warning text-success");
   }
 }

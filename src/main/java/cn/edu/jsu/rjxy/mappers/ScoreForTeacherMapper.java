@@ -1,5 +1,6 @@
 package cn.edu.jsu.rjxy.mappers;
 
+import cn.edu.jsu.rjxy.entity.vo.Score;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.StuForClass;
 import java.util.List;
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -23,4 +25,18 @@ public interface ScoreForTeacherMapper {
 
   int getScoresCountForClasses(@Param("type") String scoreType,
       @Param("classes") List<StuForClass> classes, @Param("search") String search);
+
+  @Update("UPDATE score_for_teacher "
+      + "SET score=#{scoreForTeacher.score.id},"
+      + " teacher=#{scoreForTeacher.teacher.id},"
+      + " class=#{scoreForTeacher.stuForClass.id},"
+      + " result=#{scoreForTeacher.result},"
+      + " evaluate_grade=#{scoreForTeacher.evaluateGrade},"
+      + " evaluate_count=#{scoreForTeacher.evaluateCount},"
+      + " question_grade=#{scoreForTeacher.questionGrade},"
+      + " question_count=#{scoreForTeacher.questionCount},"
+      + " assessment_grade=#{scoreForTeacher.assessmentGrade},"
+      + " assessment_count=#{scoreForTeacher.assessmentCount} "
+      + "WHERE id=#{scoreForTeacher.id}")
+  boolean updateScoreForTeacher(@Param("scoreForTeacher")ScoreForTeacher scoreForTeacher);
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-26 11:10:16
+Date: 2018-03-27 00:17:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -176,10 +176,10 @@ INSERT INTO `metadata` VALUES ('10', 'question.cycle', '1.00');
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL auto_increment,
-  `class_for_teacher` int(11) NOT NULL,
+  `score_for_teacher` int(11) NOT NULL,
   `title` varchar(255) default NULL,
   `text` text NOT NULL,
-  `result` varchar(64) default NULL,
+  `result` decimal(10,2) default NULL,
   `creater` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
   `creater_type` varchar(32) NOT NULL,
@@ -190,6 +190,8 @@ CREATE TABLE `question` (
 -- ----------------------------
 -- Records of question
 -- ----------------------------
+INSERT INTO `question` VALUES ('1', '1', '什么情况下使用瀑布模型', '见标题', '80.00', '1', '2018-03-26 15:17:05', 'student', '0');
+INSERT INTO `question` VALUES ('2', '1', '怎么区分系统边界', '见标题', null, '1', '2018-02-09 15:17:29', 'student', '0');
 
 -- ----------------------------
 -- Table structure for question_bank
@@ -369,7 +371,7 @@ CREATE TABLE `score_for_teacher` (
 -- ----------------------------
 -- Records of score_for_teacher
 -- ----------------------------
-INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', null, '00000680.00', '00000000008', '00000000.00', '00000000000', '00000000.00', '00000000000');
+INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', '79.50', '00000770.00', '00000000009', '00000080.00', '00000000001', '00000000.00', '00000000000');
 INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
 INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
 INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');

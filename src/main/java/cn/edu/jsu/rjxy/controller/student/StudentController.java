@@ -1,8 +1,10 @@
 package cn.edu.jsu.rjxy.controller.student;
 
 import cn.edu.jsu.rjxy.entity.vo.Student;
+import cn.edu.jsu.rjxy.mappers.QuestionMapper;
 import cn.edu.jsu.rjxy.service.EvaluateService;
 import cn.edu.jsu.rjxy.service.MessageService;
+import cn.edu.jsu.rjxy.service.QuestionService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
 import cn.edu.jsu.rjxy.service.StudentService;
@@ -37,6 +39,8 @@ public class StudentController {
   private StudentService studentService;
   @Autowired
   private EvaluateService evaluateService;
+  @Autowired
+  private QuestionService questionService;
 
   private static final int NO_DATA = 0;
   private static final int SCORES_PAGE_SIZE = 8;
@@ -109,7 +113,7 @@ public class StudentController {
     } else {
       model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
       model.addAttribute("timeLine",
-          evaluateService.getEvaluateTimeLine(id, student.getId(), EVALUATE_CREATER_TYPE));
+          questionService.getQuestionTimeLine(id, student.getId(), EVALUATE_CREATER_TYPE));
       return "/student/questions";
     }
   }

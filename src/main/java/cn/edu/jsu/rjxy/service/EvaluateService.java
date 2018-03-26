@@ -6,14 +6,18 @@ import cn.edu.jsu.rjxy.entity.vo.Metadata;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.mappers.EvaluateMapper;
 import cn.edu.jsu.rjxy.mappers.RegisterMapper;
+import cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper;
 import cn.edu.jsu.rjxy.mappers.StudentMapper;
 import cn.edu.jsu.rjxy.mappers.MetadataMapper;
 import cn.edu.jsu.rjxy.mappers.TeacherMapper;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class EvaluateService {
 
@@ -32,6 +36,8 @@ public class EvaluateService {
   private StudentMapper studentMapper;
   @Autowired
   private MetadataMapper metadataMapper;
+  @Autowired
+  private ScoreForTeacherMapper scoreForTeacherMapper;
 
   public Evaluate getEvaluateById(long id) {
     return evaluateMapper.getById(id);
@@ -86,11 +92,22 @@ public class EvaluateService {
     evaluate.setCreater(createrId);
     evaluate.setCreaterType(createrType);
     evaluate.setFlag(flag);
-    return evaluateMapper.insertScoreEvaluate(evaluate);
+    if (evaluateMapper.insertScoreEvaluate(evaluate)) {
+      ScoreForTeacher scoreForTeacher = scoreForTeacherMapper.getById(scoreForTeacherId);
+      scoreForTeacher.setEvaluateGrade(scoreForTeacher.getEvaluateGrade()+evaluate.getResult());
+      scoreForTeacher.setEvaluateCount(scoreForTeacher.getEvaluateCount()+1);
+      if (scoreForTeacherMapper.updateScoreForTeacher(scoreForTeacher)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public long getEvaluateTimeLine(long scoreForTeacherId, long createrId, String createrType) {
     Evaluate evaluate = evaluateMapper.getLastEvaluate(scoreForTeacherId, createrId, createrType);
+    if(evaluate == null) {
+      return new Date().getTime();
+    }
     Metadata metadata = metadataMapper.getEvaluateCycle();
     return evaluate.getCreateTime().getTime()+((long) metadata.getValue())*24*60*60*1000;
   }
