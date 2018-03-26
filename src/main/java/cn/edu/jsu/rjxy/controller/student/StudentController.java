@@ -98,6 +98,22 @@ public class StudentController {
     }
   }
 
+  @RequestMapping("/student/goQuestions/{id}/{token}")
+  public String goQuestions(@PathVariable String token, @PathVariable Long id, HttpSession session,
+      Model model) {
+    Student student = (Student) session.getAttribute(token);
+    if (student == null) {
+      return "forward:/logout/" + token;
+    } else if (id == null) {
+      return "/student/getScores/all/" + token;
+    } else {
+      model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
+      model.addAttribute("timeLine",
+          evaluateService.getEvaluateTimeLine(id, student.getId(), EVALUATE_CREATER_TYPE));
+      return "/student/questions";
+    }
+  }
+
   @RequestMapping("/student/goMessage/{token}")
   public String goMessage(@PathVariable String token, HttpSession session, Model model) {
     Student student = (Student) session.getAttribute(token);

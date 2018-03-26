@@ -1,24 +1,24 @@
 package cn.edu.jsu.rjxy.entity.vo;
 
-public class System {
+public class Metadata {
 
   private long id;
   private String key;
   private double value;
 
-  public System() {
+  public Metadata() {
   }
 
-  public System(long id) {
+  public Metadata(long id) {
     this.id = id;
   }
 
-  public System(String key, double value) {
+  public Metadata(String key, double value) {
     this.key = key;
     this.value = value;
   }
 
-  public System(long id, String key, double value) {
+  public Metadata(long id, String key, double value) {
     this.id = id;
     this.key = key;
     this.value = value;
@@ -50,7 +50,7 @@ public class System {
 
   @Override
   public String toString() {
-    return "System{" +
+    return "Metadata{" +
         "id=" + id +
         ", key='" + key + '\'' +
         ", value=" + value +

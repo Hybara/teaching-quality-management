@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-25 23:15:00
+Date: 2018-03-26 11:10:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -144,6 +144,31 @@ INSERT INTO `message` VALUES ('6', '关于统计2017年吉首大学本科教学�
 INSERT INTO `message` VALUES ('7', '关于开展2018年度学科竞赛项目立项申报工作的通知', '各相关学院：\r\n为进一步深化我校大学生科技创新工作，充分发挥学科竞赛在培养学生实践动手能力、创新创业精神、团队合作意识、提高学生综合素质等方面的积极作用，促进学科竞赛与教学、科研、校企合作等人才培养工作有机结合，以教促赛，以赛促学，教学相长，为学生展示实践创新成果搭建平台，形成以学生为本的竞赛体系，根据《吉首大学本科生学科竞赛管理暂行办法》（2016年9月），教务处决定启动2018年度学科竞赛项目的立项申报工作。现将有关事宜通知如下：\r\n一、申报要求\r\n1．学院应成立学科竞赛管理工作小组，对本单位申报的学科竞赛项目进行遴选，教育部、教育厅等主管行政部门指定的A类学科竞赛必须参加，以学院创新工作室为单位，每个工作室申报总数原则上不得超过4个（体育科学学院单列）。\r\n2．以学院实验室、创新工作室为依托，有必要的训练场地和实验条件。\r\n3．有明确的负责人和健全的组织机构，根据学科竞赛的差异性，需成立不同的指导团队为大学生的学科竞赛活动进行必要的指导。\r\n4．各竞赛承办单位需加强学科竞赛管理及内涵建设工作，各竞赛承办单位应精心组织策划，注重专业知识的融入。并加深校企合作，有条件的学院可以邀请企业、校外教育基地、实习基地的专家参与竞赛的策划。\r\n二、申报范围\r\n学科竞赛应为学科类、技能类、创新类、创业类、教育类竞赛之一，统称学科竞赛，学校重点资助以下学科竞赛项目：\r\n1.教育行政部门主办学科技能竞赛作依托的规定项目（A类）；\r\n2.社会影响面广、行业认可度高的竞赛的项目（B类C类）；\r\n3.学生参与范围广、受益面大的学科竞赛项目（D类）。\r\n三、经学校审定并通过立项的学科竞赛，学校将按照《吉首大学本科生学科竞赛管理办法》给予相应的经费支持,对未列入竞赛计划而组织参加的赛事学校原则上不予资金支持和奖励。\r\n四、望各学院认真做好项目的申报工作，积极鼓励和支持学生参加2018年大学生学科竞赛项目，请各学院于2018年3月14日下午5:30前将申报材料纸质版一式两份送交教务处实践教学科（新实验大楼903办公室，张家界校区送教科办办公室），电子版发送至jsusjk@163.com。', '1', 'admin', '2018-03-07 11:08:27');
 INSERT INTO `message` VALUES ('8', '关于开展2018年辅修专业（双学位）工作的通知', '各学院、各相关部门：\r\n   为适应国家经济建设和社会发展对跨学科专业人才的需求，培养知识面宽、适应能力强的复合型人才，增强学生的适应能力与竞争能力，经相关学院申报，学校审核，学校将继续开展辅修专业（双学位）教育工作，具体见附件。', '1', 'admin', '2018-03-13 11:09:22');
 INSERT INTO `message` VALUES ('9', '2017年教风学风专项检查情况通报（三）', ' 2017年6月6日、8日，教务处分别组织对吉首校区、张家界校区的课堂教学情况进行检查，本次共检查109个教学班，其中张家界校区40个、吉首校区69个。全校平均到课率92.7%，其中张家界校区94.3%、吉首校区91.8%。学生到课率情况通报见附表。', '1', 'admin', '2018-03-06 11:09:49');
+
+-- ----------------------------
+-- Table structure for metadata
+-- ----------------------------
+DROP TABLE IF EXISTS `metadata`;
+CREATE TABLE `metadata` (
+  `id` int(11) NOT NULL auto_increment,
+  `key` varchar(255) NOT NULL,
+  `value` decimal(10,2) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of metadata
+-- ----------------------------
+INSERT INTO `metadata` VALUES ('1', 'evaluate.perfect', '90.00');
+INSERT INTO `metadata` VALUES ('2', 'evaluate.good', '80.00');
+INSERT INTO `metadata` VALUES ('3', 'evaluate.medium', '70.00');
+INSERT INTO `metadata` VALUES ('4', 'evaluate.dissatisfactory', '60.00');
+INSERT INTO `metadata` VALUES ('5', 'question.perfect', '90.00');
+INSERT INTO `metadata` VALUES ('6', 'question.good', '80.00');
+INSERT INTO `metadata` VALUES ('7', 'question.medium', '70.00');
+INSERT INTO `metadata` VALUES ('8', 'question.dissatisfactory', '60.00');
+INSERT INTO `metadata` VALUES ('9', 'evaluate.cycle', '15.00');
+INSERT INTO `metadata` VALUES ('10', 'question.cycle', '1.00');
 
 -- ----------------------------
 -- Table structure for question
@@ -416,30 +441,6 @@ INSERT INTO `stu_for_class` VALUES ('2', '2', '1');
 INSERT INTO `stu_for_class` VALUES ('3', '3', '1');
 INSERT INTO `stu_for_class` VALUES ('4', '4', '1');
 INSERT INTO `stu_for_class` VALUES ('5', '5', '1');
-
--- ----------------------------
--- Table structure for system
--- ----------------------------
-DROP TABLE IF EXISTS `system`;
-CREATE TABLE `system` (
-  `id` int(11) NOT NULL auto_increment,
-  `key` varchar(255) NOT NULL,
-  `value` decimal(10,2) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of system
--- ----------------------------
-INSERT INTO `system` VALUES ('1', 'evaluate.perfect', '90.00');
-INSERT INTO `system` VALUES ('2', 'evaluate.good', '80.00');
-INSERT INTO `system` VALUES ('3', 'evaluate.medium', '70.00');
-INSERT INTO `system` VALUES ('4', 'evaluate.dissatisfactory', '60.00');
-INSERT INTO `system` VALUES ('5', 'question.perfect', '90.00');
-INSERT INTO `system` VALUES ('6', 'question.good', '80.00');
-INSERT INTO `system` VALUES ('7', 'question.medium', '70.00');
-INSERT INTO `system` VALUES ('8', 'question.dissatisfactory', '60.00');
-INSERT INTO `system` VALUES ('9', 'evaluate.cycle', '15.00');
 
 -- ----------------------------
 -- Table structure for teacher

@@ -11,7 +11,7 @@ $(function () {
     if (title == '评价') {
       url = '/student/goEvaluate/'+id+"/"+token;
     } else if (title == '提问') {
-      url = 'questions.html';
+      url = '/student/goQuestions/'+id+"/"+token;
     } else {
       url = 'assessment.html';
     }

@@ -20,8 +20,9 @@ $(function () {
   let timeLine = $("form").attr("data-timeline");
   let now = new Date();
   if (now.getTime() < timeLine) {
-    $("form").find("textarea").text("下次可评论的时间为：" + format(
-        new Date(parseInt(timeLine)))).attr("disabled", true);
+    $("form").find("textarea")
+      .text("下次可评论的时间为：" + format(new Date(parseInt(timeLine))))
+      .attr("disabled", true);
     $("form").find("button[type=submit]").attr("disabled", true);
   } else {
     $("form").find("textarea").text("").attr("disabled", false);

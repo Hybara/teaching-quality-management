@@ -2,15 +2,14 @@ package cn.edu.jsu.rjxy.service;
 
 import cn.edu.jsu.rjxy.entity.dto.EvaluateReaderDTO;
 import cn.edu.jsu.rjxy.entity.vo.Evaluate;
+import cn.edu.jsu.rjxy.entity.vo.Metadata;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
-import cn.edu.jsu.rjxy.entity.vo.System;
 import cn.edu.jsu.rjxy.mappers.EvaluateMapper;
 import cn.edu.jsu.rjxy.mappers.RegisterMapper;
 import cn.edu.jsu.rjxy.mappers.StudentMapper;
-import cn.edu.jsu.rjxy.mappers.SystemMapper;
+import cn.edu.jsu.rjxy.mappers.MetadataMapper;
 import cn.edu.jsu.rjxy.mappers.TeacherMapper;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class EvaluateService {
   @Autowired
   private StudentMapper studentMapper;
   @Autowired
-  private SystemMapper systemMapper;
+  private MetadataMapper metadataMapper;
 
   public Evaluate getEvaluateById(long id) {
     return evaluateMapper.getById(id);
@@ -55,15 +54,15 @@ public class EvaluateService {
     for (Evaluate evaluate : evaluates) {
       if (EVALUATE_REGISTER_TYPE.equals(evaluate.getCreaterType())) {
         readers.add(new EvaluateReaderDTO(evaluate,
-            systemMapper.getEvaluateResultByValue(evaluate.getResult()),
+            metadataMapper.getEvaluateResultByValue(evaluate.getResult()),
             registerMapper.getById(evaluate.getCreater())));
       } else if (EVALUATE_TEACHER_TYPE.equals(evaluate.getCreaterType())) {
         readers.add(new EvaluateReaderDTO(evaluate,
-            systemMapper.getEvaluateResultByValue(evaluate.getResult()),
+            metadataMapper.getEvaluateResultByValue(evaluate.getResult()),
             teacherMapper.getById(evaluate.getCreater())));
       } else if (EVALUATE_STUDENT_TYPE.equals(evaluate.getCreaterType())) {
         readers.add(new EvaluateReaderDTO(evaluate,
-            systemMapper.getEvaluateResultByValue(evaluate.getResult()),
+            metadataMapper.getEvaluateResultByValue(evaluate.getResult()),
             studentMapper.getById(evaluate.getCreater())));
       }
     }
@@ -83,7 +82,7 @@ public class EvaluateService {
     evaluate.setScoreForTeacher(new ScoreForTeacher(scoreForTeacherId));
     evaluate.setTitle("".equals(title) ? null : title);
     evaluate.setText(text);
-    evaluate.setResult(systemMapper.getEvaluateResultByKey(result).getValue());
+    evaluate.setResult(metadataMapper.getEvaluateResultByKey(result).getValue());
     evaluate.setCreater(createrId);
     evaluate.setCreaterType(createrType);
     evaluate.setFlag(flag);
@@ -92,7 +91,7 @@ public class EvaluateService {
 
   public long getEvaluateTimeLine(long scoreForTeacherId, long createrId, String createrType) {
     Evaluate evaluate = evaluateMapper.getLastEvaluate(scoreForTeacherId, createrId, createrType);
-    System system = systemMapper.getEvaluateCycle();
-    return evaluate.getCreateTime().getTime()+((long)system.getValue())*24*60*60*1000;
+    Metadata metadata = metadataMapper.getEvaluateCycle();
+    return evaluate.getCreateTime().getTime()+((long) metadata.getValue())*24*60*60*1000;
   }
 }

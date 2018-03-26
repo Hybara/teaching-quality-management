@@ -1,9 +1,9 @@
 package cn.edu.jsu.rjxy.entity.dto;
 
 import cn.edu.jsu.rjxy.entity.vo.Evaluate;
+import cn.edu.jsu.rjxy.entity.vo.Metadata;
 import cn.edu.jsu.rjxy.entity.vo.Register;
 import cn.edu.jsu.rjxy.entity.vo.Student;
-import cn.edu.jsu.rjxy.entity.vo.System;
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
 
 public class EvaluateReaderDTO {
@@ -15,7 +15,7 @@ public class EvaluateReaderDTO {
   private String text;
   private String result;
 
-  public EvaluateReaderDTO(Evaluate evaluate, System evaluateLevel, Student evaluater) {
+  public EvaluateReaderDTO(Evaluate evaluate, Metadata evaluateLevel, Student evaluater) {
     this.id = evaluate.getId();
     this.title = evaluate.getTitle();
     this.text = evaluate.getText();
@@ -30,7 +30,7 @@ public class EvaluateReaderDTO {
     }
   }
 
-  public EvaluateReaderDTO(Evaluate evaluate, System evaluateLevel, Teacher evaluater) {
+  public EvaluateReaderDTO(Evaluate evaluate, Metadata evaluateLevel, Teacher evaluater) {
     this.id = evaluate.getId();
     this.title = evaluate.getTitle();
     this.text = evaluate.getText();
@@ -45,7 +45,7 @@ public class EvaluateReaderDTO {
     }
   }
 
-  public EvaluateReaderDTO(Evaluate evaluate, System evaluateLevel, Register evaluater) {
+  public EvaluateReaderDTO(Evaluate evaluate, Metadata evaluateLevel, Register evaluater) {
     this.id = evaluate.getId();
     this.title = evaluate.getTitle();
     this.text = evaluate.getText();

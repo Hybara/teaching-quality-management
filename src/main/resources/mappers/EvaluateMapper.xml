@@ -7,7 +7,7 @@
   <select id="getScoreEvaluates" resultType="Evaluate">
     SELECT e.*
     FROM evaluate e
-      LEFT JOIN system s ON e.result=s.value AND s.key LIKE 'evaluate.%'
+      LEFT JOIN metadata s ON e.result=s.value AND s.key LIKE 'evaluate.%'
     WHERE e.score_for_teacher=#{scoreForTeacherId}
     <if test="type!=null"> AND s.key=CONCAT('evaluate.', #{type})</if>
     ORDER BY e.create_time
@@ -19,7 +19,7 @@
   <select id="getScoreEvaluatesCount" resultType="Integer">
     SELECT COUNT(*)
     FROM evaluate e
-    LEFT JOIN system s ON e.result=s.value AND s.key LIKE 'evaluate.%'
+    LEFT JOIN metadata s ON e.result=s.value AND s.key LIKE 'evaluate.%'
     WHERE e.score_for_teacher=#{scoreForTeacherId}
     <if test="type!=null"> AND s.key=CONCAT('evaluate.', #{type})</if>
   </select>
