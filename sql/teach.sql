@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-28 23:19:18
+Date: 2018-03-29 00:05:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -424,7 +424,7 @@ CREATE TABLE `student` (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('1', '20144206068', '欧文惠', '1', '430407199602102037', '[B@3516aaaa.png', '102037', '2014-09-15 22:21:36');
+INSERT INTO `student` VALUES ('1', '20144206068', '欧文惠', '1', '430407199602102037', '\\student\\D5E9FC3A89A8870A5B3EF9CA14ADF0E4.jpg', '102037', '2014-09-15 22:21:36');
 INSERT INTO `student` VALUES ('2', '20144206999', '阿萨辛', '1', '430408199702163548', null, '163548', '2014-09-14 22:48:08');
 INSERT INTO `student` VALUES ('3', '20144206998', '冯超', '1', '430408199701126482', null, '126482', '2014-09-14 22:48:08');
 INSERT INTO `student` VALUES ('4', '20144206997', '华瑞', '0', '430406199708120315', null, '120315', '2014-09-14 22:48:08');

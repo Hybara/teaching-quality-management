@@ -44,8 +44,8 @@
                     <label for="inputEmail3" class="col-sm-2 control-label">选择文件</label>
                     <div class="col-sm-10">
                       <a href="javascript:void(0);" class="file">
-                        <img id="stu_header" src="${base }img/icon/img_file_white.png" data-src=""
-                             th:attr="data-src=${(#httpSession.getAttribute(token)).header}"
+                        <img id="stu_header" src="${base }img/icon/img_file_white.png"
+                             th:src="@{${(#httpSession.getAttribute(token)).header}}"
                              width="64" height="64"/>&nbsp;
                         <input type="file" id="inputEmail3" name="file" accept="image/*"/>
                       </a>

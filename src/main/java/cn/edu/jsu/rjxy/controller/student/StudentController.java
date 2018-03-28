@@ -8,12 +8,14 @@ import cn.edu.jsu.rjxy.service.QuestionService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
 import cn.edu.jsu.rjxy.service.StudentService;
+import cn.edu.jsu.rjxy.util.MD5Util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -55,6 +57,9 @@ public class StudentController {
   private static final String EVALUATE_CREATER_TYPE = "student";
 
   public static final String ROOT = "header";
+
+  @Value("${img.url}")
+  public String basePath;
   @Autowired
   private ResourceLoader resourceLoader;
 
@@ -195,13 +200,15 @@ public class StudentController {
       model.addAttribute("message", "文件为空");
       return "/student/changeHeader";
     }
-    if (uploadHeader(file, student)) {
-      String fileName = student.getNumber().getBytes().toString();
-      String suffixName = file.getOriginalFilename()
-          .substring(file.getOriginalFilename().lastIndexOf("."));
-      String header = fileName + suffixName;
-
-      if (studentService.setHeader(student.getId(), header)) {
+    // 设置文件名
+    String fileName = MD5Util.getMD5(student.getNumber().toString());
+    // 获取文件的后缀名
+    String suffixName = file.getOriginalFilename()
+        .substring(file.getOriginalFilename().lastIndexOf("."));
+    fileName += suffixName;
+    if (uploadHeader(file, fileName)) {
+      if (studentService
+          .setHeader(student.getId(), File.separator + "student" + File.separator + fileName)) {
         student = studentService.getLoginer(student.getNumber(), student.getPassword());
         session.setAttribute(token, student);
         model.addAttribute("message", "上传成功");
@@ -214,34 +221,23 @@ public class StudentController {
     return "/student/changeHeader";
   }
 
-  private boolean uploadHeader(MultipartFile file, Student student) {
-    // 设置文件名
-    String fileName = student.getNumber().getBytes().toString();
-    // 获取文件的后缀名
-    String suffixName = file.getOriginalFilename()
-        .substring(file.getOriginalFilename().lastIndexOf("."));
-    File targetFile = new File(ROOT);
-    if (!targetFile.exists()) {
-      targetFile.mkdirs();
+  private boolean uploadHeader(MultipartFile file, String fileName) {
+    String path = basePath + "student" + File.separator;
+    File targetPath = new File(path);
+    if (!targetPath.exists()) {
+      targetPath.mkdirs();
     }
     try {
-      Files.copy(file.getInputStream(), Paths.get(ROOT, fileName + suffixName));
+      File targetFile = new File(path+fileName);
+      if (targetFile.exists()) {
+        targetFile.delete();
+      }
+      Files.copy(file.getInputStream(), Paths.get(path, fileName));
     } catch (IOException e) {
       e.printStackTrace();
       return false;
     }
-
     return true;
   }
 
-  @RequestMapping(method = RequestMethod.POST, value = "/student/getHeader")
-  @ResponseBody
-  public ResponseEntity<?> getFile(String filename) {
-    try {
-      return ResponseEntity
-          .ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
-    } catch (Exception e) {
-      return ResponseEntity.notFound().build();
-    }
-  }
 }

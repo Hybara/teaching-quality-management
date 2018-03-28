@@ -7,9 +7,13 @@ server:
     basedir: target/tomcat
     accesslog:
       enabled: true
+img:
+  url: C:/header/
 spring:
+  mvc:
+    static-path-pattern: /**
   resources:
-    static-locations: classpath:static/,file:static/
+    static-locations: classpath:static/,classpath:public/,file:static/,file:${img.url}
   http:
     multipart:
       max-file-size: 5MB
