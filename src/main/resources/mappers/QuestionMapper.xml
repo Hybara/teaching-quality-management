@@ -4,16 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.jsu.rjxy.mappers.QuestionMapper">
 
+  <resultMap id="questionMap" type="Question">
+    <id column="id" property="id"/>
+    <result column="title" property="title"/>
+    <result column="text" property="text"/>
+    <result column="result" property="result"/>
+    <result column="creater" property="creater"/>
+    <result column="create_time" property="createTime"/>
+    <result column="creater_type" property="createrType"/>
+    <result column="flag" property="flag"/>
+    <association property="scoreForTeacher" column="score_for_teacher"
+      select="cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper.getById"/>
+  </resultMap>
+
   <select id="getScoreQuestions" resultType="Question">
     SELECT q.*
     FROM question q
-      LEFT JOIN metadata s ON q.result=s.value AND s.key LIKE 'question.%'
+    LEFT JOIN metadata s ON q.result=s.value AND s.key LIKE 'question.%'
     WHERE q.score_for_teacher=#{scoreForTeacherId}
-    <if test='type!=null and type!="notAnswer"'> AND s.key=CONCAT('question.', #{type})</if>
-    <if test='type!=null and type=="notAnswer"'> AND s.key IS NULL </if>
-    ORDER BY q.create_time
+    <if test='type!=null and type!="notAnswer"'>AND s.key=CONCAT('question.', #{type})</if>
+    <if test='type!=null and type=="notAnswer"'>AND s.key IS NULL</if>
+    ORDER BY q.create_time DESC
     <if test="step!=null and size!=null">
-    LIMIT #{step},#{size}
+      LIMIT #{step},#{size}
     </if>
   </select>
 
@@ -22,7 +35,7 @@
     FROM question q
     LEFT JOIN metadata s ON q.result=s.value AND s.key LIKE 'question.%'
     WHERE q.score_for_teacher=#{scoreForTeacherId}
-    <if test='type!=null and type!="notAnswer"'> AND s.key=CONCAT('question.', #{type})</if>
-    <if test='type!=null and type=="notAnswer"'> AND s.key IS NULL </if>
+    <if test='type!=null and type!="notAnswer"'>AND s.key=CONCAT('question.', #{type})</if>
+    <if test='type!=null and type=="notAnswer"'>AND s.key IS NULL</if>
   </select>
 </mapper>

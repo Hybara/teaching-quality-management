@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface QuestionMapper {
 
   @Select("SELECT * FROM question WHERE id=#{id}")
+  @ResultMap("questionMap")
   Question getById(@Param("id") long id);
 
   List<Question> getScoreQuestions(@Param("scoreForTeacherId") long scoreForTeacherId,
@@ -40,5 +43,18 @@ public interface QuestionMapper {
       + "#{question.createrType},"
       + "#{question.flag})")
   boolean insertScoreQuestion(@Param("question") Question question);
+
+
+  @Update("UPDATE question "
+      + "SET score_for_teacher=#{question.scoreForTeacher.id}, "
+      + " title=#{question.title},"
+      + " text=#{question.text}, "
+      + " result=#{question.result}, "
+      + " creater=#{question.creater}, "
+      + " create_time=#{question.createTime}, "
+      + " creater_type=#{question.createrType}, "
+      + " flag=#{question.flag} "
+      + "WHERE id=#{question.id}")
+  boolean updateScoreQuestion(@Param("question") Question question);
 
 }

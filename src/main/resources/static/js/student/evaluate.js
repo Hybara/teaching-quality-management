@@ -67,17 +67,41 @@ $(function () {
     initEvaluateList(type, INDEX_PAGE);
   });
 
+
+  $("input[type=radio]").attr("checked", false);
+  $("input[type=radio]").on("click", function (event) {
+    if ($(event.target).attr("checked")) {
+      $(event.target).attr("checked", false);
+    } else {
+      $(event.target).attr("checked", true);
+      $(event.target).parent().siblings().find("input[type=radio]").attr("checked", false);
+    }
+  });
+
+  $("input[type=checkbox]").attr("checked", false);
+  $("input[type=checkbox]").on("click", function (event) {
+    if ($(event.target).attr("checked")) {
+      $(event.target).attr("checked", false);
+    } else {
+      $(event.target).attr("checked", true);
+      $(event.target).parent().siblings().find("input[type=checkbox]").attr("checked", false);
+    }
+  });
+
   $("form").on("submit", function (event) {
     event.stopPropagation();
     event.preventDefault();
     let token = $("body").attr("data-token");
+    let result = $("input[type=radio][name=result][checked]").val();
+    let flag = $("input[type=checkbox][name=flag]").attr("checked") ? true : false;
+
     let data = {
       token: token,
       id: $("h1.page-header").attr("data-id"),
       title: $("input[name=title]").val(),
       text: $("textarea[name=text]").val(),
-      result: $("input[type=radio][name=result]").val(),
-      flag: $("input[type=checkbox][name=flag]").val() == "on" ? true : false
+      result: result,
+      flag: flag
     };
     $.post("/student/evaluate", data, function (response) {
       if (response == "ok") {

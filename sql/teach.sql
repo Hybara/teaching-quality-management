@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-27 00:17:04
+Date: 2018-03-28 23:19:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -78,7 +78,8 @@ INSERT INTO `evaluate` VALUES ('5', '1', null, '最开始，老师授课速度�
 INSERT INTO `evaluate` VALUES ('6', '1', null, '老师对学生课堂作业的批改总结认真，能及时，准确的发现同学们存在的问题并认真讲解，解决问题', '80.00', '1', '2018-02-13 23:11:39', 'student', '1');
 INSERT INTO `evaluate` VALUES ('7', '1', null, '关心学生，认真负责', '80.00', '2', '2018-02-13 23:13:15', 'student', '0');
 INSERT INTO `evaluate` VALUES ('8', '1', null, '很能带动学生学习积极性', '90.00', '2', '2018-02-21 23:14:16', 'teacher', '0');
-INSERT INTO `evaluate` VALUES ('9', '1', null, '挺好', '90.00', '1', '2018-03-25 18:04:45', 'student', '1');
+INSERT INTO `evaluate` VALUES ('9', '1', null, '挺好', '90.00', '1', '2018-03-05 18:04:45', 'student', '1');
+INSERT INTO `evaluate` VALUES ('10', '1', null, '很好', '90.00', '1', '2018-03-28 18:08:30', 'student', '1');
 
 -- ----------------------------
 -- Table structure for for_question
@@ -87,7 +88,6 @@ DROP TABLE IF EXISTS `for_question`;
 CREATE TABLE `for_question` (
   `id` int(11) NOT NULL auto_increment,
   `question` int(11) NOT NULL,
-  `title` varchar(255) default NULL,
   `text` text NOT NULL,
   `creater` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
@@ -99,6 +99,12 @@ CREATE TABLE `for_question` (
 -- ----------------------------
 -- Records of for_question
 -- ----------------------------
+INSERT INTO `for_question` VALUES ('1', '2', '1', '1', '2018-03-14 11:38:39', 'student', '1');
+INSERT INTO `for_question` VALUES ('2', '1', '123213123123123123123', '1', '2018-03-28 22:34:19', 'student', '0');
+INSERT INTO `for_question` VALUES ('3', '2', '你说呢', '1', '2018-03-28 22:35:02', 'student', '1');
+INSERT INTO `for_question` VALUES ('5', '2', '我也不知道啊', '1', '2018-03-28 23:09:03', 'student', '0');
+INSERT INTO `for_question` VALUES ('6', '2', '那怎么办呢', '1', '2018-03-28 23:09:55', 'student', '1');
+INSERT INTO `for_question` VALUES ('7', '2', '接着问呗', '1', '2018-03-28 23:10:04', 'student', '1');
 
 -- ----------------------------
 -- Table structure for major
@@ -191,7 +197,7 @@ CREATE TABLE `question` (
 -- Records of question
 -- ----------------------------
 INSERT INTO `question` VALUES ('1', '1', '什么情况下使用瀑布模型', '见标题', '80.00', '1', '2018-03-26 15:17:05', 'student', '0');
-INSERT INTO `question` VALUES ('2', '1', '怎么区分系统边界', '见标题', null, '1', '2018-02-09 15:17:29', 'student', '0');
+INSERT INTO `question` VALUES ('2', '1', '怎么区分系统边界', '见标题', '90.00', '1', '2018-02-09 15:17:29', 'student', '0');
 
 -- ----------------------------
 -- Table structure for question_bank
@@ -371,7 +377,7 @@ CREATE TABLE `score_for_teacher` (
 -- ----------------------------
 -- Records of score_for_teacher
 -- ----------------------------
-INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', '79.50', '00000770.00', '00000000009', '00000080.00', '00000000001', '00000000.00', '00000000000');
+INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', '79.50', '00000860.00', '00000000010', '00000170.00', '00000000002', '00000000.00', '00000000000');
 INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
 INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
 INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');

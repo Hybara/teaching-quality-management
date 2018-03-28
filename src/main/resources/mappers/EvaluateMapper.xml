@@ -10,7 +10,7 @@
       LEFT JOIN metadata s ON e.result=s.value AND s.key LIKE 'evaluate.%'
     WHERE e.score_for_teacher=#{scoreForTeacherId}
     <if test="type!=null"> AND s.key=CONCAT('evaluate.', #{type})</if>
-    ORDER BY e.create_time
+    ORDER BY e.create_time DESC
     <if test="step!=null and size!=null">
     LIMIT #{step},#{size}
     </if>

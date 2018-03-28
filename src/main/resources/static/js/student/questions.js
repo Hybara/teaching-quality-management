@@ -22,8 +22,8 @@ $(function () {
   let now = new Date();
   if (now.getTime() < timeLine) {
     $("form").find("textarea")
-      .text("下次可提问的时间为：" + format(new Date(parseInt(timeLine))))
-      .attr("disabled", true);
+    .text("下次可提问的时间为：" + format(new Date(parseInt(timeLine))))
+    .attr("disabled", true);
     $("form").find("button[type=submit]").attr("disabled", true);
   } else {
     $("form").find("textarea").text("").attr("disabled", false);
@@ -225,10 +225,14 @@ function structuralQuestionLiDOM(type) {
 
 function initQuestionPanel($li, data) {
   let token = $("body").attr("data-token");
+  let scoreId = $("h1.page-header").attr("data-id");
   $li.find("img").attr("src", data.userHeader);
   $li.find("div.media-left span").text(data.userName);
-  $li.find("div.media-body h4").find("a").attr("href", "/student/goQuestion/"+data.id+"/"+token).text(data.title == null ? "" : data.title);
-  $li.find("div.media-body p").find("a").attr("href", "/student/goQuestion/"+data.id+"/"+token).text(data.text);
+  $li.find("div.media-body h4").find("a").attr("href", "/student/goQuestion/"
+      + scoreId + "/" + data.id + "/" + token).text(
+      data.title == null ? "" : data.title);
+  $li.find("div.media-body p").find("a").attr("href", "/student/goQuestion/"
+      + scoreId + "/" + data.id + "/" + token).text(data.text);
   structuralResult($li, data.result);
 }
 
@@ -247,6 +251,6 @@ function structuralResult($li, result) {
         "text-danger").removeClass("text-info text-warning text-success");
   } else if (result == QUESTION_NOTANSWER_TYPE) {
     $li.find("div.media-body div").text("未终止的问答").addClass(
-          "text-danger").removeClass("text-info text-warning text-success");
+        "text-danger").removeClass("text-info text-warning text-success");
   }
 }

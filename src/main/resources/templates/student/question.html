@@ -11,6 +11,7 @@
   <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
+        <li>
           <a href="score.html" th:href="@{/student/goQuestions/{id}/{token}(id=${question.id},token=${token})}">
             <i class="fa fa-dashboard"></i> 返回
           </a>
@@ -21,16 +22,22 @@
   <!-- /. NAV SIDE  -->
   <div id="page-wrapper">
     <div class="header">
-      <h1 class="page-header"> [[${question.title}}]] &nbsp;&nbsp;&nbsp;<small>10回复 / 80分</small>
+      <h1 class="page-header" data-id="" th:attr="data-id=${question.id}"> [[${question.title}]] &nbsp;&nbsp;&nbsp;
+        <small>[[${question.result eq "notAnswer"} ? notAnswer : ${question.result}]]</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="" th:href="@{/student/login/{token}(token=${token})}">课程列表</a></li>
         <li>
-          <a href="" th:href="@{/student/goScore/{id}/{token}(id=${scoreInfo.id},token=${token})}">
+          <a id="score" href="" data-id="" th:attr="data-id=${scoreInfo.id}" th:href="@{/student/goScore/{id}/{token}(id=${scoreInfo.id},token=${token})}">
             [[${scoreInfo.scoreName}]]
           </a>
         </li>
-        <li class="active">问答</li>
+        <li>
+          <a href="score.html" th:href="@{/student/goQuestions/{id}/{token}(id=${scoreInfo.id},token=${token})}">
+            问答
+          </a>
+        </li>
+        <li class="active">问答详情</li>
       </ol>
     </div>
     <div id="page-inner">
@@ -40,136 +47,134 @@
             padding-top: 0px;
           }
 
-          .evaluate li.list-group-item {
+          .question li.list-group-item {
             margin-bottom: 5px;
           }
 
-          .evaluate li.list-group-item .media-body p a {
+          .question li.list-group-item .media-body p a {
             text-decoration: none;
             color: black;
           }
 
-          .evaluate li.list-group-item .media-body p a:hover {
+          .question li.list-group-item .media-body p a:hover {
             color: lightslategrey;
           }
 
-          .evaluate li.list-group-item.child {
+          .question li.child {
             margin-left: 5%;
           }
         </style>
-        <div class="panel-body evaluate">
+        <div class="panel-body question">
           <li class="list-group-item">
             <div class="media">
               <div class="media-left media-middle">
-                <img class="media-object" height="50px" width="50px"
-                     src="../../static/img/header.jpg" alt="还没有图片...">
-                <span>用户名</span>
+                <center>
+                  <img class="media-object" height="50px" width="50px"
+                       src="../../static/img/header.jpg" alt="还没有图片..."
+                       th:src="@{${question.userHeader}}">
+                  <span>[[${question.userName}]]</span>
+                </center>
               </div>
               <div class="media-body">
-                <p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈...</p>
+                <h4 class="media-heading">[[${question.title}]]</h4>
+                <p>[[${question.text}]]</p>
               </div>
             </div>
           </li>
-          <li class="list-group-item child">
-            <div class="media">
-              <div class="media-left media-middle">
-                <img class="media-object" height="50px" width="50px"
-                     src="../../static/img/header.jpg" alt="还没有图片...">
-                <span>用户名</span>
+          <th:block th:each="page : ${#numbers.sequence(1, 7)}">
+            <li class="list-group-item child">
+              <div class="media">
+                <div class="media-left media-middle">
+                  <center>
+                    <img class="media-object" height="50px" width="50px"
+                         src="../../static/img/header.jpg" alt="还没有图片...">
+                    <span>用户名</span>
+                  </center>
+                </div>
+                <div class="media-body">
+                  <p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃...</p>
+                  <div class="media-bottom text-default">2018-1-2 10:12:34</div>
+                </div>
               </div>
-              <div class="media-body">
-                <p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item child">
-            <div class="media">
-              <div class="media-left media-middle">
-                <img class="media-object" height="50px" width="50px"
-                     src="../../static/img/header.jpg" alt="还没有图片...">
-                <span>用户名</span>
-              </div>
-              <div class="media-body">
-                <p>
-                  我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦噢噢噢噢噢oooooooooooooooooooooooooooooooooooooooooooooooooooooo噢噢噢噢噢噢噢噢噢噢噢哦哦哦噢噢噢噢噢噢噢噢噢噢噢噢噢...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item child">
-            <div class="media">
-              <div class="media-left media-middle">
-                <img class="media-object" height="50px" width="50px"
-                     src="../../static/img/header.jpg" alt="还没有图片...">
-                <span>用户名</span>
-              </div>
-              <div class="media-body">
-                <p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item child">
-            <div class="media">
-              <div class="media-left media-middle">
-                <img class="media-object" height="50px" width="50px"
-                     src="../../static/img/header.jpg" alt="还没有图片...">
-                <span>用户名</span>
-              </div>
-              <div class="media-body">
-                <p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item child">
-            <div class="media">
-              <div class="media-left media-middle">
-                <img class="media-object" height="50px" width="50px"
-                     src="../../static/img/header.jpg" alt="还没有图片...">
-                <span>用户名</span>
-              </div>
-              <div class="media-body">
-                <p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦...</p>
-              </div>
-            </div>
-          </li>
+            </li>
+          </th:block>
         </div>
-        <center>
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li><span><span aria-hidden="true">&laquo;</span></span>
-              </li>
-              <li class="active"><span>1 <span class="sr-only">(current)</span></span>
-              </li>
-              <li><span>2 <span class="sr-only">(current)</span></span>
-              </li>
-              <li><span><span aria-hidden="true">&raquo;</span></span>
-              </li>
-            </ul>
-          </nav>
-        </center>
+        <div class="row">
+          <center>
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <li>
+                  <a href="javascript:void(0)" id="first">首页</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" id="back">&laquo;</a>
+                </li>
+                <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                  <li th:if="${page} eq 1" class="pageItem active" id="1">
+                    <a href="javascript:void(0)">1</a>
+                  </li>
+                  <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                    <a href="javascript:void(0)">[[${page}]]</a>
+                  </li>
+                </th:block>
+                <li>
+                  <a href="javascript:void(0)" id="nest">&raquo;</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" id="end">末页</a>
+                </li>
+              </ul>
+            </nav>
+          </center>
+        </div>
       </div>
       <li class="list-group-item">
         <div class="media">
           <div class="media-left media-middle">
             <center>
-              <img class="media-object" height="50px" width="50px" src="../../static/img/header.jpg"
-                   alt="还没有图片..."/>
-              <span>欧文惠</span>
+              <img class="media-object" height="50px" width="50px"
+                   src="../../static/img/header.jpg" alt="还没有图片..."
+                   th:src="@{${(#httpSession.getAttribute(token)).header}}"/>
+              <span>[[${(#httpSession.getAttribute(token)).name}]]</span>
             </center>
           </div>
           <div class="media-body">
             <div class="panel panel-default">
-              <form class="panel-body" action="index.html">
-                <div class="sub-header">回答或补充提问</div>
-                <div class="sub-title">内容</div>
+              <form class="panel-body" data-timeline="" th:attr="data-timeline=${timeLine}">
+                <div class="sub-title"></div>
                 <div>
-                  <textarea class="form-control" rows="3"></textarea>
+                  <textarea name="text" class="form-control" rows="3" required></textarea>
                 </div>
-                <div class="sub-title">
-                  <a href="#" class="btn btn-danger">清空</a>
-                  <a href="#" class="btn btn-success">提交</a>
+                <th:block th:if="${flag && question.result eq 'notAnswer'}">
+                  <div class="sub-title">结论</div>
+                  <div>
+                    <div>
+                      <div class="radio3 radio-check radio-inline">
+                        <input type="radio" id="radio1" name="result" value="perfect">
+                        <label for="radio1"> 优 </label>
+                      </div>
+                      <div class="radio3 radio-check radio-inline">
+                        <input type="radio" id="radio2" name="result" value="good">
+                        <label for="radio2"> 良 </label>
+                      </div>
+                      <div class="radio3 radio-check radio-inline">
+                        <input type="radio" id="radio3" name="result" value="medium">
+                        <label for="radio3"> 中 </label>
+                      </div>
+                      <div class="radio3 radio-check radio-inline">
+                        <input type="radio" id="radio4" name="result" value="dissatisfactory">
+                        <label for="radio4"> 不够理想 </label>
+                      </div>
+                    </div>
+                  </div>
+                </th:block>
+                <div style="margin-top: 10px">
+                  <button type="reset" class="btn btn-danger">清空</button>
+                  <button type="submit" class="btn btn-success">提交</button>
                   <span class="checkbox3 checkbox-round">
-												<input type="checkbox" id="checkbox"><label for="checkbox"> 匿名提交 </label>
-											</span>
+                    <input name="flag" type="checkbox" id="checkbox">
+                    <label for="checkbox"> 匿名提交 </label>
+                  </span>
                 </div>
               </form>
             </div>
@@ -188,8 +193,8 @@
 <!-- jQuery Js -->
 <th:block th:replace="include :: scripte_domain(~{::script})">
   <!-- My Js -->
-  <script src="../../static/js/student/questions.js"
-          th:src="@{/js/student/questions.js}"></script>
+  <script src="../../static/js/student/question.js"
+          th:src="@{/js/student/question.js}"></script>
 </th:block>
 </body>
 

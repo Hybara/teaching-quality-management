@@ -1,13 +1,15 @@
 package cn.edu.jsu.rjxy.entity.vo;
 
+import java.util.Date;
+
 public class ForQuestion {
 
   private long id;
   private Question question;
-  private String title;
   private String text;
   private long creater;
   private String createrType;
+  private Date createTime;
   private boolean flag;
 
   public ForQuestion() {
@@ -18,23 +20,13 @@ public class ForQuestion {
   }
 
   public ForQuestion(long id, Question question, String text, long creater,
-      String createrType, boolean flag) {
+      String createrType, Date createTime, boolean flag) {
     this.id = id;
     this.question = question;
     this.text = text;
     this.creater = creater;
     this.createrType = createrType;
-    this.flag = flag;
-  }
-
-  public ForQuestion(long id, Question question, String title, String text, long creater,
-      String createrType, boolean flag) {
-    this.id = id;
-    this.question = question;
-    this.title = title;
-    this.text = text;
-    this.creater = creater;
-    this.createrType = createrType;
+    this.createTime = createTime;
     this.flag = flag;
   }
 
@@ -52,14 +44,6 @@ public class ForQuestion {
 
   public void setQuestion(Question question) {
     this.question = question;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
   }
 
   public String getText() {
@@ -86,6 +70,14 @@ public class ForQuestion {
     this.createrType = createrType;
   }
 
+  public Date getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(Date createTime) {
+    this.createTime = createTime;
+  }
+
   public boolean isFlag() {
     return flag;
   }
@@ -99,10 +91,10 @@ public class ForQuestion {
     return "ForQuestion{" +
         "id=" + id +
         ", question=" + question +
-        ", title='" + title + '\'' +
         ", text='" + text + '\'' +
         ", creater=" + creater +
         ", createrType='" + createrType + '\'' +
+        ", createTime=" + createTime +
         ", flag=" + flag +
         '}';
   }
