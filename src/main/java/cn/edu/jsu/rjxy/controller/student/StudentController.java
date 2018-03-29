@@ -8,6 +8,7 @@ import cn.edu.jsu.rjxy.service.QuestionService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
 import cn.edu.jsu.rjxy.service.StudentService;
+import cn.edu.jsu.rjxy.util.HeaderUploadUtil;
 import cn.edu.jsu.rjxy.util.MD5Util;
 import java.io.File;
 import java.io.IOException;
@@ -58,6 +59,8 @@ public class StudentController {
 
   @Value("${img.url}")
   public String basePath;
+
+  private static final String USER_TYPE = "student";
 
   @RequestMapping("/student/login/{token}")
   public String login(@PathVariable String token, HttpSession session, Model model) {
@@ -201,7 +204,7 @@ public class StudentController {
     String suffixName = file.getOriginalFilename()
         .substring(file.getOriginalFilename().lastIndexOf("."));
     fileName += suffixName;
-    if (uploadHeader(file, fileName)) {
+    if (HeaderUploadUtil.uploadHeader(file, basePath, fileName, USER_TYPE)) {
       if (studentService
           .setHeader(student.getId(), File.separator + "student" + File.separator + fileName)) {
         student = studentService.getLoginer(student.getNumber(), student.getPassword());
@@ -216,23 +219,5 @@ public class StudentController {
     return "/student/changeHeader";
   }
 
-  private boolean uploadHeader(MultipartFile file, String fileName) {
-    String path = basePath + "student" + File.separator;
-    File targetPath = new File(path);
-    if (!targetPath.exists()) {
-      targetPath.mkdirs();
-    }
-    try {
-      File targetFile = new File(path + fileName);
-      if (targetFile.exists()) {
-        targetFile.delete();
-      }
-      Files.copy(file.getInputStream(), Paths.get(path, fileName));
-    } catch (IOException e) {
-      e.printStackTrace();
-      return false;
-    }
-    return true;
-  }
 
 }

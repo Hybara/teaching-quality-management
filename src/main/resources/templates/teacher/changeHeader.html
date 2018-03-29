@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="teacher/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a href="score.html" th:href="@{/teacher/login/{token}(token=${token})}">
+            <i class="fa fa-dashboard"></i> 首页</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">个人信息</h1>
+      <ol class="breadcrumb">
+        <li class="active">修改头像</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-sm-12">
+          <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="card-title">
+                  <div class="title">修改头像 [[${message}]]</div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <form id="edit_photo_form" class="form-horizontal"
+                      th:action="@{/teacher/changeHeader/{token}(token=${token})}" method="post"
+                      enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">选择文件</label>
+                    <div class="col-sm-10">
+                      <a href="javascript:void(0);" class="file">
+                        <img id="stu_header" src="${base }img/icon/img_file_white.png"
+                             th:src="@{${(#httpSession.getAttribute(token)).header}}"
+                             width="64" height="64"/>&nbsp;
+                        <input type="file" id="inputEmail3" name="file" accept="image/*"/>
+                      </a>
+                      <p id="characters">仅支持JPG,GIF,PNG格式;文件小于5M</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">显示效果</label>
+                    <div class="col-sm-10">
+                      <style>#edit_photo_border span {float: left;margin: 5px;} .clear { clear: both;}</style>
+                      <div id="edit_photo_border">
+                        <span id="photo_one" class="photo_border">
+                          <dt><img width="256" height="256"/></dt>
+                          <dd>256×256</dd>
+                        </span>
+                        <span id="photo_two" class="photo_border">
+                          <dt><img width="128" height="128"/></dt>
+                          <dd>128×128</dd>
+                        </span>
+                        <span id="photo_there" class="photo_border">
+                          <dt><img width="64" height="64"/></dt>
+                          <dd>64×64</dd>
+                        </span>
+                        <span id="photo_four" class="photo_border">
+                          <dt><img width="32" height="32"/></dt>
+                          <dd>32×32</dd>
+                        </span>
+                        <div class="clear"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-success">确认</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer th:replace="include :: footer"></footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+</body>
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script src="../../static/js/teacher/change.js" th:src="@{/js/teacher/change.js}"></script>
+</th:block>
+</html>

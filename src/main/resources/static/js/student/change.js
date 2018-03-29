@@ -95,6 +95,7 @@ $(function () {
           } else if (response=="logout") {
             window.location.href = "/logout/" + token;
           }
+          $("input").val("");
           $("input").siblings("span").text("").removeClass("text-danger").removeClass("text-success");
         });
         return false;

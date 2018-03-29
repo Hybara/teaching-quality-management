@@ -95,6 +95,10 @@ $(function () {
     let result = $("input[type=radio][name=result][checked]").val();
     let flag = $("input[type=checkbox][name=flag]").attr("checked") ? true : false;
 
+    if (result==undefined || result==null) {
+      alert("请选择一个结论");
+      return;
+    }
     let data = {
       token: token,
       id: $("h1.page-header").attr("data-id"),

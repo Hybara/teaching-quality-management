@@ -15,8 +15,19 @@ public class TeacherService {
   @Autowired
   private TeacherMapper teacherMapper;
 
+  public Teacher getById(long teacherId) {
+    return teacherMapper.getById(teacherId);
+  }
+
   public Teacher getLoginer(String account, String password) {
     return teacherMapper.getByNumberAndPassword(account, password);
+  }
+
+  public boolean updateTeacher(Teacher teacher) {
+    if (teacher.getHeader()==null || "".equals(teacher.getHeader())) {
+      teacher.setHeader("/img/header.jpg");
+    }
+    return teacherMapper.updateTeacher(teacher);
   }
 
 }
