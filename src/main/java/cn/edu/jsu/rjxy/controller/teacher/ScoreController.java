@@ -75,4 +75,18 @@ public class ScoreController {
             .getTeachScoresInCurrentTerm(type, teacher.getId(), page, SCORES_PAGE_SIZE, search),
         scoreCount == NO_DATA ? NO_DATA : Math.ceil((double) scoreCount / SCORES_PAGE_SIZE));
   }
+
+  @RequestMapping("/teacher/goScore/{id}/{token}")
+  public String goScore(@PathVariable Long id, @PathVariable String token, HttpSession session,
+      Model model) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
+      return "teacher:/logout/" + token;
+    } else if (id == null) {
+      return "/teacher/getScores/all/" + token;
+    }
+    model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
+    model.addAttribute("token", token);
+    return "/teacher/score";
+  }
 }
