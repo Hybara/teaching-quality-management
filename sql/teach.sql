@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-29 00:05:34
+Date: 2018-03-29 17:02:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -283,6 +283,15 @@ INSERT INTO `receive_message` VALUES ('6', '6', '1', 'student', '0');
 INSERT INTO `receive_message` VALUES ('7', '7', '1', 'student', '0');
 INSERT INTO `receive_message` VALUES ('8', '8', '1', 'student', '0');
 INSERT INTO `receive_message` VALUES ('9', '9', '1', 'student', '1');
+INSERT INTO `receive_message` VALUES ('10', '1', '1', 'teacher', '1');
+INSERT INTO `receive_message` VALUES ('11', '2', '1', 'teacher', '0');
+INSERT INTO `receive_message` VALUES ('12', '3', '1', 'teacher', '0');
+INSERT INTO `receive_message` VALUES ('13', '4', '1', 'teacher', '0');
+INSERT INTO `receive_message` VALUES ('14', '5', '1', 'teacher', '0');
+INSERT INTO `receive_message` VALUES ('15', '6', '1', 'teacher', '0');
+INSERT INTO `receive_message` VALUES ('16', '7', '1', 'teacher', '0');
+INSERT INTO `receive_message` VALUES ('17', '8', '1', 'teacher', '0');
+INSERT INTO `receive_message` VALUES ('18', '9', '1', 'teacher', '1');
 
 -- ----------------------------
 -- Table structure for register

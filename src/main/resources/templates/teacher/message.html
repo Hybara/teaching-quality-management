@@ -1,178 +1,188 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta content="" name="description" />
-		<meta content="webthemez" name="author" />
-		<title>Bootstrap HTML5 Admin Template</title>
-		<!-- Bootstrap Styles-->
-		<link href="../../static/plugins/assets/css/bootstrap.css" rel="stylesheet" />
-		<!-- FontAwesome Styles-->
-		<link href="../../static/plugins/assets/css/font-awesome.css" rel="stylesheet" />
-		<!-- Custom Styles-->
-		<link href="../../static/plugins/assets/css/custom-styles.css" rel="stylesheet" />
-		<!-- Google Fonts-->
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-		<link href="../../static/css/dashboard.css" rel="stylesheet">
-	</head>
+<head th:replace="include :: header(~{})"></head>
 
-	<body>
-		<div id="wrapper">
-			<nav class="navbar navbar-default top-navbar" role="navigation">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> 教学质量管理系统</strong></a>
-					<!--<div id="sideNav" href=""><i class="fa fa-bars icon"></i></div>-->
-				</div>
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="student/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a href="/teacher/login/{token}" th:href="@{/teacher/login/{token}(token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">系统通知</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="/teacher/login/{token}"
+             th:href="@{/teacher/login/{token}(token=${token})}">课程列表</a>
+        </li>
+        <li class="active">系统通知</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="#all" data-toggle="tab">全部</a>
+            </li>
+            <li class="">
+              <a href="#noread" data-toggle="tab">未读</a>
+            </li>
+          </ul>
+          <style>.noread {
+            font-weight: bold;
+          }</style>
+          <div class="tab-content">
+            <div class="tab-pane fade active in" id="all">
+              <div style="margin: 20px 0;">
+                <a href="#" class="btn btn-danger clearMessage">清空</a>
+                <a href="#" class="btn btn-warning readAllMessage">全部已读</a>
+              </div>
+              <th:block th:each="page : ${#numbers.sequence(1, 8)}">
+                <div class="panel panel-default message-all">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#message_1"
+                         th:href="|#message_${page}|"
+                         class="collapsed">
+                        Collapsible Group Item #[[${page}]]
+                      </a>
+                      <a href="#" class="del" style="float: right; color: lightseagreen;">删除</a>
+                      <div style="clear: both;"></div>
+                    </h4>
+                  </div>
+                  <div id="message_1" th:id="|message_${page}|" class="panel-collapse collapse"
+                       style="height: 0px;">
+                    <div class="panel-body">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                  </div>
+                </div>
+              </th:block>
+              <div class="row">
+                <center>
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                      <li>
+                        <a href="javascript:void(0)" id="first">首页</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" id="back">&laquo;</a>
+                      </li>
+                      <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                        <li th:if="${page} eq 1" class="pageItem active" id="1">
+                          <a href="javascript:void(0)">1</a>
+                        </li>
+                        <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                          <a href="javascript:void(0)">[[${page}]]</a>
+                        </li>
+                      </th:block>
+                      <li>
+                        <a href="javascript:void(0)" id="nest">&raquo;</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" id="end">末页</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </center>
+              </div>
+            </div>
 
-				<ul class="nav navbar-top-links navbar-right">
-					<!-- /.dropdown -->
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-							<i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-						</a>
-						<ul class="dropdown-menu dropdown-user">
-							<li>
-								<a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-							</li>
-						</ul>
-						<!-- /.dropdown-user -->
-					</li>
-					<!-- /.dropdown -->
-				</ul>
-			</nav>
-			<!--/. NAV TOP  -->
-			<nav class="navbar-default navbar-side" role="navigation">
-				<div class="sidebar-collapse">
-					<ul class="nav" id="main-menu">
-						<li>
-							<a href="scores.html"><i class="fa fa-dashboard"></i> 返回</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
-			<!-- /. NAV SIDE  -->
-			<div id="page-wrapper">
-				<div class="header">
-					<h1 class="page-header">系统通知</h1>
-					<ol class="breadcrumb">
-						<li class="active">message</li>
-					</ol>
-				</div>
-				<div id="page-inner">
-					<div class="panel panel-default">
-						<div class="panel-body">
-						<ul class="nav nav-tabs">
-							<li class="active">
-								<a href="#all" data-toggle="tab">全部</a>
-							</li>
-							<li class="">
-								<a href="#notread" data-toggle="tab">未读</a>
-							</li>
-						</ul>
+            <div class="tab-pane fade" id="noread">
+              <div style="margin: 20px 0;">
+                <a href="#" class="btn btn-danger clearMessage">清空</a>
+                <a href="#" class="btn btn-warning readAllMessage">全部已读</a>
+              </div>
+              <th:block th:each="page : ${#numbers.sequence(1, 8)}">
+                <div class="panel panel-default  message-noread">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#noread_message_1"
+                         th:href="|#noread_message_${page}|"
+                         class="collapsed">
+                        Collapsible Group Item #[[${page}]]
+                      </a>
+                      <a href="#" class="del" style="float: right; color: lightseagreen;">删除</a>
+                      <div style="clear: both;"></div>
+                    </h4>
+                  </div>
+                  <div id="noread_message_1" th:id="|noread_message_${page}|"
+                       class="panel-collapse collapse"
+                       style="height: 0px;">
+                    <div class="panel-body">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                  </div>
+                </div>
+              </th:block>
+              <div class="row">
+                <center>
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                      <li>
+                        <a href="javascript:void(0)" id="first">首页</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" id="back">&laquo;</a>
+                      </li>
+                      <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                        <li th:if="${page} eq 1" class="pageItem active" id="1">
+                          <a href="javascript:void(0)">1</a>
+                        </li>
+                        <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                          <a href="javascript:void(0)">[[${page}]]</a>
+                        </li>
+                      </th:block>
+                      <li>
+                        <a href="javascript:void(0)" id="nest">&raquo;</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" id="end">末页</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </center>
+              </div>
+            </div>
+          </div>
 
-						<div class="tab-content">
-							<div class="tab-pane fade active in" id="all">
-                                <div style="margin: 20px 0;">
-							        <a href="#" class="btn btn-danger">清空</a>
-							        <a href="#" class="btn btn-warning">全部已读</a>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">
-                                            	Collapsible Group Item #1
-                                            </a>
-							        		<a href="#" style="float: right; color: lightseagreen;">删除</a>
-							        		<div style="clear: both;"></div>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
-                                        <div class="panel-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">Collapsible Group Item #2</a>
-							        		<a href="#" style="float: right; color: lightseagreen;">删除</a>
-							        		<div style="clear: both;"></div>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
-                                        <div class="panel-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed">Collapsible Group Item #3</a>
-							        		<a href="#" style="float: right; color: lightseagreen;">删除</a>
-							        		<div style="clear: both;"></div>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseThree" class="panel-collapse collapse" style="height: 0px;">
-                                        <div class="panel-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </div>
-                                    </div>
-                                </div>
-							</div>	
-							<div class="tab-pane fade" id="notread"></div>
-							<center>
-								<nav aria-label="Page navigation">
-									<ul class="pagination">
-										<li><span><span aria-hidden="true">&laquo;</span></span>
-										</li>
-										<li class="active"><span>1 <span class="sr-only">(current)</span></span>
-										</li>
-										<li><span>2 <span class="sr-only">(current)</span></span>
-										</li>
-										<li><span><span aria-hidden="true">&raquo;</span></span>
-										</li>
-									</ul>
-								</nav>
-							</center>
-						</div>
-					</div>
-				</div>
-
-					<footer class="text-center">
-						<p>Copyright &copy; 2018 欧文惠 2014级软件一班,
-							<a target="_blank" href="http://rjxy.jsu.edu.cn/">吉首大学软件学院;</a>
-						</p>
-					</footer>
-			</div>
-			<!-- /. PAGE INNER  -->
-		</div>
-		<!-- /. PAGE WRAPPER  -->
-		</div>
-		<!-- /. WRAPPER  -->
-		<!-- JS Scripts-->
-		<!-- jQuery Js -->
-		<script src="../../static/plugins/assets/js/jquery-1.10.2.js"></script>
-		<!-- Bootstrap Js -->
-		<script src="../../static/plugins/assets/js/bootstrap.min.js"></script>
-		<!-- Metis Menu Js -->
-		<script src="../../static/plugins/assets/js/jquery.metisMenu.js"></script>
-		<!-- Chart Js -->
-		<script src="../../static/plugins/assets/js/Chart.min.js"></script>
-		<!-- my Js -->
-		<script src="../../static/js/student/evaluate.js"></script>
-		<!-- Custom Js -->
-		<script src="../../static/plugins/assets/js/custom-scripts.js"></script>
-	</body>
+        </div>
+      </div>
+      <footer th:replace="include :: footer"></footer>
+      <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+  </div>
+</div>
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script src="../../static/js/teacher/message.js" th:src="@{/js/teacher/message.js}"></script>
+</th:block>
+</body>
 
 </html>

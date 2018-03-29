@@ -41,7 +41,9 @@
           <a href="teachers.html"><i class="fa fa-desktop"></i> 教师列表</a>
         </li>
         <li>
-          <a href="message.html"><i class="fa fa-desktop"></i> 系统消息</a>
+          <a href="message.html" th:href="@{/teacher/goMessage/{token}(token=${token})}">
+            <i class="fa fa-sitemap"></i>系统消息 <span class="badge" th:text="${noReadMessage}">30</span>
+          </a>
         </li>
       </ul>
     </div>
