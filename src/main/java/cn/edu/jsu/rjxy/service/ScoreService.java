@@ -59,6 +59,32 @@ public class ScoreService {
     return scoreForTeacherMapper.getScoresCountForClasses(scoreType, classes, search);
   }
 
+  public List<ScoreDTO> getTeachScoresInCurrentTerm(String scoreType, long teacherId, Integer index,
+      Integer size, String search) {
+    if ("all".equals(scoreType)) {
+      scoreType = null;
+    }
+    search = constructQueryConditions(search);
+
+    List<ScoreForTeacher> scoresForTeacher = scoreForTeacherMapper
+        .getScoresForTeacher(scoreType, teacherId, (index - 1) * size, size, search);
+
+    List<ScoreDTO> scores = new ArrayList<>();
+    for (ScoreForTeacher score : scoresForTeacher) {
+      scores.add(new ScoreDTO(score));
+    }
+
+    return scores;
+  }
+
+  public int getTeachScoresCountInCurrentTerm(String scoreType, long teacherId, String search) {
+    if ("all".equals(scoreType)) {
+      scoreType = null;
+    }
+    search = constructQueryConditions(search);
+    return scoreForTeacherMapper.getScoresCountForTeacher(scoreType, teacherId, search);
+  }
+
   private String constructQueryConditions(String search) {
     if (search!=null) {
       char[] searchArray = search.toCharArray();

@@ -64,4 +64,46 @@
       AND (s.type LIKE #{search} OR s.name LIKE #{search} OR t.name LIKE #{search} OR t.business LIKE #{search})
     </if>
   </select>
+
+
+  <select id="getScoresForTeacher" resultMap="ScoreForTeacherMap">
+    SELECT sft.* FROM score_for_teacher sft
+    <if test="type!=null and search==null">
+      LEFT JOIN score s ON sft.score=s.id
+    </if>
+    <if test="search!=null">
+      LEFT JOIN score s ON sft.score=s.id
+      LEFT JOIN teacher t ON sft.teacher=t.id
+    </if>
+    WHERE sft.teacher=#{teacherId}
+    <if test="type!=null and search==null">
+      AND s.type=#{type}
+    </if>
+    <if test="search!=null">
+      <if test="type!=null">AND s.type=#{type}</if>
+      AND (s.type LIKE #{search} OR s.name LIKE #{search} OR t.name LIKE #{search} OR t.business LIKE #{search})
+    </if>
+    <if test="step!=null and size!=null">
+      LIMIT #{step},#{size}
+    </if>
+  </select>
+
+  <select id="getScoresCountForTeacher" resultType="int">
+    SELECT COUNT(*) FROM score_for_teacher sft
+    <if test="type!=null and search==null">
+      LEFT JOIN score s ON sft.score=s.id
+    </if>
+    <if test="search!=null">
+      LEFT JOIN score s ON sft.score=s.id
+      LEFT JOIN teacher t ON sft.teacher=t.id
+    </if>
+    WHERE sft.teacher=#{teacherId}
+    <if test="type!=null and search==null">
+      AND s.type=#{type}
+    </if>
+    <if test="search!=null">
+      <if test="type!=null">AND s.type=#{type}</if>
+      AND (s.type LIKE #{search} OR s.name LIKE #{search} OR t.name LIKE #{search} OR t.business LIKE #{search})
+    </if>
+  </select>
 </mapper>

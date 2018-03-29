@@ -56,12 +56,8 @@ public class StudentController {
 
   private static final String EVALUATE_CREATER_TYPE = "student";
 
-  public static final String ROOT = "header";
-
   @Value("${img.url}")
   public String basePath;
-  @Autowired
-  private ResourceLoader resourceLoader;
 
   @RequestMapping("/student/login/{token}")
   public String login(@PathVariable String token, HttpSession session, Model model) {
@@ -126,16 +122,15 @@ public class StudentController {
   @RequestMapping("/student/goMessage/{token}")
   public String goMessage(@PathVariable String token, HttpSession session, Model model) {
     Student student = (Student) session.getAttribute(token);
+    if (student == null) {
+      return "forward:/logout/" + token;
+    }
     int messageCount = messageService
         .getMessagesCountByRecipientAndRecipientTypeAndFlag(student.getId(), MESSAGE_RECIPIENT_TYPE,
             DEFAULT_MESSAGE_TYPE);
     model.addAttribute("count",
         messageCount == NO_DATA ? NO_DATA : Math.ceil((double) messageCount / MESSAGE_PAGE_SIZE));
-    if (student != null) {
-      return "/student/message";
-    } else {
-      return "forward:/logout/" + token;
-    }
+    return "/student/message";
   }
 
   @RequestMapping("/student/goPassword/{token}")
@@ -228,7 +223,7 @@ public class StudentController {
       targetPath.mkdirs();
     }
     try {
-      File targetFile = new File(path+fileName);
+      File targetFile = new File(path + fileName);
       if (targetFile.exists()) {
         targetFile.delete();
       }

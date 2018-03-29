@@ -3,6 +3,7 @@ package cn.edu.jsu.rjxy.mappers;
 import cn.edu.jsu.rjxy.entity.vo.Score;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.StuForClass;
+import cn.edu.jsu.rjxy.entity.vo.Teacher;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -25,6 +26,13 @@ public interface ScoreForTeacherMapper {
 
   int getScoresCountForClasses(@Param("type") String scoreType,
       @Param("classes") List<StuForClass> classes, @Param("search") String search);
+
+  List<ScoreForTeacher> getScoresForTeacher(@Param("type") String scoreType,
+      @Param("teacherId") long teacherId, @Param("step") Integer step,
+      @Param("size") Integer size, @Param("search") String search);
+
+  int getScoresCountForTeacher(@Param("type") String scoreType,
+      @Param("teacherId") long teacherId, @Param("search") String search);
 
   @Update("UPDATE score_for_teacher "
       + "SET score=#{scoreForTeacher.score.id},"

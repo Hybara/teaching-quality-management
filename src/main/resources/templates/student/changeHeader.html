@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="student/header :: header"></head>
+<head th:replace="include :: header(~{})"></head>
 
 <body data-token="" th:attr="data-token=${token}">
 <div id="wrapper">
@@ -12,7 +12,7 @@
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
         <li>
-          <a href="index.html" th:href="@{/student/login/{token}(token=${token})}">
+          <a href="score.html" th:href="@{/student/login/{token}(token=${token})}">
             <i class="fa fa-dashboard"></i> 首页</a>
         </li>
       </ul>

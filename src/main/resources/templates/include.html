@@ -1,5 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header(links)">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta content="" name="description"/>
+  <meta content="webthemez" name="author"/>
+  <title>教学质量管理系统</title>
+  <!-- Bootstrap Styles-->
+  <link href="../../static/plugins/assets/css/bootstrap.css"
+        th:href="@{/plugins/assets/css/bootstrap.css}" rel="stylesheet"/>
+  <!-- FontAwesome Styles-->
+  <link href="../../static/plugins/assets/css/font-awesome.css"
+        th:href="@{/plugins/assets/css/font-awesome.css}" rel="stylesheet"/>
+  <!-- Custom Styles-->
+  <link href="../../static/plugins/assets/css/custom-styles.css"
+        th:href="@{/plugins/assets/css/custom-styles.css}" rel="stylesheet"/>
+  <!-- Google Fonts-->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+  <!-- my css -->
+  <link href="../../static/css/dashboard.css"
+        th:href="@{/css/dashboard.css}" rel="stylesheet" />
+  <th:block th:replace="${links}" />
+</head>
 <body>
 <footer class="text-center" th:fragment="footer">
   <p>Copyright &copy; 2018 欧文惠 2014级软件一班,
