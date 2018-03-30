@@ -178,10 +178,10 @@ function initQuestionPanel($li, data) {
   let scoreId = $("h1.page-header").attr("data-id");
   $li.find("img").attr("src", data.userHeader);
   $li.find("div.media-left span").text(data.userName);
-  $li.find("div.media-body h4").find("a").attr("href", "/teacher/goQuestion/"
+  $li.find("div.media-body h4").find("a").attr("href", "/teacher/goMyQuestion/"
       + scoreId + "/" + data.id + "/" + token).text(
       data.title == null ? "" : data.title);
-  $li.find("div.media-body p").find("a").attr("href", "/teacher/goQuestion/"
+  $li.find("div.media-body p").find("a").attr("href", "/teacher/goMyQuestion/"
       + scoreId + "/" + data.id + "/" + token).text(data.text);
   structuralResult($li, data.result);
 }

@@ -62,4 +62,57 @@ public class QuestionController {
             : Math.ceil((double) scoreQuestionCount / QUESTION_PAGE_SIZE));
   }
 
+
+  @RequestMapping("/teacher/goMyQuestion/{scoreId}/{questionId}/{token}")
+  public String goQuestion(@PathVariable long scoreId,
+      @PathVariable long questionId, @PathVariable String token,
+      Model model, HttpSession session) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
+      return "redirect:/logout/" + token;
+    }
+    model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(scoreId));
+    model.addAttribute("question", questionService.getQuestionReaderById(questionId));
+    model.addAttribute("token", token);
+      return "/teacher/myQuestion";
+  }
+
+
+  @RequestMapping("/teacher/getQuestionLists")
+  @ResponseBody
+  public Map<String, Object> getQuestionLists(String token, long questionId, Integer page,
+      HttpSession session) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+
+    if (teacher == null) {
+      return JSONBaseUtil.structuralResponseMap("", 0);
+    }
+
+    int questionChildsCount = questionService.getQuestionChildCount(questionId);
+    return JSONBaseUtil.structuralResponseMap(
+        questionService.getQuestionChildLists(questionId, page, FORQUESTION_PAGE_SIZE),
+        questionChildsCount == NO_DATA ? NO_DATA
+            : Math.ceil((double) questionChildsCount / FORQUESTION_PAGE_SIZE));
+  }
+
+
+  @RequestMapping("/teacher/resultQuestion")
+  @ResponseBody
+  public String question(String token, long questionId, HttpSession session, String text,
+      Boolean flag) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
+      return "logout";
+    }
+    try {
+      if (questionService
+          .addQuestionChild(questionId, text, null, flag, teacher.getId(), ADD_QUESTION_TYPE)) {
+        return "ok";
+      } else {
+        return "failure";
+      }
+    } catch (Exception e) {
+      return "failure";
+    }
+  }
 }
