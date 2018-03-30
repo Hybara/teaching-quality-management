@@ -1,13 +1,9 @@
 package cn.edu.jsu.rjxy.controller.teacher;
 
-import cn.edu.jsu.rjxy.entity.vo.Student;
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
-import cn.edu.jsu.rjxy.service.EvaluateService;
 import cn.edu.jsu.rjxy.service.MessageService;
-import cn.edu.jsu.rjxy.service.QuestionService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
-import cn.edu.jsu.rjxy.service.StudentService;
 import cn.edu.jsu.rjxy.util.JSONBaseUtil;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -19,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
+@Controller("teacherScoreController")
 public class ScoreController {
 
   @Autowired

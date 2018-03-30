@@ -3,15 +3,16 @@ $(function () {
   $(".board .panel").css({
     "cursor": "pointer"
   }).on("click", function () {
+    debugger;
     var token = $("body").attr("data-token");
     var title = $(this).find("h4").text();
     var url = '';
     // console.log(title);
     var id = $("h1.page-header").attr("data-id");
     if (title == '评价') {
-      url = '/teacher/goEvaluate/'+id+"/"+token;
-    } else if (title == '提问') {
-      url = '/teacher/goQuestions/'+id+"/"+token;
+      url = '/teacher/goMyEvaluate/'+id+"/"+token;
+    } else if (title == '答疑') {
+      url = '/teacher/goMyQuestions/'+id+"/"+token;
     } else {
       url = 'assessment.html';
     }
