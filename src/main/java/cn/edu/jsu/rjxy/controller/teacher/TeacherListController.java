@@ -33,7 +33,7 @@ public class TeacherListController {
       return "redirect:/logout/" + token;
     }
     session.setAttribute(token, teacher);
-    int teacherCount = teacherService.getTeacherCountByMajor(teacher.getMajor().getId(), NO_SEARCH);
+    int teacherCount = teacherService.getTeacherCountByMajor(teacher.getMajor().getId(), NO_SEARCH, teacher.getId());
     model.addAttribute("count", Math.ceil(((double) teacherCount)/PAGE_SIZE));
     return "/teacher/teachers";
   }
@@ -48,10 +48,10 @@ public class TeacherListController {
     if (search == null || "".equals(search)) {
       search = NO_SEARCH;
     }
-    int teacherCount = teacherService.getTeacherCountByMajor(teacher.getMajor().getId(), search);
+    int teacherCount = teacherService.getTeacherCountByMajor(teacher.getMajor().getId(), search, teacher.getId());
     return JSONBaseUtil.structuralResponseMap(
         teacherService
-            .getTeacherListByMajor(teacher.getMajor().getId(), page, PAGE_SIZE, search),
+            .getTeacherListByMajor(teacher.getMajor().getId(), page, PAGE_SIZE, search, teacher.getId()),
         Math.ceil((double) teacherCount / PAGE_SIZE));
   }
 

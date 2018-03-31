@@ -74,7 +74,7 @@ public class ScoreController {
   }
 
   @RequestMapping("/teacher/goMyScore/{id}/{token}")
-  public String goScore(@PathVariable Long id, @PathVariable String token, HttpSession session,
+  public String goMyScore(@PathVariable Long id, @PathVariable String token, HttpSession session,
       Model model) {
     Teacher teacher = (Teacher) session.getAttribute(token);
     if (teacher == null) {
@@ -99,7 +99,7 @@ public class ScoreController {
       return "failure";
     }
     ScoreForTeacher scoreForTeacher = scoreService.getById(id);
-    if (scoreForTeacher!=null) {
+    if (scoreForTeacher != null) {
       scoreForTeacher.setRemarks(remarks);
       if (scoreService.updateScoreForTeacher(scoreForTeacher)) {
         return "ok";
@@ -110,13 +110,14 @@ public class ScoreController {
 
 
   @RequestMapping("/teacher/goScores/{id}/{token}")
-  public String goScores(@PathVariable String token, HttpSession session, @PathVariable Long id, Model model) {
+  public String goScores(@PathVariable String token, HttpSession session, @PathVariable Long id,
+      Model model) {
     Teacher teacher = (Teacher) session.getAttribute(token);
-    if (teacher==null) {
-      return "redirect:/logout/"+token;
+    if (teacher == null) {
+      return "redirect:/logout/" + token;
     }
-    if (id==null) {
-      return "/teacher/myScores/"+token;
+    if (id == null) {
+      return "/teacher/myScores/" + token;
     }
     model.addAttribute("teacher", id);
     model.addAttribute("scoreTypes", scoreTypeService.getAll());
@@ -133,7 +134,7 @@ public class ScoreController {
   public Map<String, Object> getScores(@PathVariable String type, @PathVariable String token,
       HttpSession session, Long id, Integer page, String search) {
     Teacher teacher = (Teacher) session.getAttribute(token);
-    if (id==null) {
+    if (id == null) {
       return JSONBaseUtil.structuralResponseMap("", 0);
     }
     if (page == null) {
@@ -144,5 +145,19 @@ public class ScoreController {
         scoreService
             .getTeachScoresInCurrentTerm(type, id, page, SCORES_PAGE_SIZE, search),
         scoreCount == NO_DATA ? NO_DATA : Math.ceil((double) scoreCount / SCORES_PAGE_SIZE));
+  }
+
+  @RequestMapping("/teacher/goScore/{teacherId}/{id}/{token}")
+  public String goScore(@PathVariable long teacherId, @PathVariable Long id,
+      @PathVariable String token, HttpSession session, Model model) {
+    if (session.getAttribute(token) == null) {
+      return "redirect:/logout/" + token;
+    } else if (id == null) {
+      return "/teacher/getScores/all/" + token;
+    }
+    model.addAttribute("teacher", teacherId);
+    model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
+    model.addAttribute("token", token);
+    return "/teacher/other/score";
   }
 }

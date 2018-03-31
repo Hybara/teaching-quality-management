@@ -28,23 +28,23 @@ public class TeacherService {
   }
 
   public List<TeacherDTO> getTeacherListByMajor(long major, Integer page, Integer size,
-      String search) {
+      String search, Long excludeId) {
     Integer step = null;
     if (page != null && page >= 1 && size != null) {
       step = (page - 1) * size;
     }
     List<Teacher> teachers = teacherMapper
-        .getListByMajor(major, step, size, QueryConditionsUitl.constructQueryConditions(search));
-    List<TeacherDTO> teacherDTOS = new ArrayList<>(teachers.size());
+        .getListByMajor(major, step, size, QueryConditionsUitl.constructQueryConditions(search), excludeId);
+    List<TeacherDTO> teacherDTOs = new ArrayList<>(teachers.size());
     for (Teacher teacher : teachers) {
-      teacherDTOS.add(new TeacherDTO(teacher));
+      teacherDTOs.add(new TeacherDTO(teacher));
     }
-    return teacherDTOS;
+    return teacherDTOs;
   }
 
-  public int getTeacherCountByMajor(long major, String search) {
+  public int getTeacherCountByMajor(long major, String search, Long excludeId) {
     return teacherMapper
-        .getCountByMajor(major, QueryConditionsUitl.constructQueryConditions(search));
+        .getCountByMajor(major, QueryConditionsUitl.constructQueryConditions(search), excludeId);
   }
 
   public boolean updateTeacher(Teacher teacher) {

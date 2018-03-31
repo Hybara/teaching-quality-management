@@ -25,6 +25,7 @@
     <if test="search!=null">AND (`name` LIKE #{search} OR `number` LIKE #{search} OR business LIKE
       #{search})
     </if>
+    <if test="excludeId!=null"> AND id!=#{excludeId}</if>
     <if test="step!=null and size!=null">LIMIT #{step},#{size}</if>
   </select>
   <select id="getCountByMajor" resultType="Integer">
@@ -33,5 +34,6 @@
     <if test="search!=null">AND (`name` LIKE #{search} OR `number` LIKE #{search} OR business LIKE
       #{search})
     </if>
+    <if test="excludeId!=null"> AND id!=#{excludeId}</if>
   </select>
 </mapper>

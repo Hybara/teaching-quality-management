@@ -23,9 +23,9 @@ public interface TeacherMapper {
       @Param("password") String password);
 
   List<Teacher> getListByMajor(@Param("majorId") long majorId, @Param("step") Integer step,
-      @Param("size") Integer size, @Param("search") String search);
+      @Param("size") Integer size, @Param("search") String search, @Param("excludeId") Long excludeId);
 
-  int getCountByMajor(@Param("majorId") long majorId, @Param("search") String search);
+  int getCountByMajor(@Param("majorId") long majorId, @Param("search") String search, @Param("excludeId") Long excludeId);
 
   @Update("UPDATE teacher "
       + "SET number=#{teacher.number},"
