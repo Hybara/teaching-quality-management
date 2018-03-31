@@ -61,7 +61,7 @@ function initTeacherList(page, search) {
           && response.data[tr_index] != null) {
         $(tr).show().on("click", function () {
           window.location.href
-              = "/teacher/score/" + response.data[tr_index].id + "/" + token;
+              = "/teacher/goScores/" + response.data[tr_index].id + "/" + token;
         });
         initTableLine($(tr), response.data[tr_index], tr_index, page);
       } else {

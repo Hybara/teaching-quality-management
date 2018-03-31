@@ -44,7 +44,7 @@ public class ScoreController {
 
 
   @RequestMapping("/teacher/myScores/{token}")
-  public String goScores(@PathVariable String token, HttpSession session, Model model) {
+  public String goMyScores(@PathVariable String token, HttpSession session, Model model) {
     Teacher teacher = (Teacher) session.getAttribute(token);
     model.addAttribute("scoreTypes", scoreTypeService.getAll());
     model.addAttribute("token", token);
@@ -60,7 +60,7 @@ public class ScoreController {
 
   @RequestMapping("/teacher/getMyScores/{type}/{token}")
   @ResponseBody
-  public Map<String, Object> getScores(@PathVariable String type, @PathVariable String token,
+  public Map<String, Object> getMyScores(@PathVariable String type, @PathVariable String token,
       HttpSession session, Integer page, String search) {
     Teacher teacher = (Teacher) session.getAttribute(token);
     if (page == null) {
@@ -106,5 +106,43 @@ public class ScoreController {
       }
     }
     return "failure";
+  }
+
+
+  @RequestMapping("/teacher/goScores/{id}/{token}")
+  public String goScores(@PathVariable String token, HttpSession session, @PathVariable Long id, Model model) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher==null) {
+      return "redirect:/logout/"+token;
+    }
+    if (id==null) {
+      return "/teacher/myScores/"+token;
+    }
+    model.addAttribute("teacher", id);
+    model.addAttribute("scoreTypes", scoreTypeService.getAll());
+    model.addAttribute("token", token);
+    int scoreCount = scoreService
+        .getTeachScoresCountInCurrentTerm(ALL_SCORE_TYPE, id, NO_SEARCH);
+    model.addAttribute("scoreCount", Math.ceil((double) scoreCount / SCORES_PAGE_SIZE));
+    return "/teacher/other/scores";
+  }
+
+
+  @RequestMapping("/teacher/getScores/{type}/{token}")
+  @ResponseBody
+  public Map<String, Object> getScores(@PathVariable String type, @PathVariable String token,
+      HttpSession session, Long id, Integer page, String search) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (id==null) {
+      return JSONBaseUtil.structuralResponseMap("", 0);
+    }
+    if (page == null) {
+      page = INDEX_PAGE_NUMBER;
+    }
+    int scoreCount = scoreService.getTeachScoresCountInCurrentTerm(type, id, search);
+    return JSONBaseUtil.structuralResponseMap(
+        scoreService
+            .getTeachScoresInCurrentTerm(type, id, page, SCORES_PAGE_SIZE, search),
+        scoreCount == NO_DATA ? NO_DATA : Math.ceil((double) scoreCount / SCORES_PAGE_SIZE));
   }
 }
