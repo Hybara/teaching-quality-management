@@ -4,12 +4,13 @@ $(function () {
     "cursor": "pointer"
   }).on("click", function () {
     var token = $("body").attr("data-token");
+    var teacherId = $("div.header").attr("data-id");
     var title = $(this).find("h4").text();
     var url = '';
     // console.log(title);
     var id = $("h1.page-header").attr("data-id");
     if (title == '评价') {
-      url = '/teacher/goEvaluate/'+id+"/"+token;
+      url = "/teacher/goEvaluate/"+teacherId+"/"+id+"/"+token;
     } else if (title == '提问') {
       url = '/teacher/goQuestions/'+id+"/"+token;
     } else {

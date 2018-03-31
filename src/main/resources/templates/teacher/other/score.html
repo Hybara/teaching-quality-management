@@ -21,7 +21,7 @@
   </nav>
   <!-- /. NAV SIDE  -->
   <div id="page-wrapper">
-    <div class="header">
+    <div class="header" data-id="" th:attr="data-id=${teacher}">
       <h1 class="page-header" data-id="" th:attr="data-id=${scoreInfo.id}">
         [[${scoreInfo.scoreName}]]
         <small>[[${scoreInfo.teacherName}]] [[${scoreInfo.teacherBusiness}]]</small>

@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="teacher/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a href=""
+             th:href="@{/teacher/goScore/{teacherId}/{id}/{token}(teacherId=${teacher},id=${scoreInfo.id},token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header" th:attr="data-id=${scoreInfo.id}">[[${scoreInfo.scoreName}]] 评价&nbsp;&nbsp;&nbsp;
+        <small>[[${scoreInfo.evaluateCount}]]评 / <span
+            id="evaluate">[[${scoreInfo.evaluateGrade}]]</span>分
+        </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="teachers.html" th:href="@{/teacher/teacherList/{token}(token=${token})}">教师列表</a>
+        </li>
+        <li>
+          <a href=""
+             th:href="@{/teacher/goScores/{id}/{token}(id=${teacher},token=${token})}">课程列表</a>
+        </li>
+        <li>
+          <a th:href="@{/teacher/goScore/{teacherId}/{id}/{token}(teacherId=${teacher},id=${scoreInfo.id},token=${token})}">
+            [[${scoreInfo.scoreName}]]
+          </a>
+        </li>
+        <li class="active">评价</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="row">
+
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a href="#all" data-toggle="tab">全部</a>
+                </li>
+                <li class="">
+                  <a href="#perfect" data-toggle="tab">优</a>
+                </li>
+                <li class="">
+                  <a href="#good" data-toggle="tab">良</a>
+                </li>
+                <li class="">
+                  <a href="#medium" data-toggle="tab">中</a>
+                </li>
+                <li class="">
+                  <a href="#dissatisfactory" data-toggle="tab">不够理想</a>
+                </li>
+              </ul>
+              <style>
+                .media p {
+                  padding-top: 0px;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                }
+
+                .evaluate li.list-group-item {
+                  margin-bottom: 5px;
+                }
+              </style>
+              <div class="tab-content">
+                <div class="tab-pane fade active in" id="all">
+                  <div class="panel panel-default">
+                    <div class="panel-body evaluate">
+                      <th:block th:each="page : ${#numbers.sequence(1, 8)}">
+                        <li class="list-group-item">
+                          <div class="media">
+                            <div class="media-left media-middle">
+                              <center>
+                                <img class="media-object" height="50px" width="50px"
+                                     src="../../static/img/header.jpg" alt="还没有图片...">
+                                <span>用户名</span>
+                              </center>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading">title</h4>
+                              <p>
+                                我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈...</p>
+                              <div class="media-bottom text-success">评价：优|良|中|不够理想</div>
+                            </div>
+                          </div>
+                        </li>
+                      </th:block>
+                      <div class="row">
+                        <center>
+                          <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                              <li>
+                                <a href="javascript:void(0)" id="first">首页</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="back">&laquo;</a>
+                              </li>
+                              <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                                <li th:if="${page} eq 1" class="pageItem active" id="1">
+                                  <a href="javascript:void(0)">1</a>
+                                </li>
+                                <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                                  <a href="javascript:void(0)">[[${page}]]</a>
+                                </li>
+                              </th:block>
+                              <li>
+                                <a href="javascript:void(0)" id="nest">&raquo;</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="end">末页</a>
+                              </li>
+                            </ul>
+                          </nav>
+                        </center>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="perfect">
+                  <div class="panel panel-default">
+                    <div class="panel-body evaluate">
+                      <th:block th:each="page : ${#numbers.sequence(1, 8)}">
+                        <li class="list-group-item">
+                          <div class="media">
+                            <div class="media-left media-middle">
+                              <center>
+                                <img class="media-object" height="50px" width="50px"
+                                     src="../../static/img/header.jpg" alt="还没有图片...">
+                                <span>用户名</span>
+                              </center>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading">title</h4>
+                              <p>
+                                我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈...</p>
+                              <div class="media-bottom text-success">评价：优|良|中|不够理想</div>
+                            </div>
+                          </div>
+                        </li>
+                      </th:block>
+                      <div class="row">
+                        <center>
+                          <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                              <li>
+                                <a href="javascript:void(0)" id="first">首页</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="back">&laquo;</a>
+                              </li>
+                              <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                                <li th:if="${page} eq 1" class="pageItem active" id="1">
+                                  <a href="javascript:void(0)">1</a>
+                                </li>
+                                <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                                  <a href="javascript:void(0)">[[${page}]]</a>
+                                </li>
+                              </th:block>
+                              <li>
+                                <a href="javascript:void(0)" id="nest">&raquo;</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="end">末页</a>
+                              </li>
+                            </ul>
+                          </nav>
+                        </center>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="good">
+                  <div class="panel panel-default">
+                    <div class="panel-body evaluate">
+                      <th:block th:each="page : ${#numbers.sequence(1, 8)}">
+                        <li class="list-group-item">
+                          <div class="media">
+                            <div class="media-left media-middle">
+                              <center>
+                                <img class="media-object" height="50px" width="50px"
+                                     src="../../static/img/header.jpg" alt="还没有图片...">
+                                <span>用户名</span>
+                              </center>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading">title</h4>
+                              <p>
+                                我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈...</p>
+                              <div class="media-bottom text-success">评价：优|良|中|不够理想</div>
+                            </div>
+                          </div>
+                        </li>
+                      </th:block>
+                      <div class="row">
+                        <center>
+                          <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                              <li>
+                                <a href="javascript:void(0)" id="first">首页</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="back">&laquo;</a>
+                              </li>
+                              <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                                <li th:if="${page} eq 1" class="pageItem active" id="1">
+                                  <a href="javascript:void(0)">1</a>
+                                </li>
+                                <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                                  <a href="javascript:void(0)">[[${page}]]</a>
+                                </li>
+                              </th:block>
+                              <li>
+                                <a href="javascript:void(0)" id="nest">&raquo;</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="end">末页</a>
+                              </li>
+                            </ul>
+                          </nav>
+                        </center>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="medium">
+                  <div class="panel panel-default">
+                    <div class="panel-body evaluate">
+                      <th:block th:each="page : ${#numbers.sequence(1, 8)}">
+                        <li class="list-group-item">
+                          <div class="media">
+                            <div class="media-left media-middle">
+                              <center>
+                                <img class="media-object" height="50px" width="50px"
+                                     src="../../static/img/header.jpg" alt="还没有图片...">
+                                <span>用户名</span>
+                              </center>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading">title</h4>
+                              <p>
+                                我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈...</p>
+                              <div class="media-bottom text-success">评价：优|良|中|不够理想</div>
+                            </div>
+                          </div>
+                        </li>
+                      </th:block>
+                      <div class="row">
+                        <center>
+                          <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                              <li>
+                                <a href="javascript:void(0)" id="first">首页</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="back">&laquo;</a>
+                              </li>
+                              <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                                <li th:if="${page} eq 1" class="pageItem active" id="1">
+                                  <a href="javascript:void(0)">1</a>
+                                </li>
+                                <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                                  <a href="javascript:void(0)">[[${page}]]</a>
+                                </li>
+                              </th:block>
+                              <li>
+                                <a href="javascript:void(0)" id="nest">&raquo;</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="end">末页</a>
+                              </li>
+                            </ul>
+                          </nav>
+                        </center>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="dissatisfactory">
+                  <div class="panel panel-default">
+                    <div class="panel-body evaluate">
+                      <th:block th:each="page : ${#numbers.sequence(1, 8)}">
+                        <li class="list-group-item">
+                          <div class="media">
+                            <div class="media-left media-middle">
+                              <center>
+                                <img class="media-object" height="50px" width="50px"
+                                     src="../../static/img/header.jpg" alt="还没有图片...">
+                                <span>用户名</span>
+                              </center>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading">title</h4>
+                              <p>
+                                我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈...</p>
+                              <div class="media-bottom text-success">评价：优|良|中|不够理想</div>
+                            </div>
+                          </div>
+                        </li>
+                      </th:block>
+                      <div class="row">
+                        <center>
+                          <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                              <li>
+                                <a href="javascript:void(0)" id="first">首页</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="back">&laquo;</a>
+                              </li>
+                              <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                                <li th:if="${page} eq 1" class="pageItem active" id="1">
+                                  <a href="javascript:void(0)">1</a>
+                                </li>
+                                <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                                  <a href="javascript:void(0)">[[${page}]]</a>
+                                </li>
+                              </th:block>
+                              <li>
+                                <a href="javascript:void(0)" id="nest">&raquo;</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0)" id="end">末页</a>
+                              </li>
+                            </ul>
+                          </nav>
+                        </center>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /. PAGE INNER  -->
+          </div>
+          <li class="list-group-item">
+            <div class="media">
+              <div class="media-left media-middle">
+                <center>
+                  <img class="media-object" height="50px" width="50px"
+                       src="../../static/img/header.jpg" alt="还没有图片..."
+                       th:src="@{${(#httpSession.getAttribute(token)).header}}"/>
+                  <span>[[${(#httpSession.getAttribute(token)).name}]]</span>
+                </center>
+              </div>
+              <div class="media-body">
+                <div class="panel panel-default">
+                  <form class="panel-body" data-timeline="" th:attr="data-timeline=${timeLine}">
+                    <div class="sub-title">标题</div>
+                    <div>
+                      <input name="title" type="text" class="form-control" placeholder="标题，可不填"
+                             width="100%">
+                    </div>
+                    <div class="sub-title">评价</div>
+                    <div>
+                      <textarea name="text" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="sub-title">结论</div>
+                    <div>
+                      <div>
+                        <div class="radio3 radio-check radio-inline">
+                          <input type="radio" id="radio1" name="result" value="perfect" checked="">
+                          <label for="radio1"> 优 </label>
+                        </div>
+                        <div class="radio3 radio-check radio-success radio-inline">
+                          <input type="radio" id="radio2" name="result" value="good">
+                          <label for="radio2"> 良 </label>
+                        </div>
+                        <div class="radio3 radio-check radio-warning radio-inline">
+                          <input type="radio" id="radio3" name="result" value="medium">
+                          <label for="radio3"> 中 </label>
+                        </div>
+                        <div class="radio3 radio-check radio-warning radio-inline">
+                          <input type="radio" id="radio4" name="result" value="dissatisfactory">
+                          <label for="radio4"> 不够理想 </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <button type="reset" class="btn btn-danger">清空</button>
+                      <button type="submit" class="btn btn-success">提交</button>
+                      <span class="checkbox3 checkbox-round">
+													  <input name="flag" type="checkbox" id="checkbox">
+													  <label for="checkbox"> 匿名提交 </label>
+													</span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </li>
+          <footer th:replace="include :: footer"></footer>
+          <!-- /. PAGE WRAPPER  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /. WRAPPER  -->
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script src="../../static/js/teacher/other/evaluate.js"
+          th:src="@{/js/teacher/other/evaluate.js}"></script>
+</th:block>
+</body>
+
+</html>

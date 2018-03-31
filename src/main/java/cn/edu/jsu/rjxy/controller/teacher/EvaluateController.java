@@ -29,6 +29,7 @@ public class EvaluateController {
   private static final String DEFAULT_TYPE = "all";
 
   private static final String ADD_EVALUATE_TYPE = "teacher";
+  private static final String EVALUATE_CREATER_TYPE = "teacher";
 
   @RequestMapping("/teacher/goMyEvaluate/{id}/{token}")
   public String goMyEvaluate(@PathVariable String token, @PathVariable Long id, HttpSession session,
@@ -37,10 +38,27 @@ public class EvaluateController {
     if (teacher == null) {
       return "forward:/logout/" + token;
     } else if (id == null) {
-      return "/teacher/getScores/all/" + token;
+      return "/teacher/getMyScores/all/" + token;
     } else {
       model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
       return "/teacher/myEvaluate";
+    }
+  }
+
+  @RequestMapping("/teacher/goEvaluate/{teacherId}/{id}/{token}")
+  public String goEvaluate(@PathVariable String token, @PathVariable Long id, @PathVariable Long teacherId, HttpSession session,
+      Model model) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
+      return "forward:/logout/" + token;
+    } else if (id == null || teacherId == null) {
+      return "/teacher/getScores/all/" + token;
+    } else {
+      model.addAttribute("teacher", teacherId);
+      model.addAttribute("timeLine",
+          evaluateService.getEvaluateTimeLine(id, teacher.getId(), EVALUATE_CREATER_TYPE));
+      model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
+      return "/teacher/other/evaluate";
     }
   }
 
@@ -61,4 +79,20 @@ public class EvaluateController {
         scoreEvaluateCount == NO_DATA ? NO_DATA
             : Math.ceil((double) scoreEvaluateCount / EVALUATE_PAGE_SIZE));
   }
+
+  @RequestMapping("/teacher/evaluate")
+  @ResponseBody
+  public String evaluate(String token, long id, HttpSession session,
+      String title, String text, String result, Boolean flag) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
+      return "logout";
+    }
+    if (evaluateService.addScoreEvaluate(id, title, text, result, teacher.getId(), ADD_EVALUATE_TYPE, flag)) {
+      return "ok";
+    } else {
+      return "failure";
+    }
+  }
+
 }
