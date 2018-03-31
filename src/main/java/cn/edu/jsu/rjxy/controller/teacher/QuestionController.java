@@ -31,7 +31,7 @@ public class QuestionController {
   private ScoreService scoreService;
 
   @RequestMapping("/teacher/goMyQuestions/{id}/{token}")
-  public String goQuestions(@PathVariable String token, @PathVariable Long id, HttpSession session,
+  public String goMyQuestions(@PathVariable String token, @PathVariable Long id, HttpSession session,
       Model model) {
     Teacher teacher = (Teacher) session.getAttribute(token);
     if (teacher == null) {
@@ -115,4 +115,21 @@ public class QuestionController {
       return "failure";
     }
   }
+
+
+  @RequestMapping("/teacher/goQuestions/{teacherId}/{id}/{token}")
+  public String goQuestions(@PathVariable String token, @PathVariable Long teacherId, @PathVariable Long id, HttpSession session,
+      Model model) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
+      return "forward:/logout/" + token;
+    } else if (id == null || teacherId == null) {
+      return "/teacher/getScores/all/" + token;
+    } else {
+      model.addAttribute("teacher",teacherId);
+      model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
+      return "/teacher/other/questions";
+    }
+  }
+
 }

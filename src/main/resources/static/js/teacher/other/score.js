@@ -12,7 +12,7 @@ $(function () {
     if (title == '评价') {
       url = "/teacher/goEvaluate/"+teacherId+"/"+id+"/"+token;
     } else if (title == '提问') {
-      url = '/teacher/goQuestions/'+id+"/"+token;
+      url = '/teacher/goQuestions/'+teacherId+"/"+id+"/"+token;
     } else {
       url = 'assessment.html';
     }
