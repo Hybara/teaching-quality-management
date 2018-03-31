@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="student/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a th:href="@{/teacher/goQuestions/{teacherId}/{id}/{token}(teacherId=${teacher},id=${scoreInfo.id},token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header" data-id="" th:attr="data-id=${teacher}">
+      <h1 class="page-header" data-id="" th:attr="data-id=${question.id}"> [[${question.title}]] &nbsp;&nbsp;&nbsp;
+        <small>[[${question.result eq "notAnswer"} ? notAnswer : ${question.result}]]</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="teachers.html" th:href="@{/teacher/teacherList/{token}(token=${token})}">教师列表</a>
+        </li>
+        <li>
+          <a href=""
+             th:href="@{/teacher/goScores/{id}/{token}(id=${teacher},token=${token})}">课程列表</a>
+        </li>
+        <li>
+          <a th:href="@{/teacher/goScore/{teacherId}/{id}/{token}(teacherId=${teacher},id=${scoreInfo.id},token=${token})}">
+            [[${scoreInfo.scoreName}]]
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/teacher/goQuestions/{teacherId}/{id}/{token}(teacherId=${teacher},id=${scoreInfo.id},token=${token})}">
+            问答
+          </a>
+        </li>
+        <li class="active">问答详情</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="panel panel-default">
+        <style>
+          .media p {
+            padding-top: 0px;
+          }
+
+          .question li.list-group-item {
+            margin-bottom: 5px;
+          }
+
+          .question li.list-group-item .media-body p a {
+            text-decoration: none;
+            color: black;
+          }
+
+          .question li.list-group-item .media-body p a:hover {
+            color: lightslategrey;
+          }
+
+          .question li.child {
+            margin-left: 5%;
+          }
+        </style>
+        <div class="panel-body question">
+          <li class="list-group-item">
+            <div class="media">
+              <div class="media-left media-middle">
+                <center>
+                  <img class="media-object" height="50px" width="50px"
+                       src="../../static/img/header.jpg" alt="还没有图片..."
+                       th:src="@{${question.userHeader}}">
+                  <span>[[${question.userName}]]</span>
+                </center>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">[[${question.title}]]</h4>
+                <p>[[${question.text}]]</p>
+              </div>
+            </div>
+          </li>
+          <th:block th:each="page : ${#numbers.sequence(1, 7)}">
+            <li class="list-group-item child">
+              <div class="media">
+                <div class="media-left media-middle">
+                  <center>
+                    <img class="media-object" height="50px" width="50px"
+                         src="../../static/img/header.jpg" alt="还没有图片...">
+                    <span>用户名</span>
+                  </center>
+                </div>
+                <div class="media-body">
+                  <p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃...</p>
+                  <div class="media-bottom text-default">2018-1-2 10:12:34</div>
+                </div>
+              </div>
+            </li>
+          </th:block>
+        </div>
+        <div class="row">
+          <center>
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <li>
+                  <a href="javascript:void(0)" id="first">首页</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" id="back">&laquo;</a>
+                </li>
+                <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                  <li th:if="${page} eq 1" class="pageItem active" id="1">
+                    <a href="javascript:void(0)">1</a>
+                  </li>
+                  <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                    <a href="javascript:void(0)">[[${page}]]</a>
+                  </li>
+                </th:block>
+                <li>
+                  <a href="javascript:void(0)" id="nest">&raquo;</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" id="end">末页</a>
+                </li>
+              </ul>
+            </nav>
+          </center>
+        </div>
+      </div>
+      <li class="list-group-item">
+        <div class="media">
+          <div class="media-left media-middle">
+            <center>
+              <img class="media-object" height="50px" width="50px"
+                   src="../../static/img/header.jpg" alt="还没有图片..."
+                   th:src="@{${(#httpSession.getAttribute(token)).header}}"/>
+              <span>[[${(#httpSession.getAttribute(token)).name}]]</span>
+            </center>
+          </div>
+          <div class="media-body">
+            <div class="panel panel-default">
+              <form class="panel-body" data-timeline="" th:attr="data-timeline=${timeLine}">
+                <div class="sub-title"></div>
+                <div>
+                  <textarea name="text" class="form-control" rows="3" required></textarea>
+                </div>
+                <div style="margin-top: 10px">
+                  <button type="reset" class="btn btn-danger">清空</button>
+                  <button type="submit" class="btn btn-success">提交</button>
+                  <span class="checkbox3 checkbox-round">
+                    <input name="flag" type="checkbox" id="checkbox">
+                    <label for="checkbox"> 匿名提交 </label>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </li>
+    </div>
+    <footer th:replace="include :: footer"></footer>
+  </div>
+  <!-- /. PAGE INNER  -->
+</div>
+<!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script src="../../static/js/teacher/other/question.js"
+          th:src="@{/js/teacher/other/question.js}"></script>
+</th:block>
+</body>
+
+</html>

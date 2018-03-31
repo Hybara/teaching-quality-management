@@ -189,14 +189,16 @@ function structuralQuestionLiDOM(type) {
 
 function initQuestionPanel($li, data) {
   let token = $("body").attr("data-token");
+  let teacherId = $("div.header").attr("data-id");
   let scoreId = $("h1.page-header").attr("data-id");
   $li.find("img").attr("src", data.userHeader);
   $li.find("div.media-left span").text(data.userName);
   $li.find("div.media-body h4").find("a").attr("href", "/teacher/goQuestion/"
-      + scoreId + "/" + data.id + "/" + token).text(
+      + teacherId + "/" + scoreId + "/" + data.id + "/" + token).text(
       data.title == null ? "" : data.title);
   $li.find("div.media-body p").find("a").attr("href", "/teacher/goQuestion/"
-      + scoreId + "/" + data.id + "/" + token).text(data.text);
+      + teacherId + "/" + +scoreId + "/" + data.id + "/" + token).text(
+      data.text);
   structuralResult($li, data.result);
 }
 

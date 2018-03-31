@@ -64,7 +64,7 @@ public class QuestionController {
 
 
   @RequestMapping("/teacher/goMyQuestion/{scoreId}/{questionId}/{token}")
-  public String goQuestion(@PathVariable long scoreId,
+  public String goMyQuestion(@PathVariable long scoreId,
       @PathVariable long questionId, @PathVariable String token,
       Model model, HttpSession session) {
     Teacher teacher = (Teacher) session.getAttribute(token);
@@ -126,10 +126,26 @@ public class QuestionController {
     } else if (id == null || teacherId == null) {
       return "/teacher/getScores/all/" + token;
     } else {
-      model.addAttribute("teacher",teacherId);
+      model.addAttribute("teacher", teacherId);
       model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
       return "/teacher/other/questions";
     }
   }
-
+  @RequestMapping("/teacher/goQuestion/{teacherId}/{scoreId}/{questionId}/{token}")
+  public String goQuestion(@PathVariable Long teacherId, @PathVariable long scoreId,
+      @PathVariable long questionId, @PathVariable String token,
+      Model model, HttpSession session) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
+      return "redirect:/logout/" + token;
+    }
+    if (teacherId == null) {
+      return "/teacher/getScores/all/" + token;
+    }
+    model.addAttribute("teacher", teacherId);
+    model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(scoreId));
+    model.addAttribute("question", questionService.getQuestionReaderById(questionId));
+    model.addAttribute("token", token);
+    return "/teacher/other/question";
+  }
 }
