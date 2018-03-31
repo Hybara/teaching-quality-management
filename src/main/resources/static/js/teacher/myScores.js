@@ -60,7 +60,7 @@ function initScoresList(type, page, search) {
     data = {page: page, search: search};
   }
   $.ajax({
-    url: "/teacher/getScores/"+type+"/"+token,
+    url: "/teacher/getMyScores/"+type+"/"+token,
     type: "post",
     method: "post",
     dataType: "json",
@@ -101,7 +101,7 @@ function initScoresList(type, page, search) {
 
 function initScore($item, score) {
   var token = $("body").attr("data-token");
-  $item.find("h4").find("a").attr("href", "/teacher/goScore/"+score.id+"/"+token).text(score.scoreName);
+  $item.find("h4").find("a").attr("href", "/teacher/goMyScore/"+score.id+"/"+token).text(score.scoreName);
   $item.find("h6").find("small").text(score.scoreType);
   $item.find("h5").html(score.teacherName+"<br/><small>"+score.teacherBusiness+"</small>");
 }

@@ -1,6 +1,8 @@
 package cn.edu.jsu.rjxy.mappers;
 
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
+import java.util.List;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
@@ -17,7 +19,13 @@ public interface TeacherMapper {
   Teacher getById(@Param("id") long id);
 
   @Select("SELECT * FROM teacher WHERE number=#{number} AND password=#{password}")
-  Teacher getByNumberAndPassword(@Param("number") String number, @Param("password") String password);
+  Teacher getByNumberAndPassword(@Param("number") String number,
+      @Param("password") String password);
+
+  List<Teacher> getListByMajor(@Param("majorId") long majorId, @Param("step") Integer step,
+      @Param("size") Integer size, @Param("search") String search);
+
+  int getCountByMajor(@Param("majorId") long majorId, @Param("search") String search);
 
   @Update("UPDATE teacher "
       + "SET number=#{teacher.number},"

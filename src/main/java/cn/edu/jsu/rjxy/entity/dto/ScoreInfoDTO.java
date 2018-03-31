@@ -19,6 +19,7 @@ public class ScoreInfoDTO {
   private String scoreTypeName;
 
   private String teacherName;
+  private String teacherHeader;
   private String teacherBusiness;
   private String teacherSex;
   private String teacherEmail;
@@ -53,6 +54,7 @@ public class ScoreInfoDTO {
 
   private void initTeacher(Teacher teacher) {
     this.teacherName = teacher.getName();
+    this.teacherHeader = teacher.getHeader();
     this.teacherBusiness = teacher.getBusiness();
     this.teacherSex = teacher.getSex()==0?"女":"男";
     this.teacherEmail = teacher.getEmail()==null?"暂无":teacher.getEmail();
@@ -144,6 +146,14 @@ public class ScoreInfoDTO {
 
   public void setTeacherName(String teacherName) {
     this.teacherName = teacherName;
+  }
+
+  public String getTeacherHeader() {
+    return teacherHeader;
+  }
+
+  public void setTeacherHeader(String teacherHeader) {
+    this.teacherHeader = teacherHeader;
   }
 
   public String getTeacherBusiness() {
@@ -261,6 +271,7 @@ public class ScoreInfoDTO {
         ", scoreRemarks='" + scoreRemarks + '\'' +
         ", scoreTypeName='" + scoreTypeName + '\'' +
         ", teacherName='" + teacherName + '\'' +
+        ", teacherHeader='" + teacherHeader + '\'' +
         ", teacherBusiness='" + teacherBusiness + '\'' +
         ", teacherSex='" + teacherSex + '\'' +
         ", teacherEmail='" + teacherEmail + '\'' +

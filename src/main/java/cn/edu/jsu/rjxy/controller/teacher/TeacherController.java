@@ -33,7 +33,7 @@ public class TeacherController {
     if (teacher == null) {
       return "redirect:/logout/" + token;
     }
-    return "redirect:/teacher/scores/" + token;
+    return "redirect:/teacher/myScores/" + token;
   }
 
   @RequestMapping("/teacher/goPassword/{token}")

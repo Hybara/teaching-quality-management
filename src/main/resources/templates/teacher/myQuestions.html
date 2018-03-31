@@ -13,7 +13,7 @@
       <ul class="nav" id="main-menu">
         <li>
           <a href="index.html"
-             th:href="@{/teacher/goScore/{id}/{token}(id=${scoreInfo.id},token=${token})}">
+             th:href="@{/teacher/goMyScore/{id}/{token}(id=${scoreInfo.id},token=${token})}">
             <i class="fa fa-dashboard"></i> 返回</a>
         </li>
       </ul>
@@ -31,7 +31,7 @@
       <ol class="breadcrumb">
         <li><a href="" th:href="@{/teacher/login/{token}(token=${token})}">课程列表</a></li>
         <li>
-          <a href="" th:href="@{/teacher/goScore/{id}/{token}(id=${scoreInfo.id},token=${token})}">
+          <a href="" th:href="@{/teacher/goMyScore/{id}/{token}(id=${scoreInfo.id},token=${token})}">
             [[${scoreInfo.scoreName}]]
           </a>
         </li>

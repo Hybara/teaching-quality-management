@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-31 11:44:31
+Date: 2018-03-31 15:38:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -483,7 +483,7 @@ CREATE TABLE `teacher` (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('1', '010943', '欧辰', '1', '123456', '1', '讲师', null, null, null, null, null, null);
+INSERT INTO `teacher` VALUES ('1', '010943', '欧辰', '1', '123456', '1', '讲师', null, null, null, null, '\\teacher\\697F5DD87CA456E3E57F1364A6ECC2F2.jpg', null);
 INSERT INTO `teacher` VALUES ('2', '010944', '张珊', '0', '123456', '1', '教授', null, null, null, null, null, null);
 INSERT INTO `teacher` VALUES ('3', '010945', '学尔森', '1', '123456', '1', '讲师', null, null, null, null, null, null);
 

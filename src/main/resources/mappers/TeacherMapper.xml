@@ -17,4 +17,16 @@
     <result column="wechat" property="wechat" />
     <association property="major" column="major" select="cn.edu.jsu.rjxy.mappers.MajorMapper.getById" />
   </resultMap>
+
+  <select id="getListByMajor" resultMap="teacherMap">
+    SELECT * FROM teacher
+    WHERE major=#{majorId}
+    <if test="search!=null"> AND name LIKE #{search}</if>
+    <if test="step!=null and size!=null"> LIMIT #{step},#{size}</if>
+  </select>
+  <select id="getCountByMajor" resultType="Integer">
+    SELECT COUNT(*) FROM teacher
+    WHERE major=#{majorId}
+    <if test="search!=null"> AND name LIKE #{search}</if>
+  </select>
 </mapper>

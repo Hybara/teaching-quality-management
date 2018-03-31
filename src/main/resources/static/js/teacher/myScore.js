@@ -34,7 +34,7 @@ $(function () {
         alert("修改成功");
       } else if (response == "failure") {
         alert("修改失败");
-        window.location.href = "/teacher/goScore/"+scoreId+"/"+token;
+        window.location.href = "/teacher/goMyScore/"+scoreId+"/"+token;
       } else if (response == "logout") {
         window.location.href = "/logout/"+token;
       }

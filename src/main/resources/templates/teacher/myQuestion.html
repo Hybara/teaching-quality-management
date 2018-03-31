@@ -12,7 +12,7 @@
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
         <li>
-          <a href="score.html"
+          <a href="myScore.html"
              th:href="@{/teacher/goQuestions/{id}/{token}(id=${question.id},token=${token})}">
             <i class="fa fa-dashboard"></i> 返回
           </a>
@@ -31,12 +31,12 @@
         <li><a href="" th:href="@{/teacher/login/{token}(token=${token})}">课程列表</a></li>
         <li>
           <a id="score" href="" data-id="" th:attr="data-id=${scoreInfo.id}"
-             th:href="@{/teacher/goScore/{id}/{token}(id=${scoreInfo.id},token=${token})}">
+             th:href="@{/teacher/goMyScore/{id}/{token}(id=${scoreInfo.id},token=${token})}">
             [[${scoreInfo.scoreName}]]
           </a>
         </li>
         <li>
-          <a href="score.html"
+          <a href="myScore.html"
              th:href="@{/teacher/goMyQuestions/{id}/{token}(id=${scoreInfo.id},token=${token})}">
             问答
           </a>

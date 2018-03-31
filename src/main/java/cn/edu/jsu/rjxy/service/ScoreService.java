@@ -8,6 +8,7 @@ import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.StuForClass;
 import cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper;
 import cn.edu.jsu.rjxy.mappers.StuForClassMapper;
+import cn.edu.jsu.rjxy.util.QueryConditionsUitl;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ScoreService {
     if ("all".equals(scoreType)) {
       scoreType = null;
     }
-    search = constructQueryConditions(search);
+    search = QueryConditionsUitl.constructQueryConditions(search);
 
     List<StuForClass> classes = stuForClassMapper.getStudentClassesInCurrentTermByStuId(stuId);
     List<ScoreForTeacher> scoresForTeacher = scoreForTeacherMapper
@@ -54,7 +55,7 @@ public class ScoreService {
     if ("all".equals(scoreType)) {
       scoreType = null;
     }
-    search = constructQueryConditions(search);
+    search = QueryConditionsUitl.constructQueryConditions(search);
     List<StuForClass> classes = stuForClassMapper.getStudentClassesInCurrentTermByStuId(stuId);
     return scoreForTeacherMapper.getScoresCountForClasses(scoreType, classes, search);
   }
@@ -64,7 +65,7 @@ public class ScoreService {
     if ("all".equals(scoreType)) {
       scoreType = null;
     }
-    search = constructQueryConditions(search);
+    search = QueryConditionsUitl.constructQueryConditions(search);
 
     List<ScoreForTeacher> scoresForTeacher = scoreForTeacherMapper
         .getScoresForTeacher(scoreType, teacherId, (index - 1) * size, size, search);
@@ -81,20 +82,11 @@ public class ScoreService {
     if ("all".equals(scoreType)) {
       scoreType = null;
     }
-    search = constructQueryConditions(search);
+    search = QueryConditionsUitl.constructQueryConditions(search);
     return scoreForTeacherMapper.getScoresCountForTeacher(scoreType, teacherId, search);
   }
 
-  private String constructQueryConditions(String search) {
-    if (search!=null) {
-      char[] searchArray = search.toCharArray();
-      search = "%";
-      for (int i=0; i<searchArray.length; i++) {
-        search += searchArray[i]+"%";
-      }
-    }
-    return search;
-  }
+
 
   public boolean updateScoreForTeacher(ScoreForTeacher scoreForTeacher) {
     return scoreForTeacherMapper.updateScoreForTeacher(scoreForTeacher);

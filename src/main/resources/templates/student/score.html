@@ -139,7 +139,8 @@
                   </style>
                   <tr>
                     <td width="60px" rowspan="2">
-                      <image width="40px" src="" th:src="@{/img/header.jpg}" />
+                      <image width="40px" src=""
+                      th:src="@{${scoreInfo.teacherHeader}}"/>
                     </td>
                     <td>[[${scoreInfo.teacherName}]]</td>
                   </tr>
