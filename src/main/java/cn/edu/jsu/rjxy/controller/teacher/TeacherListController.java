@@ -2,12 +2,15 @@ package cn.edu.jsu.rjxy.controller.teacher;
 
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
 import cn.edu.jsu.rjxy.service.TeacherService;
+import cn.edu.jsu.rjxy.util.JSONBaseUtil;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("teacherTeacherListController")
 public class TeacherListController {
@@ -33,6 +36,23 @@ public class TeacherListController {
     int teacherCount = teacherService.getTeacherCountByMajor(teacher.getMajor().getId(), NO_SEARCH);
     model.addAttribute("count", Math.ceil(((double) teacherCount)/PAGE_SIZE));
     return "/teacher/teachers";
+  }
+
+  @RequestMapping("teacher/getTeachers")
+  @ResponseBody
+  public Map<String, Object> getScores(String token, HttpSession session, Integer page, String search) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (page == null) {
+      page = INDEX_PAGE;
+    }
+    if (search == null || "".equals(search)) {
+      search = NO_SEARCH;
+    }
+    int teacherCount = teacherService.getTeacherCountByMajor(teacher.getMajor().getId(), search);
+    return JSONBaseUtil.structuralResponseMap(
+        teacherService
+            .getTeacherListByMajor(teacher.getMajor().getId(), page, PAGE_SIZE, search),
+        Math.ceil((double) teacherCount / PAGE_SIZE));
   }
 
 }

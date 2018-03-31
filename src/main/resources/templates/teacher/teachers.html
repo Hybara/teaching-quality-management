@@ -28,7 +28,7 @@
       </ol>
     </div>
     <div class="row" style="width: 100%">
-      <div class="col-md-offset-3 col-md-6">
+      <div class="col-md-offset-2 col-md-8">
         <!-- Advanced Tables -->
         <div class="panel panel-default">
           <div class="panel-heading"> [[${(#httpSession.getAttribute(token)).major.name}]]·教师列表
@@ -41,6 +41,7 @@
                     <input type="text" class="form-control" id="search" placeholder="工号、姓名、职称...">
                   </div>
                   <button type="submit" class="btn btn-primary">搜索</button>
+                  <button type="button" class="btn btn-success">全部</button>
                 </form>
               </div>
             </div>
@@ -54,7 +55,7 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th width="25%">工号</th>
+                  <th>工号</th>
                   <th>姓名</th>
                   <th>职称</th>
                   <th>性别</th>
@@ -117,9 +118,9 @@
 <!-- /. WRAPPER  -->
 
 <!-- /. WRAPPER  -->
-<th:block th:replace="include :: scripte_domain(~{})">
+<th:block th:replace="include :: scripte_domain(~{::script})">
   <!-- My Js -->
-  <!--<script src="../../static/js/teacher/myScores.js" th:src="@{/js/teacher/myScores.js}"></script>-->
+  <script src="../../static/js/teacher/teachers.js" th:src="@{/js/teacher/teachers.js}"></script>
 </th:block>
 </body>
 

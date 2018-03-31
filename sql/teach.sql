@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-31 15:38:53
+Date: 2018-03-31 17:27:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -471,10 +471,10 @@ CREATE TABLE `teacher` (
   `password` varchar(16) NOT NULL,
   `major` int(11) NOT NULL,
   `business` varchar(64) default NULL COMMENT '职称',
-  `email` varchar(128) default NULL,
-  `phone` varchar(16) default NULL,
-  `QQ` varchar(32) default NULL,
-  `wechat` varchar(64) default NULL,
+  `email` varchar(128) default '',
+  `phone` varchar(16) default '',
+  `QQ` varchar(32) default '',
+  `wechat` varchar(64) default '',
   `header` varchar(255) default NULL,
   `evaluate` varchar(255) default NULL COMMENT '总评',
   PRIMARY KEY  (`id`)

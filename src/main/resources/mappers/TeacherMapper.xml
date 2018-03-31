@@ -4,29 +4,34 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.jsu.rjxy.mappers.TeacherMapper">
   <resultMap id="teacherMap" type="Teacher">
-    <id column="id" property="id" />
-    <result column="number" property="number" />
-    <result column="name" property="name" />
-    <result column="sex" property="sex" />
-    <result column="business" property="business" />
-    <result column="header" property="header" />
-    <result column="password" property="password" />
-    <result column="email" property="email" />
-    <result column="phone" property="phone" />
-    <result column="QQ" property="qq" />
-    <result column="wechat" property="wechat" />
-    <association property="major" column="major" select="cn.edu.jsu.rjxy.mappers.MajorMapper.getById" />
+    <id column="id" property="id"/>
+    <result column="number" property="number"/>
+    <result column="name" property="name"/>
+    <result column="sex" property="sex"/>
+    <result column="business" property="business"/>
+    <result column="header" property="header"/>
+    <result column="password" property="password"/>
+    <result column="email" property="email"/>
+    <result column="phone" property="phone"/>
+    <result column="QQ" property="qq"/>
+    <result column="wechat" property="wechat"/>
+    <association property="major" column="major"
+      select="cn.edu.jsu.rjxy.mappers.MajorMapper.getById"/>
   </resultMap>
 
   <select id="getListByMajor" resultMap="teacherMap">
     SELECT * FROM teacher
     WHERE major=#{majorId}
-    <if test="search!=null"> AND name LIKE #{search}</if>
-    <if test="step!=null and size!=null"> LIMIT #{step},#{size}</if>
+    <if test="search!=null">AND (`name` LIKE #{search} OR `number` LIKE #{search} OR business LIKE
+      #{search})
+    </if>
+    <if test="step!=null and size!=null">LIMIT #{step},#{size}</if>
   </select>
   <select id="getCountByMajor" resultType="Integer">
     SELECT COUNT(*) FROM teacher
     WHERE major=#{majorId}
-    <if test="search!=null"> AND name LIKE #{search}</if>
+    <if test="search!=null">AND (`name` LIKE #{search} OR `number` LIKE #{search} OR business LIKE
+      #{search})
+    </if>
   </select>
 </mapper>
