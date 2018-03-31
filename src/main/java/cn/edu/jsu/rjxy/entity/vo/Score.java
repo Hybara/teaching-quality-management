@@ -10,7 +10,6 @@ public class Score {
   private Double credit;
   private Double hours;
   private String testWay;
-  private String remarks;
 
   public Score() {
   }
@@ -27,7 +26,7 @@ public class Score {
   }
 
   public Score(long id, String name, Major major, Term term, ScoreType type,
-      Double credit, Double hours, String testWay, String remarks) {
+      Double credit, Double hours, String testWay) {
     this.id = id;
     this.name = name;
     this.major = major;
@@ -36,7 +35,6 @@ public class Score {
     this.credit = credit;
     this.hours = hours;
     this.testWay = testWay;
-    this.remarks = remarks;
   }
 
   public long getId() {
@@ -103,14 +101,6 @@ public class Score {
     this.testWay = testWay;
   }
 
-  public String getRemarks() {
-    return remarks;
-  }
-
-  public void setRemarks(String remarks) {
-    this.remarks = remarks;
-  }
-
   @Override
   public String toString() {
     return "Score{" +
@@ -122,7 +112,6 @@ public class Score {
         ", credit=" + credit +
         ", hours=" + hours +
         ", testWay='" + testWay + '\'' +
-        ", remarks='" + remarks + '\'' +
         '}';
   }
 }

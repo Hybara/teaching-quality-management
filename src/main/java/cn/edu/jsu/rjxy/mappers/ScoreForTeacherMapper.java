@@ -44,7 +44,8 @@ public interface ScoreForTeacherMapper {
       + " question_grade=#{scoreForTeacher.questionGrade},"
       + " question_count=#{scoreForTeacher.questionCount},"
       + " assessment_grade=#{scoreForTeacher.assessmentGrade},"
-      + " assessment_count=#{scoreForTeacher.assessmentCount} "
+      + " assessment_count=#{scoreForTeacher.assessmentCount}, "
+      + " remarks=#{scoreForTeacher.remarks} "
       + "WHERE id=#{scoreForTeacher.id}")
   boolean updateScoreForTeacher(@Param("scoreForTeacher")ScoreForTeacher scoreForTeacher);
 }

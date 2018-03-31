@@ -1,5 +1,6 @@
 package cn.edu.jsu.rjxy.controller.teacher;
 
+import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
 import cn.edu.jsu.rjxy.service.MessageService;
 import cn.edu.jsu.rjxy.service.ScoreService;
@@ -77,12 +78,33 @@ public class ScoreController {
       Model model) {
     Teacher teacher = (Teacher) session.getAttribute(token);
     if (teacher == null) {
-      return "teacher:/logout/" + token;
+      return "redirect:/logout/" + token;
     } else if (id == null) {
       return "/teacher/getScores/all/" + token;
     }
     model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
     model.addAttribute("token", token);
     return "/teacher/score";
+  }
+
+  @RequestMapping("/teacher/setRemarks")
+  @ResponseBody
+  public String setRemarks(Long id, String token, String remarks,
+      HttpSession session) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
+      return "logout";
+    }
+    if (id == null) {
+      return "failure";
+    }
+    ScoreForTeacher scoreForTeacher = scoreService.getById(id);
+    if (scoreForTeacher!=null) {
+      scoreForTeacher.setRemarks(remarks);
+      if (scoreService.updateScoreForTeacher(scoreForTeacher)) {
+        return "ok";
+      }
+    }
+    return "failure";
   }
 }

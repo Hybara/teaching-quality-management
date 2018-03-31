@@ -13,6 +13,7 @@ public class ScoreForTeacher {
   private Integer questionCount;
   private Double assessmentGrade;
   private Integer assessmentCount;
+  private String remarks;
 
   public ScoreForTeacher() {
   }
@@ -48,6 +49,24 @@ public class ScoreForTeacher {
     this.questionCount = questionCount;
     this.assessmentGrade = assessmentGrade;
     this.assessmentCount = assessmentCount;
+  }
+
+  public ScoreForTeacher(long id, Score score, Teacher teacher,
+      StuForClass stuForClass, Double result, Double evaluateGrade, Integer evaluateCount,
+      Double questionGrade, Integer questionCount, Double assessmentGrade,
+      Integer assessmentCount, String remarks) {
+    this.id = id;
+    this.score = score;
+    this.teacher = teacher;
+    this.stuForClass = stuForClass;
+    this.result = result;
+    this.evaluateGrade = evaluateGrade;
+    this.evaluateCount = evaluateCount;
+    this.questionGrade = questionGrade;
+    this.questionCount = questionCount;
+    this.assessmentGrade = assessmentGrade;
+    this.assessmentCount = assessmentCount;
+    this.remarks = remarks;
   }
 
   public long getId() {
@@ -138,6 +157,14 @@ public class ScoreForTeacher {
     this.assessmentCount = assessmentCount;
   }
 
+  public String getRemarks() {
+    return remarks;
+  }
+
+  public void setRemarks(String remarks) {
+    this.remarks = remarks;
+  }
+
   @Override
   public String toString() {
     return "ScoreForTeacher{" +
@@ -152,6 +179,7 @@ public class ScoreForTeacher {
         ", questionCount=" + questionCount +
         ", assessmentGrade=" + assessmentGrade +
         ", assessmentCount=" + assessmentCount +
+        ", remarks='" + remarks + '\'' +
         '}';
   }
 }

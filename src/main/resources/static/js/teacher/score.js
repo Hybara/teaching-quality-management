@@ -19,6 +19,29 @@ $(function () {
     window.location.href = url;
   })
 
+  $("form").on("submit", function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var text = $("textarea").val();
+    var token = $("body").attr("data-token");
+    var scoreId = $("h1.page-header").attr("data-id");
+    $.post("/teacher/setRemarks", {
+      token: token,
+      id: scoreId,
+      remarks: text
+    }, function (response) {
+      if (response == "ok") {
+        alert("修改成功");
+      } else if (response == "failure") {
+        alert("修改失败");
+        window.location.href = "/teacher/goScore/"+scoreId+"/"+token;
+      } else if (response == "logout") {
+        window.location.href = "/logout/"+token;
+      }
+    }, "text");
+    return false;
+  });
+
 });
 
 const NO_DATA = 0;

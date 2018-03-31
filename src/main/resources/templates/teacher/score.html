@@ -61,8 +61,15 @@
                   </tr>
                   <tr>
                     <td>其他信息：</td>
-                    <td colspan="3" th:text="${scoreInfo.scoreRemarks}"> 周一5,6节 1教403 | 周三7,8节
-                      1教402
+                    <td colspan="3">
+                      <form>
+                        <div class="col-md-10">
+                        <textarea class="form-control" th:text="${scoreInfo.scoreRemarks}"></textarea>
+                        </div>
+                        <div class="col-md-2">
+                          <button type="submit" class="btn btn-success">修改</button>
+                        </div>
+                      </form>
                     </td>
                   </tr>
                 </table>

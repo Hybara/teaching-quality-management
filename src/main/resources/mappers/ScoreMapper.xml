@@ -9,7 +9,6 @@
     <result property="credit" column="credit"/>
     <result property="hours" column="hours"/>
     <result property="testWay" column="test_way"/>
-    <result property="remarks" column="remarks"/>
     <association property="major" column="major" select="cn.edu.jsu.rjxy.mappers.MajorMapper.getById"/>
     <association property="term" column="term" select="cn.edu.jsu.rjxy.mappers.TermMapper.getById"/>
     <association property="type" column="type" select="cn.edu.jsu.rjxy.mappers.ScoreTypeMapper.getById"/>

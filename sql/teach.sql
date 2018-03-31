@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-29 17:02:46
+Date: 2018-03-31 11:44:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -347,22 +347,21 @@ CREATE TABLE `score` (
   `credit` decimal(10,0) default NULL COMMENT '学分',
   `hours` decimal(10,0) default NULL COMMENT '学时 单位：课时',
   `test_way` varchar(64) default NULL COMMENT '考核方式',
-  `remarks` varchar(255) default NULL COMMENT '备注',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('1', '软件工程', '1', '1', '1', '3', '30', null, null);
-INSERT INTO `score` VALUES ('2', '编译原理', '1', '1', '1', '3', '30', null, null);
-INSERT INTO `score` VALUES ('3', '计算机系统', '1', '1', '1', '3', '20', null, null);
-INSERT INTO `score` VALUES ('4', '数据结构与算法', '1', '1', '1', '4', '30', null, null);
-INSERT INTO `score` VALUES ('5', 'Java Web', '1', '1', '1', '3', '25', null, null);
-INSERT INTO `score` VALUES ('6', 'C++', '1', '1', '1', '2', '20', null, null);
-INSERT INTO `score` VALUES ('7', 'C程序设计基础', '1', '1', '1', '2', '20', null, null);
-INSERT INTO `score` VALUES ('8', '茶艺', '1', '1', '4', '2', '18', null, null);
-INSERT INTO `score` VALUES ('9', '旅游', '1', '1', '4', '2', '18', null, null);
+INSERT INTO `score` VALUES ('1', '软件工程', '1', '1', '1', '3', '30', null);
+INSERT INTO `score` VALUES ('2', '编译原理', '1', '1', '1', '3', '30', null);
+INSERT INTO `score` VALUES ('3', '计算机系统', '1', '1', '1', '3', '20', null);
+INSERT INTO `score` VALUES ('4', '数据结构与算法', '1', '1', '1', '4', '30', null);
+INSERT INTO `score` VALUES ('5', 'Java Web', '1', '1', '1', '3', '25', null);
+INSERT INTO `score` VALUES ('6', 'C++', '1', '1', '1', '2', '20', null);
+INSERT INTO `score` VALUES ('7', 'C程序设计基础', '1', '1', '1', '2', '20', null);
+INSERT INTO `score` VALUES ('8', '茶艺', '1', '1', '4', '2', '18', null);
+INSERT INTO `score` VALUES ('9', '旅游', '1', '1', '4', '2', '18', null);
 
 -- ----------------------------
 -- Table structure for score_for_teacher
@@ -380,21 +379,22 @@ CREATE TABLE `score_for_teacher` (
   `question_count` int(11) unsigned zerofill NOT NULL,
   `assessment_grade` decimal(10,2) unsigned zerofill NOT NULL,
   `assessment_count` int(11) unsigned zerofill NOT NULL,
+  `remarks` varchar(255) default NULL COMMENT '备注',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of score_for_teacher
 -- ----------------------------
-INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', '79.50', '00000860.00', '00000000010', '00000170.00', '00000000002', '00000000.00', '00000000000');
-INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
-INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
-INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
-INSERT INTO `score_for_teacher` VALUES ('5', '5', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
-INSERT INTO `score_for_teacher` VALUES ('6', '6', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
-INSERT INTO `score_for_teacher` VALUES ('7', '7', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
-INSERT INTO `score_for_teacher` VALUES ('8', '8', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
-INSERT INTO `score_for_teacher` VALUES ('9', '9', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000');
+INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', '79.50', '00000860.00', '00000000010', '00000170.00', '00000000002', '00000000.00', '00000000000', '');
+INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('5', '5', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('6', '6', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('7', '7', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('8', '8', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('9', '9', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 
 -- ----------------------------
 -- Table structure for score_type

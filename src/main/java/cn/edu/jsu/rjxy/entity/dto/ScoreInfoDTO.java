@@ -39,6 +39,7 @@ public class ScoreInfoDTO {
     initScore(scoreForTeacher.getScore());
     initTeacher(scoreForTeacher.getTeacher());
     this.result = scoreForTeacher.getResult();
+    this.scoreRemarks = scoreForTeacher.getRemarks();
     initGrade(scoreForTeacher);
   }
 
@@ -48,7 +49,6 @@ public class ScoreInfoDTO {
     this.scoreHours = score.getHours().toString();
     this.scoreTypeName = score.getType().getName();
     this.scoreTestWay = score.getTestWay();
-    this.scoreRemarks = score.getRemarks();
   }
 
   private void initTeacher(Teacher teacher) {
