@@ -54,7 +54,9 @@ function initMajorList(page, search) {
         $(div).hide();
       } else {
         $(div).show();
-        $(div).find("a").css("font-size", "12px").attr("href", "");
+        $(div).find("a").css("font-size", "12px").attr(
+            "href", "/register/teacherList/" + response.data[index].id + "/"
+            + token);
         $(div).find("a").find("span.number").text(response.data[index].number);
         $(div).find("a").find("span.name").text(response.data[index].name);
       }

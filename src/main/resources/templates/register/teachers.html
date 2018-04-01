@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="register/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a href="/teacher/login/{token}"
+             th:href="@{/register/login/{token}(token=${token})}"><i
+              class="fa fa-desktop"></i>返回</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">教师列表</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="" th:href="@{/register/login/{token}(token=${token})}">专业列表</a>
+        </li>
+        <li class="active">[[${major.name}]]·教师列表</li>
+      </ol>
+    </div>
+    <div class="row" style="width: 100%">
+      <div class="col-md-offset-2 col-md-8">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+          <div class="panel-heading major" data-id="" th:attr="data-id=${major.id}"> [[${major.name}]]·教师列表
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <form class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="search" placeholder="工号、姓名、职称...">
+                  </div>
+                  <button type="submit" class="btn btn-primary">搜索</button>
+                  <button type="button" class="btn btn-success">全部</button>
+                </form>
+              </div>
+            </div>
+            <div class="table-responsive" style="margin-top: 10px;">
+              <style>
+                .table-hover tr td {
+                  cursor: pointer;
+                }
+              </style>
+              <table class="table table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>工号</th>
+                  <th>姓名</th>
+                  <th>职称</th>
+                  <th>性别</th>
+                  <th>邮箱</th>
+                  <th>电话</th>
+                  <th>QQ</th>
+                  <th>微信</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="page,iterState : ${#numbers.sequence(1, 12)}">
+                  <tr>
+                    <td>[[${iterState.count}]]</td>
+                    <td>12153153242134</td>
+                    <td>david</td>
+                    <td>讲师</td>
+                    <td>男</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </th:block>
+                </tbody>
+              </table>
+            </div>
+            <div class="row" th:if="${count}">
+              <center>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination" data-count="1" th:attr="data-count=${count}">
+                    <li>
+                      <a href="javascript:void(0)" id="back">&laquo;</a>
+                    </li>
+                    <th:block th:each="page : ${#numbers.sequence(1, count)}">
+                      <li th:if="${page} eq 1" class="pageItem active" id="1">
+                        <a href="javascript:void(0)">1</a>
+                      </li>
+                      <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                        <a href="javascript:void(0)">[[${page}]]</a>
+                      </li>
+                    </th:block>
+                    <li>
+                      <a href="javascript:void(0)" id="nest">&raquo;</a>
+                    </li>
+                  </ul>
+                </nav>
+              </center>
+            </div>
+          </div>
+        </div>
+        <!--End Advanced Tables -->
+        <div style="clear: both"></div>
+        <footer th:replace="include :: footer"></footer>
+      </div>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script src="../../static/js/register/teachers.js" th:src="@{/js/register/teachers.js}"></script>
+</th:block>
+</body>
+
+</html>
