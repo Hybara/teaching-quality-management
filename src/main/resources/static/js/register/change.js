@@ -17,6 +17,7 @@ $(function () {
     });
   }
 
+
   $("#old_password").on("blur", function () {
     var token = $("body").attr("data-token");
     var password = $(this).val();
@@ -28,7 +29,7 @@ $(function () {
     }
     console.log("11");
     var $input = $(this);
-    $.post("/teacher/checkPassword", {
+    $.post("/register/checkPassword", {
       token: token,
       password: password
     }, function (response) {
@@ -65,6 +66,7 @@ $(function () {
     });
 
     $("#password_form").on("submit", function (event) {
+      // debugger;
       event.stopPropagation();
       event.preventDefault();
       var password = $("#new_password").val();
@@ -86,7 +88,7 @@ $(function () {
         return false;
       } else {
         var token = $("body").attr("data-token");
-        $.post("/teacher/changePassword", {
+        $.post("/register/changePassword", {
           token: token,
           password: password
         }, function (response) {
@@ -106,31 +108,4 @@ $(function () {
     });
   });
 
-  $("#info_form").on("submit", function (event) {
-    event.stopPropagation();
-    event.preventDefault();
-    debugger;
-    let token = $("body").attr("data-token");
-    let email = $("input[name=email]").val();
-    let phone = $("input[name=phone]").val();
-    let qq = $("input[name=qq]").val();
-    let wechat = $("input[name=wechat]").val();
-    $.post("/teacher/changeInfo", {
-      token: token,
-      email: email,
-      phone: phone,
-      qq: qq,
-      wechat: wechat
-    }, function (response) {
-      if (response == "ok") {
-        alert("修改成功");
-      } else if (response == "error") {
-        alert("修改失败");
-      } else if (response == "logout") {
-        window.location.href = "/logout/" + token;
-      }
-      window.location.href = "/teacher/goInfo/" + token;
-    });
-    return false;
-  });
 });
