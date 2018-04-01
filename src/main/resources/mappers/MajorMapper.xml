@@ -4,4 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.jsu.rjxy.mappers.MajorMapper">
 
+  <select id="getPage" resultType="Major">
+    SELECT * FROM major
+    <if test="search!=null">
+      WHERE `number` LIKE #{search} OR `name` LIKE #{search}
+    </if>
+    <if test="step!=null and size!=null">
+      LIMIT #{step},#{size}
+    </if>
+  </select>
+
+  <select id="getCount" resultType="Integer">
+    SELECT COUNT(*) FROM major
+    <if test="search!=null">
+      WHERE `number` LIKE #{search} OR `name` LIKE #{search}
+    </if>
+  </select>
 </mapper>

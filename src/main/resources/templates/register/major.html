@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="register/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a href="index.html"><i class="fa fa-dashboard"></i> 专业列表</a>
+          <a href="index.html"><i class="fa fa-dashboard"></i> 题库</a>
+          <a href="index.html"><i class="fa fa-dashboard"></i> 举报</a>
+          <a href="index.html"><i class="fa fa-dashboard"></i> 公告</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">专业列表</h1>
+      <ol class="breadcrumb">
+        <li class="active">专业列表</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Advanced Tables -->
+          <div class="panel panel-default">
+            <div class="panel-heading"> 专业列表</div>
+            <div class="panel-body">
+              <style>
+                .col-sm-3, .col-sm-6 {
+                  margin-bottom: 1%;
+                }
+
+                .col-sm-3 a {
+                  font-size: 10px;
+                }
+              </style>
+              <div class="row">
+                <div class="col-sm-6">
+                  <form class="form-inline">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="search" placeholder="专业编号、专业名称...">
+                    </div>
+                    <button type="submit" class="btn btn-primary">搜索</button>
+                    <button type="button" class="btn btn-success">全部</button>
+                  </form>
+                </div>
+              </div>
+              <div class="row" id="major">
+                <th:block th:each="page : ${#numbers.sequence(1, 24)}">
+                  <div class="col-sm-3">
+                    <a href="" class="list-group-item">
+                      <span class="number"></span>&emsp;&emsp;&emsp;
+                      <span class="name"></span>
+                    </a>
+                  </div>
+                </th:block>
+              </div>
+            </div>
+            <div class="row" th:if="${count}" style="margin-top: -15px;">
+              <center>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination" data-count="1" th:attr="data-count=${count}">
+                    <li>
+                      <a href="javascript:void(0)" id="back">&laquo;</a>
+                    </li>
+                    <th:block th:each="page : ${#numbers.sequence(1, count)}">
+                      <li th:if="${page} eq 1" class="pageItem active" id="1">
+                        <a href="javascript:void(0)">1</a>
+                      </li>
+                      <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                        <a href="javascript:void(0)">[[${page}]]</a>
+                      </li>
+                    </th:block>
+                    <li>
+                      <a href="javascript:void(0)" id="nest">&raquo;</a>
+                    </li>
+                  </ul>
+                </nav>
+              </center>
+            </div>
+          </div>
+          <!--End Advanced Tables -->
+
+        </div>
+      </div>
+
+      <footer th:replace="include :: footer"></footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script src="../../static/js/register/major.js" th:src="@{/js/register/major.js}"></script>
+</th:block>
+
+</body>
+
+</html>

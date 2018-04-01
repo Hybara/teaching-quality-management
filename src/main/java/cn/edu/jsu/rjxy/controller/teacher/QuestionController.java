@@ -1,6 +1,5 @@
 package cn.edu.jsu.rjxy.controller.teacher;
 
-import cn.edu.jsu.rjxy.entity.vo.Student;
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
 import cn.edu.jsu.rjxy.service.QuestionService;
 import cn.edu.jsu.rjxy.service.ScoreService;

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-03-31 17:27:30
+Date: 2018-04-01 18:16:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -121,8 +121,52 @@ CREATE TABLE `major` (
 -- ----------------------------
 -- Records of major
 -- ----------------------------
-INSERT INTO `major` VALUES ('1', '01', '软件工程', '4');
-INSERT INTO `major` VALUES ('2', '02', '土木工程', '4');
+INSERT INTO `major` VALUES ('1', '010101', '哲学', '4');
+INSERT INTO `major` VALUES ('2', '010102', '逻辑学', '4');
+INSERT INTO `major` VALUES ('3', '01010K', '宗教学', '4');
+INSERT INTO `major` VALUES ('4', '020101', '经济学', '4');
+INSERT INTO `major` VALUES ('5', '020102', '经济统计学', '4');
+INSERT INTO `major` VALUES ('6', '020201K', '财政学', '4');
+INSERT INTO `major` VALUES ('7', '020202', '税收学', '4');
+INSERT INTO `major` VALUES ('8', '020301K', '金融学', '4');
+INSERT INTO `major` VALUES ('9', '020302', '金融工程', '4');
+INSERT INTO `major` VALUES ('10', '020303', '保险学', '4');
+INSERT INTO `major` VALUES ('11', '020304', '投资学', '4');
+INSERT INTO `major` VALUES ('12', '020401', '国际经济与贸易', '4');
+INSERT INTO `major` VALUES ('13', '020402', '贸易经济', '4');
+INSERT INTO `major` VALUES ('14', '030101K', '法学', '4');
+INSERT INTO `major` VALUES ('15', '030201', '政治学与行政学', '4');
+INSERT INTO `major` VALUES ('16', '030202', '国际政治', '4');
+INSERT INTO `major` VALUES ('17', '030203', '外交学', '4');
+INSERT INTO `major` VALUES ('18', '030301', '社会学', '4');
+INSERT INTO `major` VALUES ('19', '030302', '社会工作', '4');
+INSERT INTO `major` VALUES ('20', '030401', '民族学', '4');
+INSERT INTO `major` VALUES ('21', '030501', '科学社会主义', '4');
+INSERT INTO `major` VALUES ('22', '030502', '中国共产党历史', '4');
+INSERT INTO `major` VALUES ('23', '030503', '思想政治教育', '4');
+INSERT INTO `major` VALUES ('24', '030601K', '治安学', '4');
+INSERT INTO `major` VALUES ('25', '030602K', '侦查学', '4');
+INSERT INTO `major` VALUES ('26', '030603K', '边防管理', '4');
+INSERT INTO `major` VALUES ('27', '040101', '教育学', '4');
+INSERT INTO `major` VALUES ('28', '040102', '科学教育', '4');
+INSERT INTO `major` VALUES ('29', '040103', '人文教育', '4');
+INSERT INTO `major` VALUES ('30', '040104', '教育技术学', '4');
+INSERT INTO `major` VALUES ('31', '040105', '艺术教育', '4');
+INSERT INTO `major` VALUES ('32', '040106', '学前教育', '4');
+INSERT INTO `major` VALUES ('33', '040107', '小学教育', '4');
+INSERT INTO `major` VALUES ('34', '040108', '特殊教育', '4');
+INSERT INTO `major` VALUES ('35', '040201', '体育教育', '4');
+INSERT INTO `major` VALUES ('36', '040202K', '运动训练', '4');
+INSERT INTO `major` VALUES ('37', '040203', '社会体育指导与管理', '4');
+INSERT INTO `major` VALUES ('38', '040204K', '武术与民族传统体育', '4');
+INSERT INTO `major` VALUES ('39', '040205', '运动人体科学', '4');
+INSERT INTO `major` VALUES ('40', '050101', '汉语言文学', '4');
+INSERT INTO `major` VALUES ('41', '050102', '汉语言', '4');
+INSERT INTO `major` VALUES ('42', '050103', '汉语国际教育', '4');
+INSERT INTO `major` VALUES ('43', '050104', '中国少数名族语言文学', '4');
+INSERT INTO `major` VALUES ('44', '050105', '古典文献学', '4');
+INSERT INTO `major` VALUES ('45', '080902', '软件工程', '4');
+INSERT INTO `major` VALUES ('46', '080903', '网络工程', '4');
 
 -- ----------------------------
 -- Table structure for message
@@ -353,13 +397,13 @@ CREATE TABLE `score` (
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('1', '软件工程', '1', '1', '1', '3', '30', null);
-INSERT INTO `score` VALUES ('2', '编译原理', '1', '1', '1', '3', '30', null);
-INSERT INTO `score` VALUES ('3', '计算机系统', '1', '1', '1', '3', '20', null);
-INSERT INTO `score` VALUES ('4', '数据结构与算法', '1', '1', '1', '4', '30', null);
-INSERT INTO `score` VALUES ('5', 'Java Web', '1', '1', '1', '3', '25', null);
-INSERT INTO `score` VALUES ('6', 'C++', '1', '1', '1', '2', '20', null);
-INSERT INTO `score` VALUES ('7', 'C程序设计基础', '1', '1', '1', '2', '20', null);
+INSERT INTO `score` VALUES ('1', '软件工程', '45', '1', '1', '3', '30', null);
+INSERT INTO `score` VALUES ('2', '编译原理', '45', '1', '1', '3', '30', null);
+INSERT INTO `score` VALUES ('3', '计算机系统', '45', '1', '1', '3', '20', null);
+INSERT INTO `score` VALUES ('4', '数据结构与算法', '45', '1', '1', '4', '30', null);
+INSERT INTO `score` VALUES ('5', 'Java Web', '45', '1', '1', '3', '25', null);
+INSERT INTO `score` VALUES ('6', 'C++', '45', '1', '1', '2', '20', null);
+INSERT INTO `score` VALUES ('7', 'C程序设计基础', '45', '1', '1', '2', '20', null);
 INSERT INTO `score` VALUES ('8', '茶艺', '1', '1', '4', '2', '18', null);
 INSERT INTO `score` VALUES ('9', '旅游', '1', '1', '4', '2', '18', null);
 
