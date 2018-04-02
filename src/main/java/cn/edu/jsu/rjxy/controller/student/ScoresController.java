@@ -1,8 +1,10 @@
 package cn.edu.jsu.rjxy.controller.student;
 
+import cn.edu.jsu.rjxy.entity.dto.ScoreDTO;
 import cn.edu.jsu.rjxy.entity.vo.Student;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.util.JSONBaseUtil;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ public class ScoresController {
     if (page == null) {
       page = INDEX_PAGE_NUMBER;
     }
+    List<ScoreDTO> scoreDTOS = scoreService.getScoresInCurrentTerm(type, student.getId(), page, SCORES_PAGE_SIZE, search);
     int scoreCount = scoreService.getScoresCountInCurrentTerm(type, student.getId(), search);
     return JSONBaseUtil.structuralResponseMap(
         scoreService.getScoresInCurrentTerm(type, student.getId(), page, SCORES_PAGE_SIZE, search),

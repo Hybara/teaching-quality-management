@@ -5,7 +5,6 @@ public class ScoreForTeacher {
   private long id;
   private Score score;
   private Teacher teacher;
-  private StuForClass stuForClass;
   private Double result;
   private Double evaluateGrade;
   private Integer evaluateCount;
@@ -22,26 +21,23 @@ public class ScoreForTeacher {
     this.id = id;
   }
 
-  public ScoreForTeacher(Score score, Teacher teacher, StuForClass stuForClass) {
+  public ScoreForTeacher(Score score, Teacher teacher) {
     this.score = score;
     this.teacher = teacher;
-    this.stuForClass = stuForClass;
   }
 
-  public ScoreForTeacher(Score score, Teacher teacher, StuForClass stuForClass, Double result) {
+  public ScoreForTeacher(Score score, Teacher teacher, Double result) {
     this.score = score;
     this.teacher = teacher;
-    this.stuForClass = stuForClass;
     this.result = result;
   }
 
   public ScoreForTeacher(long id, Score score, Teacher teacher,
-      StuForClass stuForClass, Double result, Double evaluateGrade, Integer evaluateCount, Double questionGrade,
+      Double result, Double evaluateGrade, Integer evaluateCount, Double questionGrade,
       Integer questionCount, Double assessmentGrade, Integer assessmentCount) {
     this.id = id;
     this.score = score;
     this.teacher = teacher;
-    this.stuForClass = stuForClass;
     this.result = result;
     this.evaluateGrade = evaluateGrade;
     this.evaluateCount = evaluateCount;
@@ -52,13 +48,12 @@ public class ScoreForTeacher {
   }
 
   public ScoreForTeacher(long id, Score score, Teacher teacher,
-      StuForClass stuForClass, Double result, Double evaluateGrade, Integer evaluateCount,
+      Double result, Double evaluateGrade, Integer evaluateCount,
       Double questionGrade, Integer questionCount, Double assessmentGrade,
       Integer assessmentCount, String remarks) {
     this.id = id;
     this.score = score;
     this.teacher = teacher;
-    this.stuForClass = stuForClass;
     this.result = result;
     this.evaluateGrade = evaluateGrade;
     this.evaluateCount = evaluateCount;
@@ -91,14 +86,6 @@ public class ScoreForTeacher {
 
   public void setTeacher(Teacher teacher) {
     this.teacher = teacher;
-  }
-
-  public StuForClass getStuForClass() {
-    return stuForClass;
-  }
-
-  public void setStuForClass(StuForClass stuForClass) {
-    this.stuForClass = stuForClass;
   }
 
   public Double getResult() {
@@ -171,7 +158,6 @@ public class ScoreForTeacher {
         "id=" + id +
         ", score=" + score +
         ", teacher=" + teacher +
-        ", stuForClass=" + stuForClass +
         ", result=" + result +
         ", evaluateGrade=" + evaluateGrade +
         ", evaluateCount=" + evaluateCount +

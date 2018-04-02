@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jsu.rjxy.mappers.StudyMapper">
+  <resultMap id="StudyResult" type="Study">
+    <id column="id" property="id"></id>
+    <association property="scoreForTeacher" column="score_for_teacher"
+      select="cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper.getById"/>
+    <association property="student" column="student"
+      select="cn.edu.jsu.rjxy.mappers.StudentMapper.getById"/>
+  </resultMap>
+
+  <select id="getPageByStudentId" resultMap="StudyResult">
+    SELECT * FROM study stu
+    <if test="type!=null and search==null">
+      LEFT JOIN score_for_teacher sft ON sft.id=stu.score_for_teacher
+      LEFT JOIN score sco ON sft.score=sco.id
+    </if>
+    <if test="search!=null">
+      LEFT JOIN score_for_teacher sft ON sft.id=stu.score_for_teacher
+      LEFT JOIN score sco ON sft.score=sco.id
+      LEFT JOIN teacher t ON sft.teacher=t.id
+      LEFT JOIN score_type sc ON sco.type = sc.id
+    </if>
+    WHERE student=#{stuId}
+    <if test="type!=null and search==null">
+      AND sco.type=#{type}
+    </if>
+    <if test="search!=null">
+      <if test="type!=null">AND sco.type=#{type}</if>
+      AND (sc.name LIKE #{search} OR sco.name LIKE #{search} OR t.name LIKE #{search} OR t.business
+      LIKE #{search})
+    </if>
+    <if test="step!=null and size!=null">
+      LIMIT #{step},#{size}
+    </if>
+  </select>
+
+  <select id="getCountByStudentId" resultType="Integer">
+    SELECT COUNT(*) FROM study stu
+    <if test="type!=null and search==null">
+      LEFT JOIN score_for_teacher sft ON sft.id=stu.score_for_teacher
+      LEFT JOIN score sco ON sft.score=sco.id
+    </if>
+    <if test="search!=null">
+      LEFT JOIN score_for_teacher sft ON sft.id=stu.score_for_teacher
+      LEFT JOIN score sco ON sft.score=sco.id
+      LEFT JOIN teacher t ON sft.teacher=t.id
+      LEFT JOIN score_type sc ON sco.type = sc.id
+    </if>
+    WHERE student=#{stuId}
+    <if test="type!=null and search==null">
+      AND sco.type=#{type}
+    </if>
+    <if test="search!=null">
+      <if test="type!=null">AND sco.type=#{type}</if>
+      AND (sc.name LIKE #{search} OR sco.name LIKE #{search} OR t.name LIKE #{search} OR t.business
+      LIKE #{search})
+    </if>
+  </select>
+</mapper>

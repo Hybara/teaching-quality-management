@@ -6,11 +6,15 @@ import cn.edu.jsu.rjxy.entity.vo.Evaluate;
 import cn.edu.jsu.rjxy.entity.vo.Score;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.StuForClass;
+import cn.edu.jsu.rjxy.entity.vo.Study;
 import cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper;
 import cn.edu.jsu.rjxy.mappers.StuForClassMapper;
+import cn.edu.jsu.rjxy.mappers.StudentMapper;
+import cn.edu.jsu.rjxy.mappers.StudyMapper;
 import cn.edu.jsu.rjxy.util.QueryConditionsUitl;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.text.Style;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +27,8 @@ public class ScoreService {
   ScoreForTeacherMapper scoreForTeacherMapper;
   @Autowired
   StuForClassMapper stuForClassMapper;
+  @Autowired
+  StudyMapper studyMapper;
 
   public ScoreForTeacher getById(long scoreForTeacherId) {
     return scoreForTeacherMapper.getById(scoreForTeacherId);
@@ -39,12 +45,15 @@ public class ScoreService {
     }
     search = QueryConditionsUitl.constructQueryConditions(search);
 
-    List<StuForClass> classes = stuForClassMapper.getStudentClassesInCurrentTermByStuId(stuId);
-    List<ScoreForTeacher> scoresForTeacher = scoreForTeacherMapper
-        .getScoresForClasses(scoreType, classes, (index - 1) * size, size, search);
+    List<Study> studies = studyMapper
+        .getPageByStudentId(stuId, (index - 1) * size, size, scoreType, search);
+    List<ScoreForTeacher> scoresForTeachers = new ArrayList<>();
+    for (Study study : studies) {
+      scoresForTeachers.add(study.getScoreForTeacher());
+    }
 
     List<ScoreDTO> scores = new ArrayList<>();
-    for (ScoreForTeacher score : scoresForTeacher) {
+    for (ScoreForTeacher score : scoresForTeachers) {
       scores.add(new ScoreDTO(score));
     }
 
@@ -56,8 +65,7 @@ public class ScoreService {
       scoreType = null;
     }
     search = QueryConditionsUitl.constructQueryConditions(search);
-    List<StuForClass> classes = stuForClassMapper.getStudentClassesInCurrentTermByStuId(stuId);
-    return scoreForTeacherMapper.getScoresCountForClasses(scoreType, classes, search);
+    return studyMapper.getCountByStudentId(stuId, scoreType, search);
   }
 
   public List<ScoreDTO> getTeachScoresInCurrentTerm(String scoreType, long teacherId, Integer index,
@@ -85,7 +93,6 @@ public class ScoreService {
     search = QueryConditionsUitl.constructQueryConditions(search);
     return scoreForTeacherMapper.getScoresCountForTeacher(scoreType, teacherId, search);
   }
-
 
 
   public boolean updateScoreForTeacher(ScoreForTeacher scoreForTeacher) {

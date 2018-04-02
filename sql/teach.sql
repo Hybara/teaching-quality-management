@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-01 18:16:04
+Date: 2018-04-02 23:19:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -353,7 +353,7 @@ CREATE TABLE `register` (
 -- ----------------------------
 -- Records of register
 -- ----------------------------
-INSERT INTO `register` VALUES ('1', '020934', '德信', '123456', null);
+INSERT INTO `register` VALUES ('1', '020934', '德信', '123456', '\\register\\00A1D6C23FE16336EE4E2D82F5093D4D.jpg');
 
 -- ----------------------------
 -- Table structure for report
@@ -415,7 +415,6 @@ CREATE TABLE `score_for_teacher` (
   `id` int(11) NOT NULL auto_increment,
   `score` int(11) NOT NULL,
   `teacher` int(11) NOT NULL,
-  `class` int(11) NOT NULL COMMENT '是stu_for_class的主键',
   `result` decimal(10,2) default NULL COMMENT '成绩',
   `evaluate_grade` decimal(10,2) unsigned zerofill NOT NULL,
   `evaluate_count` int(11) unsigned zerofill NOT NULL,
@@ -430,15 +429,15 @@ CREATE TABLE `score_for_teacher` (
 -- ----------------------------
 -- Records of score_for_teacher
 -- ----------------------------
-INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '1', '79.50', '00000860.00', '00000000010', '00000170.00', '00000000002', '00000000.00', '00000000000', '');
-INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
-INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
-INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
-INSERT INTO `score_for_teacher` VALUES ('5', '5', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
-INSERT INTO `score_for_teacher` VALUES ('6', '6', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
-INSERT INTO `score_for_teacher` VALUES ('7', '7', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
-INSERT INTO `score_for_teacher` VALUES ('8', '8', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
-INSERT INTO `score_for_teacher` VALUES ('9', '9', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '79.50', '00000860.00', '00000000010', '00000170.00', '00000000002', '00000000.00', '00000000000', '');
+INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('5', '5', '2', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('6', '6', '3', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('7', '7', '2', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('8', '8', '3', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('9', '9', '3', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 
 -- ----------------------------
 -- Table structure for score_type
@@ -484,6 +483,66 @@ INSERT INTO `student` VALUES ('4', '20144206997', '华瑞', '0', '43040619970812
 INSERT INTO `student` VALUES ('5', '20144206996', '张春霞', '0', '430406199702162315', null, '162315', '2014-09-14 22:48:08');
 
 -- ----------------------------
+-- Table structure for study
+-- ----------------------------
+DROP TABLE IF EXISTS `study`;
+CREATE TABLE `study` (
+  `id` int(11) NOT NULL auto_increment,
+  `score_for_teacher` int(11) NOT NULL,
+  `student` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of study
+-- ----------------------------
+INSERT INTO `study` VALUES ('1', '1', '1');
+INSERT INTO `study` VALUES ('2', '1', '2');
+INSERT INTO `study` VALUES ('3', '1', '3');
+INSERT INTO `study` VALUES ('4', '1', '4');
+INSERT INTO `study` VALUES ('5', '1', '5');
+INSERT INTO `study` VALUES ('6', '2', '1');
+INSERT INTO `study` VALUES ('7', '2', '2');
+INSERT INTO `study` VALUES ('8', '2', '3');
+INSERT INTO `study` VALUES ('9', '2', '4');
+INSERT INTO `study` VALUES ('10', '2', '5');
+INSERT INTO `study` VALUES ('11', '3', '1');
+INSERT INTO `study` VALUES ('12', '3', '2');
+INSERT INTO `study` VALUES ('13', '3', '3');
+INSERT INTO `study` VALUES ('14', '3', '4');
+INSERT INTO `study` VALUES ('15', '3', '5');
+INSERT INTO `study` VALUES ('16', '4', '1');
+INSERT INTO `study` VALUES ('17', '4', '2');
+INSERT INTO `study` VALUES ('18', '4', '3');
+INSERT INTO `study` VALUES ('19', '4', '4');
+INSERT INTO `study` VALUES ('20', '4', '5');
+INSERT INTO `study` VALUES ('21', '5', '1');
+INSERT INTO `study` VALUES ('22', '5', '2');
+INSERT INTO `study` VALUES ('23', '5', '3');
+INSERT INTO `study` VALUES ('24', '5', '4');
+INSERT INTO `study` VALUES ('25', '5', '5');
+INSERT INTO `study` VALUES ('26', '6', '1');
+INSERT INTO `study` VALUES ('27', '6', '2');
+INSERT INTO `study` VALUES ('28', '6', '3');
+INSERT INTO `study` VALUES ('29', '6', '4');
+INSERT INTO `study` VALUES ('30', '6', '5');
+INSERT INTO `study` VALUES ('31', '7', '1');
+INSERT INTO `study` VALUES ('32', '7', '2');
+INSERT INTO `study` VALUES ('33', '7', '3');
+INSERT INTO `study` VALUES ('34', '7', '4');
+INSERT INTO `study` VALUES ('35', '7', '5');
+INSERT INTO `study` VALUES ('36', '8', '1');
+INSERT INTO `study` VALUES ('37', '8', '2');
+INSERT INTO `study` VALUES ('38', '8', '3');
+INSERT INTO `study` VALUES ('39', '8', '4');
+INSERT INTO `study` VALUES ('40', '8', '5');
+INSERT INTO `study` VALUES ('41', '9', '1');
+INSERT INTO `study` VALUES ('42', '9', '2');
+INSERT INTO `study` VALUES ('43', '9', '3');
+INSERT INTO `study` VALUES ('44', '9', '4');
+INSERT INTO `study` VALUES ('45', '9', '5');
+
+-- ----------------------------
 -- Table structure for stu_for_class
 -- ----------------------------
 DROP TABLE IF EXISTS `stu_for_class`;
@@ -527,9 +586,9 @@ CREATE TABLE `teacher` (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('1', '010943', '欧辰', '1', '123456', '1', '讲师', null, null, null, null, '\\teacher\\697F5DD87CA456E3E57F1364A6ECC2F2.jpg', null);
-INSERT INTO `teacher` VALUES ('2', '010944', '张珊', '0', '123456', '1', '教授', null, null, null, null, null, null);
-INSERT INTO `teacher` VALUES ('3', '010945', '学尔森', '1', '123456', '1', '讲师', null, null, null, null, null, null);
+INSERT INTO `teacher` VALUES ('1', '010943', '欧辰', '1', '123456', '45', '讲师', null, null, null, null, '\\teacher\\697F5DD87CA456E3E57F1364A6ECC2F2.jpg', null);
+INSERT INTO `teacher` VALUES ('2', '010944', '张珊', '0', '123456', '45', '教授', null, null, null, null, null, null);
+INSERT INTO `teacher` VALUES ('3', '010945', '学尔森', '1', '123456', '45', '讲师', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for term

@@ -107,7 +107,7 @@ function initScore($item, score) {
   // console.log("a href", "/getScore/"+score.id+"/"+token);
   $item.find("h4").find("a").attr("href", "/teacher/goScore/" + teacherId + "/"
       + score.id + "/" + token).text(score.scoreName);
-  $item.find("h6").find("small").text(score.scoreType);
+  $item.find("h6").find("small").text(score.scoreTypeName);
   $item.find("h5").html(score.teacherName + "<br/><small>"
       + score.teacherBusiness + "</small>");
 }
