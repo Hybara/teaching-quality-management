@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-02 23:19:11
+Date: 2018-04-03 23:06:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -384,6 +384,7 @@ CREATE TABLE `report` (
 DROP TABLE IF EXISTS `score`;
 CREATE TABLE `score` (
   `id` int(11) NOT NULL auto_increment,
+  `number` varchar(16) NOT NULL,
   `name` varchar(64) NOT NULL,
   `major` int(11) NOT NULL,
   `term` int(11) NOT NULL,
@@ -397,15 +398,15 @@ CREATE TABLE `score` (
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('1', '软件工程', '45', '1', '1', '3', '30', null);
-INSERT INTO `score` VALUES ('2', '编译原理', '45', '1', '1', '3', '30', null);
-INSERT INTO `score` VALUES ('3', '计算机系统', '45', '1', '1', '3', '20', null);
-INSERT INTO `score` VALUES ('4', '数据结构与算法', '45', '1', '1', '4', '30', null);
-INSERT INTO `score` VALUES ('5', 'Java Web', '45', '1', '1', '3', '25', null);
-INSERT INTO `score` VALUES ('6', 'C++', '45', '1', '1', '2', '20', null);
-INSERT INTO `score` VALUES ('7', 'C程序设计基础', '45', '1', '1', '2', '20', null);
-INSERT INTO `score` VALUES ('8', '茶艺', '1', '1', '4', '2', '18', null);
-INSERT INTO `score` VALUES ('9', '旅游', '1', '1', '4', '2', '18', null);
+INSERT INTO `score` VALUES ('1', '602044', '软件工程', '45', '1', '1', '3', '30', null);
+INSERT INTO `score` VALUES ('2', '602045', '编译原理', '45', '1', '1', '3', '30', null);
+INSERT INTO `score` VALUES ('3', '602046', '计算机系统', '45', '1', '1', '3', '20', null);
+INSERT INTO `score` VALUES ('4', '602047', '数据结构与算法', '45', '1', '1', '4', '30', null);
+INSERT INTO `score` VALUES ('5', '602048', 'Java Web', '45', '1', '1', '3', '25', null);
+INSERT INTO `score` VALUES ('6', '602054', 'C++', '45', '1', '1', '2', '20', null);
+INSERT INTO `score` VALUES ('7', '602059', 'C程序设计基础', '45', '1', '1', '2', '20', null);
+INSERT INTO `score` VALUES ('8', '911138', '茶艺', '1', '1', '4', '2', '18', null);
+INSERT INTO `score` VALUES ('9', '942345', '旅游', '1', '1', '4', '2', '18', null);
 
 -- ----------------------------
 -- Table structure for score_for_teacher

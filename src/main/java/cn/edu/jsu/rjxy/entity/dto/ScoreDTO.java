@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ScoreDTO {
 
   private long id;
+  private String scoreNumber;
   private String scoreName;
   private String scoreTypeName;
   private String teacherName;
@@ -21,6 +22,7 @@ public class ScoreDTO {
 
   public ScoreDTO(ScoreForTeacher scoreForTeacher) {
     this.id = scoreForTeacher.getId();
+    this.scoreNumber = scoreForTeacher.getScore().getNumber();
     this.scoreName = scoreForTeacher.getScore().getName();
     this.scoreTypeName = scoreForTeacher.getScore().getType().getName();
     this.teacherName = scoreForTeacher.getTeacher().getName();
@@ -134,6 +136,7 @@ public class ScoreDTO {
   public String toString() {
     return "ScoreDTO{" +
         "id=" + id +
+        ", scoreNumber='" + scoreNumber + '\'' +
         ", scoreName='" + scoreName + '\'' +
         ", scoreTypeName='" + scoreTypeName + '\'' +
         ", teacherName='" + teacherName + '\'' +

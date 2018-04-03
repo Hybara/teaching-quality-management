@@ -37,9 +37,7 @@
                 <div class="form-group">
                   <input style="width: 160px;" type="text" class="form-control" id="search"
                          placeholder="请输入课程名称...">
-                  <!--<span class="input-group-btn">-->
                   <button type="submit" class="btn btn-default">搜索</button>
-                  <!--</span>-->
                 </div>
               </form>
             </li>
@@ -57,7 +55,7 @@
           <a href="" th:href="@{/register/login/{token}(token=${token})}">专业列表</a>
         </li>
         <li>
-          <a href=""
+          <a href="" class="major" data-id="" th:attr="data-id=${teacher.major.id}"
              th:href="@{/register/teacherList/{majorId}/{token}(majorId=${teacher.major.id},token=${token})}">
             [[${teacher.major.name}]]·教师列表
           </a>
@@ -265,11 +263,9 @@
 <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-
-<!-- /. WRAPPER  -->
 <th:block th:replace="include :: scripte_domain(~{::script})">
   <!-- My Js -->
-  <script src="../../static/js/register/scores.js" th:src="@{/js/register/scores.js}"></script>
+  <script src="../../../static/js/register/scores.js" th:src="@{/js/register/scores.js}"></script>
 </th:block>
 </body>
 

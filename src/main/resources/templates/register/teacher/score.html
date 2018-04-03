@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+
+<div style="display: none">
+  <div id="result">[[${score.result}]]</div>
+  <div id="evaluate">[[${score.evaluateGrade}]]</div>
+  <div id="question">[[${score.questionGrade}]]</div>
+  <div id="assessment">[[${score.assessmentGrade}]]</div>
+</div>
+
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="register/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a th:href="@{/register/goScores/{majorId}/{teacherId}/{token}(majorId=${teacher.major.id},teacherId=${teacher.id},token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">[[${score.scoreName}]]</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="" th:href="@{/register/login/{token}(token=${token})}">专业列表</a>
+        </li>
+        <li>
+          <a href="" class="major" data-id="" th:attr="data-id=${teacher.major.id}"
+             th:href="@{/register/teacherList/{majorId}/{token}(majorId=${teacher.major.id},token=${token})}">
+            [[${teacher.major.name}]]·教师列表
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/register/goScores/{majorId}/{teacherId}/{token}(majorId=${teacher.major.id},teacherId=${teacher.id},token=${token})}">
+            [[${teacher.name}]]·课程列表
+          </a>
+        </li>
+        <li class="active">[[${score.scoreName}]]</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="row">
+        <div class="col-lg-offset-2 col-lg-5 col-md-12">
+          <!--   Basic Table  -->
+          <div class="panel panel-default">
+            <div class="panel-heading">课程信息</div>
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <style>
+                    td {
+                      border-bottom: 1px #ddd solid;
+                    }
+                  </style>
+                  <tr>
+                    <td width="7%">类型：</td>
+                    <td width="18%">[[${score.scoreTypeName}]]</td>
+                    <td width="7%">学分：</td>
+                    <td width="18%">[[${score.scoreCredit}]]</td>
+                  </tr>
+                  <tr>
+                    <td>学时：</td>
+                    <td>[[${score.scoreHours}]]</td>
+                    <td>考核：</td>
+                    <td>[[${score.scoreTestWay}]]</td>
+                  </tr>
+                  <tr>
+                    <td>备注：</td>
+                    <td colspan="3">[[${score.scoreRemarks}]]</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default chartJs">
+            <div class="panel-heading">
+              <div class="card-title">
+                <div class="title">课程评分</div>
+              </div>
+            </div>
+            <div class="panel-body">
+              <canvas id="radar-chart" class="chart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+
+          <div class="row">
+
+            <style>
+              .number h4 {
+                color: gray;
+              }
+            </style>
+            <div class="col-lg-12 col-md-12">
+              <div class="board">
+                <div class="panel panel-primary">
+                  <div class="number">
+                    <h4>发布问卷</h4>
+                  </div>
+                  <div class="icon">
+                    <i class="fa fa-5x blue">
+                      <span class="glyphicon glyphicon-question-sign"></span></i>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+              <div class="board">
+                <div class="panel panel-primary">
+                  <div class="number">
+                    <h3>
+                      <h4>课程分析</h4>
+                    </h3>
+                  </div>
+                  <div class="icon">
+                    <i class="fa fa-5x green">
+                      <span class="glyphicon glyphicon-file"></span></i>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+              <div class="board">
+                <div class="panel panel-primary">
+                  <div class="number">
+                    <h3>
+                      <h4>评价</h4>
+                      <small>评价数 [[${score.evaluateGrade}]] <br/>评分 [[${score.evaluateCount}]]
+                      </small>
+                    </h3>
+                  </div>
+                  <div class="icon">
+                    <i class="fa fa-5x yellow">
+                      <span class="glyphicon glyphicon-thumbs-up"></span></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <footer th:replace="include :: footer"></footer>
+  </div>
+  <!-- /. PAGE INNER  -->
+</div>
+<!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script src="../../../static/js/register/score.js" th:src="@{/js/register/score.js}"></script>
+</th:block>
+</body>
+
+</html>

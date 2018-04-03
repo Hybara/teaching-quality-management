@@ -40,7 +40,7 @@ public class TeacherController {
     model.addAttribute("token", token);
     model.addAttribute("major", majorService.getById(majorId));
     model.addAttribute("count", Math.ceil(((double) teacherCount)/PAGE_SIZE));
-    return "/register/teachers";
+    return "/register/teacher/teachers";
   }
 
   @RequestMapping("register/getTeachers")

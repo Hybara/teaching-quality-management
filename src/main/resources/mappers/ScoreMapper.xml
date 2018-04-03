@@ -5,6 +5,7 @@
 <mapper namespace="cn.edu.jsu.rjxy.mappers.ScoreMapper">
   <resultMap id="ScoreMap" type="Score">
     <id property="id" column="id"/>
+    <result property="number" column="number"/>
     <result property="name" column="name"/>
     <result property="credit" column="credit"/>
     <result property="hours" column="hours"/>

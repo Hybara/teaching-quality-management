@@ -11,6 +11,7 @@ public class ScoreInfoDTO {
 
   private long id;
 
+  private String scoreNumber;
   private String scoreName;
   private String scoreCredit;
   private String scoreHours;
@@ -45,6 +46,7 @@ public class ScoreInfoDTO {
   }
 
   private void initScore(Score score) {
+    this.scoreNumber = score.getNumber();
     this.scoreName = score.getName();
     this.scoreCredit = score.getCredit().toString();
     this.scoreHours = score.getHours().toString();

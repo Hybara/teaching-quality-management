@@ -4,6 +4,7 @@ public class Score {
 
   private long id;
   private String name;
+  private String number;
   private Major major;
   private Term term;
   private ScoreType type;
@@ -18,15 +19,17 @@ public class Score {
     this.id = id;
   }
 
-  public Score(String name, Major major, Term term, ScoreType type) {
+  public Score(String number, String name, Major major, Term term, ScoreType type) {
+    this.number = number;
     this.name = name;
     this.major = major;
     this.term = term;
     this.type = type;
   }
 
-  public Score(long id, String name, Major major, Term term, ScoreType type,
+  public Score(long id, String number, String name, Major major, Term term, ScoreType type,
       Double credit, Double hours, String testWay) {
+    this.number = number;
     this.id = id;
     this.name = name;
     this.major = major;
@@ -43,6 +46,14 @@ public class Score {
 
   public void setId(long id) {
     this.id = id;
+  }
+
+  public String getNumber() {
+    return number;
+  }
+
+  public void setNumber(String number) {
+    this.number = number;
   }
 
   public String getName() {
@@ -106,6 +117,7 @@ public class Score {
     return "Score{" +
         "id=" + id +
         ", name='" + name + '\'' +
+        ", number='" + number + '\'' +
         ", major=" + major +
         ", term=" + term +
         ", type=" + type +

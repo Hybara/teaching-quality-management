@@ -23,15 +23,15 @@ $(function () {
 
   initScoresList(type, PAGE_ONE, search);
 
-  $(".pagination a").on("click", function() {
+  $(".pagination a").on("click", function () {
     var page = $(this).text();
     if (!isNaN(page)) {
-    } else if ("«"==page) {
+    } else if ("«" == page) {
       var now = $("ul.pagination li.active a").text();
-      page = (now>1)?(now-1):1;
+      page = (now > 1) ? (now - 1) : 1;
     } else {
       var now = $("ul.pagination li.active a").text();
-      page = (now==page_count)?page_count:(parseInt(now)+1);
+      page = (now == page_count) ? page_count : (parseInt(now) + 1);
     }
     initScoresList(type, page, search);
   });
@@ -55,13 +55,13 @@ function initScoresList(type, page, search) {
   var token = $("body").attr("data-token");
   var teacherId = $("h1.page-header").attr("data-id");
   var data;
-  if (search=="") {
+  if (search == "") {
     data = {page: page};
   } else {
     data = {page: page, search: search};
   }
   $.ajax({
-    url: "/register/getScores/"+teacherId+"/"+type+"/"+token,
+    url: "/register/getScores/" + teacherId + "/" + type + "/" + token,
     type: "post",
     method: "post",
     dataType: "json",
@@ -72,27 +72,28 @@ function initScoresList(type, page, search) {
       // console.log("scoreList", scoreList);
       page_count = scoreList.count;
       initPageButton(page_count, page);
-      for(var i=0; i<$(".scoreItem").length; i++) {
+      for (var i = 0; i < $(".scoreItem").length; i++) {
         $item = $($(".scoreItem").get(i));
-        if (scoreList.data[i]==undefined || scoreList.data[i]==null) {
+        if (scoreList.data[i] == undefined || scoreList.data[i] == null) {
           $item.css("display", "none");
         } else {
           $item.css("display", "block");
           initScore($item, scoreList.data[i]);
           var scoreItem = scoreList.data[i];
           var evaluate = null;
-          if (scoreItem.evaluateCount!=0) {
-            evaluate = scoreItem.evaluateGrade/scoreItem.evaluateCount;
+          if (scoreItem.evaluateCount != 0) {
+            evaluate = scoreItem.evaluateGrade / scoreItem.evaluateCount;
           }
           var question = null;
-          if (scoreItem.questionCount!=0) {
-            question = scoreItem.questionGrade/scoreItem.questionCount;
+          if (scoreItem.questionCount != 0) {
+            question = scoreItem.questionGrade / scoreItem.questionCount;
           }
           var assessment = null;
-          if (scoreItem.assessmentCount!=0) {
-            assessment = scoreItem.assessmentGrade/scoreItem.assessmentCount;
+          if (scoreItem.assessmentCount != 0) {
+            assessment = scoreItem.assessmentGrade / scoreItem.assessmentCount;
           }
-          var data = initRaderData(scoreItem.scoreName, evaluate, question, assessment, scoreItem.result);
+          var data = initRaderData(scoreItem.scoreName, evaluate, question,
+              assessment, scoreItem.result);
           initRader($item, data);
         }
       }
@@ -101,11 +102,15 @@ function initScoresList(type, page, search) {
 }
 
 function initScore($item, score) {
-  var token = $("body").attr("data-token");
+  let majorId = $("a.major").attr("data-id");
+  let teacherId = $("h1.page-header").attr("data-id");
+  let token = $("body").attr("data-token");
   // console.log("a href", "/getScore/"+score.id+"/"+token);
-  $item.find("h4").find("a").attr("href", "/register/goScore/"+score.id+"/"+token).text(score.scoreName);
+  $item.find("h4").find("a").attr("href", "/register/goScore/" + majorId + "/"
+      + teacherId + "/" + score.id + "/" + token).text(score.scoreName);
   $item.find("h6").find("small").text(score.scoreTypeName);
-  $item.find("h5").html(score.teacherName+"<br/><small>"+score.teacherBusiness+"</small>");
+  $item.find("h5").html(score.teacherName + "<br/><small>"
+      + score.teacherBusiness + "</small>");
 }
 
 function initRaderData(scoreName, evaluate, question, assessment, result) {
@@ -120,10 +125,10 @@ function initRaderData(scoreName, evaluate, question, assessment, result) {
       pointHighlightFill: "#fff",
       pointHighlightStroke: "#1ABC9C",
       data: [
-        evaluate==null || isNaN(evaluate) ? NO_DATA : evaluate,
-        question==null || isNaN(question) ? NO_DATA : question,
-        result==null || isNaN(result) ? NO_DATA : result,
-        assessment==null || isNaN(assessment) ? NO_DATA : assessment]
+        evaluate == null || isNaN(evaluate) ? NO_DATA : evaluate,
+        question == null || isNaN(question) ? NO_DATA : question,
+        result == null || isNaN(result) ? NO_DATA : result,
+        assessment == null || isNaN(assessment) ? NO_DATA : assessment]
     }]
   };
   return data;
@@ -142,14 +147,14 @@ function initRader($item, data) {
 }
 
 function initPageButton(count, page) {
-  if (count==0) {
+  if (count == 0) {
     $("ul.pagination li").hide();
     return;
   }
   $("ul.pagination li").show();
   $("ul.pagination li.pageItem").hide();
   // console.log("count", count);
-  for(var i=0; i<count; i++) {
+  for (var i = 0; i < count; i++) {
     $($("ul.pagination li.pageItem")[i]).show().removeClass("active");
   }
   $($("ul.pagination li").get(page)).addClass("active");
