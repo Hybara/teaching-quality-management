@@ -43,11 +43,12 @@ $(function () {
 
 function initTeacherList(page, search) {
   let token = $("body").attr("data-token");
+  let majorId = $("div.major").attr("data-id");
   $.post("/register/getTeachers", {
     token: token,
     page: page,
     search: search,
-    majorId: $("div.major").attr("data-id")
+    majorId: majorId
   }, function (response) {
     $(".table tbody").hide();
     if (response == undefined || response == null ||
@@ -61,7 +62,8 @@ function initTeacherList(page, search) {
           && response.data[tr_index] != null) {
         $(tr).show().on("click", function () {
           window.location.href
-              = "/register/goScores/" + response.data[tr_index].id + "/" + token;
+              = "/register/goScores/" + majorId + "/"
+              + response.data[tr_index].id + "/" + token;
         });
         initTableLine($(tr), response.data[tr_index], tr_index, page);
       } else {
@@ -84,15 +86,16 @@ function initTableLine($tr, data, index, page) {
   $($tds.get(7)).text(data.qq ? data.qq : "");
   $($tds.get(8)).text(data.wechat ? data.wechat : "");
 }
+
 function initPageButton(count, page) {
-  if (count==0) {
+  if (count == 0) {
     $("ul.pagination li").hide();
     return;
   }
   $("ul.pagination li").show();
   $("ul.pagination li.pageItem").hide();
   // console.log("count", count);
-  for(var i=0; i<count; i++) {
+  for (var i = 0; i < count; i++) {
     $($("ul.pagination li.pageItem")[i]).show().removeClass("active");
   }
   $($("ul.pagination li").get(page)).addClass("active");

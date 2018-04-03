@@ -12,7 +12,9 @@
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
         <li>
-          <a href="index.html"><i class="fa fa-dashboard"></i> 专业列表</a>
+          <a href="" th:href="@{/register/majors/{token}(token=${token})}">
+            <i class="fa fa-dashboard"></i> 专业列表
+          </a>
           <a href="index.html"><i class="fa fa-dashboard"></i> 题库</a>
           <a href="index.html"><i class="fa fa-dashboard"></i> 举报</a>
           <a href="index.html"><i class="fa fa-dashboard"></i> 公告</a>
