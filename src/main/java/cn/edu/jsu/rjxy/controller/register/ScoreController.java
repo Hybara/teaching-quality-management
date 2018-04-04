@@ -1,7 +1,6 @@
 package cn.edu.jsu.rjxy.controller.register;
 
 import cn.edu.jsu.rjxy.entity.dto.ScoreDTO;
-import cn.edu.jsu.rjxy.entity.dto.ScoreInfoDTO;
 import cn.edu.jsu.rjxy.entity.vo.Register;
 import cn.edu.jsu.rjxy.service.MajorService;
 import cn.edu.jsu.rjxy.service.ScoreService;

@@ -35,18 +35,17 @@
         <li>
           <a href="" th:href="@{/register/login/{token}(token=${token})}">专业列表</a>
         </li>
-        <li>
-          <a href="" class="major" data-id="" th:attr="data-id=${teacher.major.id}"
-             th:href="@{/register/teacherList/{majorId}/{token}(majorId=${teacher.major.id},token=${token})}">
+        <li class="major" data-id="" th:attr="data-id=${teacher.major.id}">
+          <a href="" th:href="@{/register/teacherList/{majorId}/{token}(majorId=${teacher.major.id},token=${token})}">
             [[${teacher.major.name}]]·教师列表
           </a>
         </li>
-        <li>
+        <li class="teacher" data-id="" th:attr="data-id=${teacher.id}">
           <a th:href="@{/register/goScores/{majorId}/{teacherId}/{token}(majorId=${teacher.major.id},teacherId=${teacher.id},token=${token})}">
             [[${teacher.name}]]·课程列表
           </a>
         </li>
-        <li class="active">[[${score.scoreName}]]</li>
+        <li class="active score" data-id="" th:attr="data-id=${score.id}">[[${score.scoreName}]]</li>
       </ol>
     </div>
     <div id="page-inner">

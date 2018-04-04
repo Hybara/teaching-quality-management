@@ -4,16 +4,15 @@ $(function () {
     "cursor": "pointer"
   }).on("click", function () {
     var token = $("body").attr("data-token");
+    var majorId = $("li.major").attr("data-id");
+    var teacherId = $("li.teacher").attr("data-id");
+    var scoreId = $("li.score").attr("data-id");
     var title = $(this).find("h4").text();
     var url = '';
     // console.log(title);
     var id = $("h1.page-header").attr("data-id");
     if (title == '评价') {
-      url = '/student/goEvaluate/'+id+"/"+token;
-    } else if (title == '提问') {
-      url = '/student/goQuestions/'+id+"/"+token;
-    } else {
-      url = 'assessment.html';
+      url = '/register/goEvaluate/'+majorId+"/"+teacherId+"/"+scoreId+"/"+token;
     }
     window.location.href = url;
   })

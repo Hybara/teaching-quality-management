@@ -30,7 +30,6 @@ public interface ScoreForTeacherMapper {
   @Update("UPDATE score_for_teacher "
       + "SET score=#{scoreForTeacher.score.id},"
       + " teacher=#{scoreForTeacher.teacher.id},"
-      + " class=#{scoreForTeacher.stuForClass.id},"
       + " result=#{scoreForTeacher.result},"
       + " evaluate_grade=#{scoreForTeacher.evaluateGrade},"
       + " evaluate_count=#{scoreForTeacher.evaluateCount},"

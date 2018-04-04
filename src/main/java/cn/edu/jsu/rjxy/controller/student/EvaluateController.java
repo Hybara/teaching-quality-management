@@ -23,8 +23,6 @@ public class EvaluateController {
 
   @Autowired
   private EvaluateService evaluateService;
-  @Autowired
-  private ScoreService scoreService;
 
   @RequestMapping("/student/getScoreEvaluates")
   @ResponseBody
