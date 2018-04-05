@@ -61,4 +61,29 @@
       AND (sc.name LIKE #{search} OR s.name LIKE #{search} OR t.name LIKE #{search} OR t.business LIKE #{search})
     </if>
   </select>
+
+  <select id="getScoresPage" resultMap="ScoreForTeacherMap">
+    SELECT sft.* FROM score_for_teacher sft
+    <if test="search!=null">
+      LEFT JOIN teacher t ON sft.teacher=t.id
+    </if>
+    WHERE sft.score=#{scoreId}
+    <if test="search!=null">
+      AND (t.name LIKE #{search} OR t.business LIKE #{search})
+    </if>
+    <if test="step!=null and size!=null">
+      LIMIT #{step},#{size}
+    </if>
+  </select>
+
+  <select id="getScoresCount" resultType="int">
+    SELECT COUNT(*) FROM score_for_teacher sft
+    <if test="search!=null">
+      LEFT JOIN teacher t ON sft.teacher=t.id
+    </if>
+    WHERE sft.score=#{scoreId}
+    <if test="search!=null">
+      AND (t.name LIKE #{search} OR t.business LIKE #{search})
+    </if>
+  </select>
 </mapper>

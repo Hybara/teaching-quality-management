@@ -8,11 +8,12 @@ $(function () {
     var teacherId = $("li.teacher").attr("data-id");
     var scoreId = $("li.score").attr("data-id");
     var title = $(this).find("h4").text();
+    var urltype = $("#wrapper").attr("data-type");
     var url = '';
     // console.log(title);
     var id = $("h1.page-header").attr("data-id");
     if (title == '评价') {
-      url = '/register/goEvaluate/'+majorId+"/"+teacherId+"/"+scoreId+"/"+token;
+      url = '/register/goEvaluate/'+urltype+"/"+majorId+"/"+teacherId+"/"+scoreId+"/"+token;
     }
     window.location.href = url;
   })

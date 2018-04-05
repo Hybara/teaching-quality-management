@@ -18,6 +18,7 @@ const NO_DATA = 0;
 var type = "all";
 var page_count = 0;
 var search = "";
+var urltype = $("#wrapper").attr("data-type");
 
 $(function () {
 
@@ -53,15 +54,19 @@ $(function () {
 
 function initScoresList(type, page, search) {
   var token = $("body").attr("data-token");
-  var teacherId = $("h1.page-header").attr("data-id");
+  var dataId = $("h1.page-header").attr("data-id");
   var data;
   if (search == "") {
     data = {page: page};
   } else {
     data = {page: page, search: search};
   }
+  let url = "/register/getScores/" + dataId + "/" + type + "/" + token;
+  if (urltype == "score") {
+    url = "/register/getSameNameScores/" + dataId + "/" + token;
+  }
   $.ajax({
-    url: "/register/getScores/" + teacherId + "/" + type + "/" + token,
+    url: url,
     type: "post",
     method: "post",
     dataType: "json",
@@ -103,11 +108,10 @@ function initScoresList(type, page, search) {
 
 function initScore($item, score) {
   let majorId = $("a.major").attr("data-id");
-  let teacherId = $("h1.page-header").attr("data-id");
   let token = $("body").attr("data-token");
   // console.log("a href", "/getScore/"+score.id+"/"+token);
-  $item.find("h4").find("a").attr("href", "/register/goScore/" + majorId + "/"
-      + teacherId + "/" + score.id + "/" + token).text(score.scoreName);
+  $item.find("h4").find("a").attr("href", "/register/goScore/"+urltype + "/" + majorId + "/"
+      + score.teacherId + "/" + score.id + "/" + token).text(score.scoreName);
   $item.find("h6").find("small").text(score.scoreTypeName);
   $item.find("h5").html(score.teacherName + "<br/><small>"
       + score.teacherBusiness + "</small>");

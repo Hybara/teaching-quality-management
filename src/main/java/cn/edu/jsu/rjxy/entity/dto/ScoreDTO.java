@@ -11,6 +11,7 @@ public class ScoreDTO {
   private String scoreNumber;
   private String scoreName;
   private String scoreTypeName;
+  private long teacherId;
   private String teacherName;
   private String teacherBusiness;
   private Double result;
@@ -26,6 +27,7 @@ public class ScoreDTO {
     this.scoreNumber = scoreForTeacher.getScore().getNumber();
     this.scoreName = scoreForTeacher.getScore().getName();
     this.scoreTypeName = scoreForTeacher.getScore().getType().getName();
+    this.teacherId = scoreForTeacher.getTeacher().getId();
     this.teacherName = scoreForTeacher.getTeacher().getName();
     this.teacherBusiness = scoreForTeacher.getTeacher().getBusiness();
     this.result = scoreForTeacher.getResult();
@@ -45,6 +47,14 @@ public class ScoreDTO {
     this.id = id;
   }
 
+  public String getScoreNumber() {
+    return scoreNumber;
+  }
+
+  public void setScoreNumber(String scoreNumber) {
+    this.scoreNumber = scoreNumber;
+  }
+
   public String getScoreName() {
     return scoreName;
   }
@@ -59,6 +69,14 @@ public class ScoreDTO {
 
   public void setScoreTypeName(String scoreTypeName) {
     this.scoreTypeName = scoreTypeName;
+  }
+
+  public long getTeacherId() {
+    return teacherId;
+  }
+
+  public void setTeacherId(long teacherId) {
+    this.teacherId = teacherId;
   }
 
   public String getTeacherName() {
@@ -140,6 +158,7 @@ public class ScoreDTO {
         ", scoreNumber='" + scoreNumber + '\'' +
         ", scoreName='" + scoreName + '\'' +
         ", scoreTypeName='" + scoreTypeName + '\'' +
+        ", teacherId=" + teacherId +
         ", teacherName='" + teacherName + '\'' +
         ", teacherBusiness='" + teacherBusiness + '\'' +
         ", result=" + result +

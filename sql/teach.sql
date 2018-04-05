@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-03 23:06:51
+Date: 2018-04-06 03:19:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -80,6 +80,7 @@ INSERT INTO `evaluate` VALUES ('7', '1', null, '关心学生，认真负责', '8
 INSERT INTO `evaluate` VALUES ('8', '1', null, '很能带动学生学习积极性', '90.00', '2', '2018-02-21 23:14:16', 'teacher', '0');
 INSERT INTO `evaluate` VALUES ('9', '1', null, '挺好', '90.00', '1', '2018-03-05 18:04:45', 'student', '1');
 INSERT INTO `evaluate` VALUES ('10', '1', null, '很好', '90.00', '1', '2018-03-28 18:08:30', 'student', '1');
+INSERT INTO `evaluate` VALUES ('12', '1', null, '很棒哦', '80.00', '1', '2018-04-04 21:26:42', 'register', '0');
 
 -- ----------------------------
 -- Table structure for for_question
@@ -430,7 +431,7 @@ CREATE TABLE `score_for_teacher` (
 -- ----------------------------
 -- Records of score_for_teacher
 -- ----------------------------
-INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '79.50', '00000860.00', '00000000010', '00000170.00', '00000000002', '00000000.00', '00000000000', '');
+INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '79.50', '00000940.00', '00000000011', '00000170.00', '00000000002', '00000000.00', '00000000000', '');
 INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
@@ -439,6 +440,7 @@ INSERT INTO `score_for_teacher` VALUES ('6', '6', '3', null, '00000000.00', '000
 INSERT INTO `score_for_teacher` VALUES ('7', '7', '2', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 INSERT INTO `score_for_teacher` VALUES ('8', '8', '3', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 INSERT INTO `score_for_teacher` VALUES ('9', '9', '3', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
+INSERT INTO `score_for_teacher` VALUES ('10', '1', '3', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 
 -- ----------------------------
 -- Table structure for score_type

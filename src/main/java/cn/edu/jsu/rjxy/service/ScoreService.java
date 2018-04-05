@@ -33,6 +33,10 @@ public class ScoreService {
   @Autowired
   ScoreMapper scoreMapper;
 
+  public Score getScoreById(long scoreId) {
+    return scoreMapper.getById(scoreId);
+  }
+
   public ScoreForTeacher getById(long scoreForTeacherId) {
     return scoreForTeacherMapper.getById(scoreForTeacherId);
   }
@@ -101,7 +105,6 @@ public class ScoreService {
     return scoreForTeacherMapper.updateScoreForTeacher(scoreForTeacher);
   }
 
-
   public List<ScoreInfoDTO> getMajorScoresInCurrentTerm(long majorId, Integer index,
       Integer size, String search) {
     search = QueryConditionsUitl.constructQueryConditions(search);
@@ -120,5 +123,25 @@ public class ScoreService {
   public int getMajorScoresCountInCurrentTerm(long majorId, String search) {
     search = QueryConditionsUitl.constructQueryConditions(search);
     return scoreMapper.getCountByMajor(majorId, search);
+  }
+
+  public List<ScoreDTO> getScoresPageInCurrentTerm(long scoreId, Integer index,
+      Integer size, String search) {
+    search = QueryConditionsUitl.constructQueryConditions(search);
+    Integer step = null;
+    if (index != null && index >= 1 && size != null) {
+      step = (index - 1) * size;
+    }
+    List<ScoreForTeacher> scoreForTeachers = scoreForTeacherMapper.getScoresPage(scoreId, step, size, search);
+    List<ScoreDTO> scoreDTOs = new ArrayList<>();
+    for (ScoreForTeacher scoreForTeacher : scoreForTeachers) {
+      scoreDTOs.add(new ScoreDTO(scoreForTeacher));
+    }
+    return scoreDTOs;
+  }
+
+  public int getScoresCountInCurrentTerm(long scoreId, String search) {
+    search = QueryConditionsUitl.constructQueryConditions(search);
+    return scoreForTeacherMapper.getScoresCount(scoreId, search);
   }
 }

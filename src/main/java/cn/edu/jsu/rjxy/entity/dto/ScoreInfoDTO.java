@@ -19,6 +19,9 @@ public class ScoreInfoDTO {
   private String scoreRemarks;
   private String scoreTypeName;
 
+  private long majorId;
+  private String majorName;
+
   private String teacherName;
   private String teacherHeader;
   private String teacherBusiness;
@@ -56,6 +59,8 @@ public class ScoreInfoDTO {
     if (this.scoreTestWay==null || "null".equals(this.scoreTestWay)) {
       this.scoreTestWay = "";
     }
+    this.majorId = score.getMajor().getId();
+    this.majorName = score.getMajor().getName();
   }
 
   private void initScore(Score score) {
@@ -161,6 +166,22 @@ public class ScoreInfoDTO {
 
   public void setScoreTypeName(String scoreTypeName) {
     this.scoreTypeName = scoreTypeName;
+  }
+
+  public long getMajorId() {
+    return majorId;
+  }
+
+  public void setMajorId(long majorId) {
+    this.majorId = majorId;
+  }
+
+  public String getMajorName() {
+    return majorName;
+  }
+
+  public void setMajorName(String majorName) {
+    this.majorName = majorName;
   }
 
   public String getTeacherName() {
@@ -294,6 +315,8 @@ public class ScoreInfoDTO {
         ", scoreTestWay='" + scoreTestWay + '\'' +
         ", scoreRemarks='" + scoreRemarks + '\'' +
         ", scoreTypeName='" + scoreTypeName + '\'' +
+        ", majorId=" + majorId +
+        ", majorName='" + majorName + '\'' +
         ", teacherName='" + teacherName + '\'' +
         ", teacherHeader='" + teacherHeader + '\'' +
         ", teacherBusiness='" + teacherBusiness + '\'' +

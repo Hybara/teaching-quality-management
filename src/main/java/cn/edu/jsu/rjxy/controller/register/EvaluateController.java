@@ -32,9 +32,14 @@ public class EvaluateController {
   @Autowired
   private ScoreService scoreService;
 
-  @RequestMapping("/register/goEvaluate/{majorId}/{teacherId}/{scoreId}/{token}")
-  public String goEvaluate(@PathVariable Long majorId, @PathVariable Long teacherId,
-      @PathVariable Long scoreId, @PathVariable String token, HttpSession session, Model model) {
+  @RequestMapping("/register/goEvaluate/{type}/{majorId}/{teacherId}/{scoreId}/{token}")
+  public String goEvaluate(@PathVariable String type,
+      @PathVariable Long majorId,
+      @PathVariable Long teacherId,
+      @PathVariable Long scoreId,
+      @PathVariable String token,
+      HttpSession session,
+      Model model) {
     Register register = (Register) session.getAttribute(token);
     if (register == null) {
       return "redirect:/logout/" + token;
@@ -48,6 +53,10 @@ public class EvaluateController {
     if (scoreId == null) {
       return "/register/goScores/" + majorId + "/" + teacherId + "/" + token;
     }
+    if (type == null) {
+      type = "teacher";
+    }
+    model.addAttribute("type", type);
     model.addAttribute("token", token);
     model.addAttribute("teacher", teacherService.getById(teacherId));
     model.addAttribute("score", scoreService.getScoreByScoreForTeacherId(scoreId));

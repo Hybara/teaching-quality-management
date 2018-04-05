@@ -1,7 +1,11 @@
 package cn.edu.jsu.rjxy.controller.register;
 
 import cn.edu.jsu.rjxy.entity.dto.ScoreDTO;
+import cn.edu.jsu.rjxy.entity.dto.ScoreInfoDTO;
 import cn.edu.jsu.rjxy.entity.vo.Register;
+import cn.edu.jsu.rjxy.entity.vo.Score;
+import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
+import cn.edu.jsu.rjxy.entity.vo.Teacher;
 import cn.edu.jsu.rjxy.service.MajorService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
@@ -36,7 +40,8 @@ public class ScoreController {
   private static final int PAGE_SIZE = 12;
 
   @RequestMapping("/register/majorScores/{majorId}/{token}")
-  public String goMajorScores(@PathVariable Long majorId, @PathVariable String token, HttpSession session, Model model) {
+  public String goMajorScores(@PathVariable Long majorId, @PathVariable String token,
+      HttpSession session, Model model) {
     Register register = (Register) session.getAttribute(token);
     if (register == null) {
       return "redirect:/logout/" + token;
@@ -47,13 +52,14 @@ public class ScoreController {
     int scoreCount = scoreService.getMajorScoresCountInCurrentTerm(majorId, NO_SEARCH);
     model.addAttribute("token", token);
     model.addAttribute("major", majorService.getById(majorId));
-    model.addAttribute("count", Math.ceil(((double) scoreCount)/PAGE_SIZE));
+    model.addAttribute("count", Math.ceil(((double) scoreCount) / PAGE_SIZE));
     return "/register/teacher/scoreslist";
   }
 
   @RequestMapping("/register/getMajorScores")
   @ResponseBody
-  public Map<String, Object> getMajorScores(String token, Long majorId, HttpSession session, Integer page, String search) {
+  public Map<String, Object> getMajorScores(String token, Long majorId, HttpSession session,
+      Integer page, String search) {
     Register register = (Register) session.getAttribute(token);
     if (page == null) {
       page = INDEX_PAGE_NUMBER;
@@ -62,12 +68,14 @@ public class ScoreController {
       search = NO_SEARCH;
     }
     int scoreCount = scoreService.getMajorScoresCountInCurrentTerm(majorId, NO_SEARCH);
-    return JSONBaseUtil.structuralResponseMap(scoreService.getMajorScoresInCurrentTerm(majorId, page, PAGE_SIZE, search),
-        Math.ceil(((double) scoreCount)/PAGE_SIZE));
+    return JSONBaseUtil.structuralResponseMap(
+        scoreService.getMajorScoresInCurrentTerm(majorId, page, PAGE_SIZE, search),
+        Math.ceil(((double) scoreCount) / PAGE_SIZE));
   }
 
   @RequestMapping("/register/goScores/{majorId}/{teacherId}/{token}")
-  public String goScores(@PathVariable Long majorId, @PathVariable Long teacherId,
+  public String goScores(@PathVariable Long majorId,
+      @PathVariable Long teacherId,
       @PathVariable String token,
       HttpSession session, Model model) {
     Register register = (Register) session.getAttribute(token);
@@ -83,8 +91,34 @@ public class ScoreController {
 
     int scoreCount = scoreService
         .getTeachScoresCountInCurrentTerm(ALL_SCORE_TYPE, teacherId, NO_SEARCH);
+    model.addAttribute("type", "teacher");
     model.addAttribute("token", token);
     model.addAttribute("teacher", teacherService.getById(teacherId));
+    model.addAttribute("scoreTypes", scoreTypeService.getAll());
+    model.addAttribute("scoreCount", Math.ceil(((double) scoreCount) / SCORES_PAGE_SIZE));
+    return "/register/teacher/scores";
+  }
+
+  @RequestMapping("/register/goMajorScores/{majorId}/{scoreId}/{token}")
+  public String goMajorScores(@PathVariable Long majorId,
+      @PathVariable Long scoreId,
+      @PathVariable String token,
+      HttpSession session, Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/" + token;
+    }
+    if (majorId == null) {
+      return "redirect:/register/login/" + token;
+    }
+    if (scoreId == null) {
+      return "redirect:/register/majorScores/" + token;
+    }
+    Score score = scoreService.getScoreById(scoreId);
+    int scoreCount = scoreService.getScoresCountInCurrentTerm(scoreId, NO_SEARCH);
+    model.addAttribute("type", "score");
+    model.addAttribute("token", token);
+    model.addAttribute("score", scoreService.getScoreById(scoreId));
     model.addAttribute("scoreTypes", scoreTypeService.getAll());
     model.addAttribute("scoreCount", Math.ceil(((double) scoreCount) / SCORES_PAGE_SIZE));
     return "/register/teacher/scores";
@@ -107,8 +141,25 @@ public class ScoreController {
         Math.ceil((double) scoreCount / SCORES_PAGE_SIZE));
   }
 
-  @RequestMapping("/register/goScore/{majorId}/{teacherId}/{scoreId}/{token}")
-  public String goScore(@PathVariable Long majorId, @PathVariable Long teacherId,
+  @RequestMapping("/register/getSameNameScores/{scoreId}/{token}")
+  @ResponseBody
+  public Map<String, Object> getSameNameScores(@PathVariable long scoreId,
+      @PathVariable String token,
+      HttpSession session, Integer page, String search) {
+    Register register = (Register) session.getAttribute(token);
+    if (page == null) {
+      page = INDEX_PAGE_NUMBER;
+    }
+    List<ScoreDTO> scoreDTOS = scoreService
+        .getScoresPageInCurrentTerm(scoreId, page, SCORES_PAGE_SIZE, search);
+    int scoreCount = scoreService.getScoresCountInCurrentTerm(scoreId, search);
+    return JSONBaseUtil.structuralResponseMap(
+        scoreDTOS,
+        Math.ceil((double) scoreCount / SCORES_PAGE_SIZE));
+  }
+
+  @RequestMapping("/register/goScore/{type}/{majorId}/{teacherId}/{scoreId}/{token}")
+  public String goScore(@PathVariable String type, @PathVariable Long majorId, @PathVariable Long teacherId,
       @PathVariable Long scoreId, @PathVariable String token,
       HttpSession session, Model model) {
     Register register = (Register) session.getAttribute(token);
@@ -124,6 +175,13 @@ public class ScoreController {
     if (scoreId == null) {
       return "/register/goScores/" + majorId + "/" + teacherId + "/" + token;
     }
+    if (type == null) {
+      type = "teacher";
+    }
+    Teacher teacher = teacherService.getById(teacherId);
+    ScoreInfoDTO scoreInfoDTO = scoreService.getScoreByScoreForTeacherId(scoreId);
+
+    model.addAttribute("type", type);
     model.addAttribute("token", token);
     model.addAttribute("teacher", teacherService.getById(teacherId));
     model.addAttribute("score", scoreService.getScoreByScoreForTeacherId(scoreId));

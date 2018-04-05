@@ -14,7 +14,13 @@
         <li>
           <a href="/teacher/login/{token}"
              th:href="@{/register/login/{token}(token=${token})}"><i
-              class="fa fa-desktop"></i>专业列表</a>
+              class="fa fa-desktop"></i>专业列表
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/register/teacherList/{majorId}/{token}(token=${token},majorId=${major.id})}">
+            <i class="fa fa-desktop"></i>教师列表
+          </a>
         </li>
       </ul>
     </div>

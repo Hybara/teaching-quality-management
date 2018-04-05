@@ -27,6 +27,11 @@ public interface ScoreForTeacherMapper {
   int getScoresCountForTeacher(@Param("type") String scoreType,
       @Param("teacherId") long teacherId, @Param("search") String search);
 
+  List<ScoreForTeacher> getScoresPage(@Param("scoreId") long scoreId, @Param("step") Integer step,
+      @Param("size") Integer size, @Param("search") String search);
+
+  int getScoresCount(@Param("scoreId") long scoreId, @Param("search") String search);
+
   @Update("UPDATE score_for_teacher "
       + "SET score=#{scoreForTeacher.score.id},"
       + " teacher=#{scoreForTeacher.teacher.id},"
