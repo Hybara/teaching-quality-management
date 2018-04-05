@@ -14,12 +14,7 @@
         <li>
           <a href="/teacher/login/{token}"
              th:href="@{/register/login/{token}(token=${token})}"><i
-              class="fa fa-desktop"></i>返回</a>
-        </li>
-        <li>
-          <a href="/teacher/login/{token}"
-             th:href="@{/register/majorScores/{majorId}/{token}(majorId=${major.id},token=${token})}"><i
-              class="fa fa-desktop"></i>课程列表</a>
+              class="fa fa-desktop"></i>专业列表</a>
         </li>
       </ul>
     </div>
@@ -27,19 +22,19 @@
   <!-- /. NAV SIDE  -->
   <div id="page-wrapper">
     <div class="header">
-      <h1 class="page-header">教师列表</h1>
+      <h1 class="page-header">课程列表</h1>
       <ol class="breadcrumb">
         <li>
           <a href="" th:href="@{/register/login/{token}(token=${token})}">专业列表</a>
         </li>
-        <li class="active">[[${major.name}]]·教师列表</li>
+        <li class="active">[[${major.name}]]·课程列表</li>
       </ol>
     </div>
     <div class="row" style="width: 100%">
       <div class="col-md-offset-2 col-md-8">
         <!-- Advanced Tables -->
         <div class="panel panel-default">
-          <div class="panel-heading major" data-id="" th:attr="data-id=${major.id}"> [[${major.name}]]·教师列表
+          <div class="panel-heading major" data-id="" th:attr="data-id=${major.id}"> [[${major.name}]]·课程列表
           </div>
           <div class="panel-body">
             <div class="row">
@@ -63,24 +58,20 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>工号</th>
-                  <th>姓名</th>
-                  <th>职称</th>
-                  <th>性别</th>
-                  <th>邮箱</th>
-                  <th>电话</th>
-                  <th>QQ</th>
-                  <th>微信</th>
+                  <th>编号</th>
+                  <th>名称</th>
+                  <th>类型</th>
+                  <th>学分</th>
+                  <th>学时</th>
+                  <th>考核方式</th>
                 </tr>
                 </thead>
                 <tbody>
                 <th:block th:each="page,iterState : ${#numbers.sequence(1, 12)}">
                   <tr>
                     <td>[[${iterState.count}]]</td>
-                    <td>12153153242134</td>
-                    <td>david</td>
-                    <td>讲师</td>
-                    <td>男</td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -128,7 +119,7 @@
 <!-- /. WRAPPER  -->
 <th:block th:replace="include :: scripte_domain(~{::script})">
   <!-- My Js -->
-  <script src="../../../static/js/register/teachers.js" th:src="@{/js/register/teachers.js}"></script>
+  <script src="../../../static/js/register/scoreslist.js" th:src="@{/js/register/scoreslist.js}"></script>
 </th:block>
 </body>
 

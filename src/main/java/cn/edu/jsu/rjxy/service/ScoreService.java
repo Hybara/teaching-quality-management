@@ -8,6 +8,7 @@ import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.StuForClass;
 import cn.edu.jsu.rjxy.entity.vo.Study;
 import cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper;
+import cn.edu.jsu.rjxy.mappers.ScoreMapper;
 import cn.edu.jsu.rjxy.mappers.StuForClassMapper;
 import cn.edu.jsu.rjxy.mappers.StudentMapper;
 import cn.edu.jsu.rjxy.mappers.StudyMapper;
@@ -29,6 +30,8 @@ public class ScoreService {
   StuForClassMapper stuForClassMapper;
   @Autowired
   StudyMapper studyMapper;
+  @Autowired
+  ScoreMapper scoreMapper;
 
   public ScoreForTeacher getById(long scoreForTeacherId) {
     return scoreForTeacherMapper.getById(scoreForTeacherId);
@@ -94,8 +97,28 @@ public class ScoreService {
     return scoreForTeacherMapper.getScoresCountForTeacher(scoreType, teacherId, search);
   }
 
-
   public boolean updateScoreForTeacher(ScoreForTeacher scoreForTeacher) {
     return scoreForTeacherMapper.updateScoreForTeacher(scoreForTeacher);
+  }
+
+
+  public List<ScoreInfoDTO> getMajorScoresInCurrentTerm(long majorId, Integer index,
+      Integer size, String search) {
+    search = QueryConditionsUitl.constructQueryConditions(search);
+    Integer step = null;
+    if (index != null && index > 1 && size != null) {
+      step = (index - 1) * size;
+    }
+    List<Score> scores = scoreMapper.getPageByMajor(majorId, step, size, search);
+    List<ScoreInfoDTO> scoreInfoDTOS = new ArrayList<>();
+    for (Score score : scores) {
+      scoreInfoDTOS.add(new ScoreInfoDTO(score));
+    }
+    return scoreInfoDTOS;
+  }
+
+  public int getMajorScoresCountInCurrentTerm(long majorId, String search) {
+    search = QueryConditionsUitl.constructQueryConditions(search);
+    return scoreMapper.getCountByMajor(majorId, search);
   }
 }

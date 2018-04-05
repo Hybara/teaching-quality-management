@@ -33,6 +33,38 @@ public class ScoreController {
   private static final String NO_SEARCH = null;
   private static final int SCORES_PAGE_SIZE = 8;
   private static final int INDEX_PAGE_NUMBER = 1;
+  private static final int PAGE_SIZE = 12;
+
+  @RequestMapping("/register/majorScores/{majorId}/{token}")
+  public String goMajorScores(@PathVariable Long majorId, @PathVariable String token, HttpSession session, Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/" + token;
+    }
+    if (majorId == null) {
+      return "redirect:/register/login/" + token;
+    }
+    int scoreCount = scoreService.getMajorScoresCountInCurrentTerm(majorId, NO_SEARCH);
+    model.addAttribute("token", token);
+    model.addAttribute("major", majorService.getById(majorId));
+    model.addAttribute("count", Math.ceil(((double) scoreCount)/PAGE_SIZE));
+    return "/register/teacher/scoreslist";
+  }
+
+  @RequestMapping("/register/getMajorScores")
+  @ResponseBody
+  public Map<String, Object> getMajorScores(String token, Long majorId, HttpSession session, Integer page, String search) {
+    Register register = (Register) session.getAttribute(token);
+    if (page == null) {
+      page = INDEX_PAGE_NUMBER;
+    }
+    if (search == null || "".equals(search)) {
+      search = NO_SEARCH;
+    }
+    int scoreCount = scoreService.getMajorScoresCountInCurrentTerm(majorId, NO_SEARCH);
+    return JSONBaseUtil.structuralResponseMap(scoreService.getMajorScoresInCurrentTerm(majorId, page, PAGE_SIZE, search),
+        Math.ceil(((double) scoreCount)/PAGE_SIZE));
+  }
 
   @RequestMapping("/register/goScores/{majorId}/{teacherId}/{token}")
   public String goScores(@PathVariable Long majorId, @PathVariable Long teacherId,
@@ -97,4 +129,5 @@ public class ScoreController {
     model.addAttribute("score", scoreService.getScoreByScoreForTeacherId(scoreId));
     return "/register/teacher/score";
   }
+
 }

@@ -45,6 +45,19 @@ public class ScoreInfoDTO {
     initGrade(scoreForTeacher);
   }
 
+  public ScoreInfoDTO(Score score) {
+    this.id = score.getId();
+    this.scoreNumber = score.getNumber();
+    this.scoreName = score.getName();
+    this.scoreCredit = score.getCredit().toString();
+    this.scoreHours = score.getHours().toString();
+    this.scoreTypeName = score.getType().getName();
+    this.scoreTestWay = score.getTestWay();
+    if (this.scoreTestWay==null || "null".equals(this.scoreTestWay)) {
+      this.scoreTestWay = "";
+    }
+  }
+
   private void initScore(Score score) {
     this.scoreNumber = score.getNumber();
     this.scoreName = score.getName();
@@ -92,6 +105,14 @@ public class ScoreInfoDTO {
 
   public void setId(long id) {
     this.id = id;
+  }
+
+  public String getScoreNumber() {
+    return scoreNumber;
+  }
+
+  public void setScoreNumber(String scoreNumber) {
+    this.scoreNumber = scoreNumber;
   }
 
   public String getScoreName() {
@@ -266,6 +287,7 @@ public class ScoreInfoDTO {
   public String toString() {
     return "ScoreInfoDTO{" +
         "id=" + id +
+        ", scoreNumber='" + scoreNumber + '\'' +
         ", scoreName='" + scoreName + '\'' +
         ", scoreCredit='" + scoreCredit + '\'' +
         ", scoreHours='" + scoreHours + '\'' +

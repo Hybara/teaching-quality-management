@@ -12,6 +12,22 @@
     <result property="testWay" column="test_way"/>
     <association property="major" column="major" select="cn.edu.jsu.rjxy.mappers.MajorMapper.getById"/>
     <association property="term" column="term" select="cn.edu.jsu.rjxy.mappers.TermMapper.getById"/>
-    <association property="type" column="type" select="cn.edu.jsu.rjxy.mappers.ScoreTypeMapper.getById"/>
+    <association property="type" column="type"
+      select="cn.edu.jsu.rjxy.mappers.ScoreTypeMapper.getById"/>
   </resultMap>
+
+  <select id="getPageByMajor" resultMap="ScoreMap">
+    SELECT s.* FROM score s
+    LEFT JOIN term t ON s.term=t.id
+    WHERE s.major=#{majorId} AND (NOW() BETWEEN t.start_time AND t.end_time)
+    <if test="search!=null"> AND (s.`name` LIKE #{search} OR s.`number` LIKE #{search})</if>
+    <if test="step!=null and size!=null"> LIMIT #{step},#{size}</if>
+  </select>
+
+  <select id="getCountByMajor" resultType="Integer">
+    SELECT COUNT(*) FROM score s
+    LEFT JOIN term t ON s.term=t.id
+    WHERE s.major=#{majorId} AND (NOW() BETWEEN t.start_time AND t.end_time)
+    <if test="search!=null"> AND (s.`name` LIKE #{search} OR s.`number` LIKE #{search})</if>
+  </select>
 </mapper>

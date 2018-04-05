@@ -1,5 +1,6 @@
 package cn.edu.jsu.rjxy.entity.dto;
 
+import cn.edu.jsu.rjxy.entity.vo.Score;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
