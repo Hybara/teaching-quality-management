@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("RegisterQuestionnaireController")
 public class QuestionnaireController {
@@ -26,4 +27,19 @@ public class QuestionnaireController {
     return "/register/questionnaire";
   }
 
+  @RequestMapping("/register/addQuestionnaireQuestionType")
+  @ResponseBody
+  public String addQuestionnaireQuestionType(String token, String data, HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    if (data == null || "".equals(data)) {
+      return "nodata";
+    }
+    if (questionnaireService.addQuestionType(data)) {
+      return "ok";
+    }
+    return "failure";
+  }
 }
