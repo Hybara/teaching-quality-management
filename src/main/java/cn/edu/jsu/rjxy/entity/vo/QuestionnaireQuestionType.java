@@ -1,22 +1,18 @@
 package cn.edu.jsu.rjxy.entity.vo;
 
-public class QuestionType {
+public class QuestionnaireQuestionType {
 
   private long id;
   private String name;
 
-  public QuestionType() {
+  public QuestionnaireQuestionType() {
   }
 
-  public QuestionType(long id) {
-    this.id = id;
-  }
-
-  public QuestionType(String name) {
+  public QuestionnaireQuestionType(String name) {
     this.name = name;
   }
 
-  public QuestionType(long id, String name) {
+  public QuestionnaireQuestionType(long id, String name) {
     this.id = id;
     this.name = name;
   }
@@ -39,7 +35,7 @@ public class QuestionType {
 
   @Override
   public String toString() {
-    return "QuestionType{" +
+    return "QuestionnaireQuestionType{" +
         "id=" + id +
         ", name='" + name + '\'' +
         '}';

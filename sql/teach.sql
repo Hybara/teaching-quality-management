@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-06 03:19:24
+Date: 2018-04-07 02:47:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -245,10 +245,10 @@ INSERT INTO `question` VALUES ('1', '1', '什么情况下使用瀑布模型', '�
 INSERT INTO `question` VALUES ('2', '1', '怎么区分系统边界', '见标题', '90.00', '1', '2018-02-09 15:17:29', 'student', '0');
 
 -- ----------------------------
--- Table structure for question_bank
+-- Table structure for questionnaire_bank
 -- ----------------------------
-DROP TABLE IF EXISTS `question_bank`;
-CREATE TABLE `question_bank` (
+DROP TABLE IF EXISTS `questionnaire_bank`;
+CREATE TABLE `questionnaire_bank` (
   `id` int(11) NOT NULL auto_increment,
   `type` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -265,42 +265,96 @@ CREATE TABLE `question_bank` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of question_bank
+-- Records of questionnaire_bank
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for question_template
+-- Table structure for questionnaire_for_teacher
 -- ----------------------------
-DROP TABLE IF EXISTS `question_template`;
-CREATE TABLE `question_template` (
+DROP TABLE IF EXISTS `questionnaire_for_teacher`;
+CREATE TABLE `questionnaire_for_teacher` (
   `id` int(11) NOT NULL auto_increment,
-  `name` varchar(255) NOT NULL,
-  `question_list` varchar(255) NOT NULL,
+  `score_for_teacher` int(11) NOT NULL,
   `creater` int(11) NOT NULL,
-  `creater_type` varchar(64) NOT NULL,
   `create_time` datetime NOT NULL,
   `updater` int(11) default NULL,
-  `updater_type` varchar(64) default NULL,
   `update_time` datetime default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of question_template
+-- Records of questionnaire_for_teacher
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for question_type
+-- Table structure for questionnaire_for_teacher_questions
 -- ----------------------------
-DROP TABLE IF EXISTS `question_type`;
-CREATE TABLE `question_type` (
+DROP TABLE IF EXISTS `questionnaire_for_teacher_questions`;
+CREATE TABLE `questionnaire_for_teacher_questions` (
+  `id` int(11) NOT NULL auto_increment,
+  `questionnaire` int(11) NOT NULL,
+  `question` int(11) NOT NULL,
+  `coefficient` decimal(2,1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of questionnaire_for_teacher_questions
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for questionnaire_question_type
+-- ----------------------------
+DROP TABLE IF EXISTS `questionnaire_question_type`;
+CREATE TABLE `questionnaire_question_type` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of question_type
+-- Records of questionnaire_question_type
+-- ----------------------------
+INSERT INTO `questionnaire_question_type` VALUES ('1', '教书育人');
+INSERT INTO `questionnaire_question_type` VALUES ('2', '教学基本功');
+INSERT INTO `questionnaire_question_type` VALUES ('3', '教学内容');
+INSERT INTO `questionnaire_question_type` VALUES ('4', '教学方法');
+INSERT INTO `questionnaire_question_type` VALUES ('5', '教学管理');
+INSERT INTO `questionnaire_question_type` VALUES ('6', '教学效果');
+INSERT INTO `questionnaire_question_type` VALUES ('7', '教学准备');
+
+-- ----------------------------
+-- Table structure for questionnaire_template
+-- ----------------------------
+DROP TABLE IF EXISTS `questionnaire_template`;
+CREATE TABLE `questionnaire_template` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `creater` int(11) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `updater` int(11) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of questionnaire_template
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for questionnaire_template_questions
+-- ----------------------------
+DROP TABLE IF EXISTS `questionnaire_template_questions`;
+CREATE TABLE `questionnaire_template_questions` (
+  `id` int(11) NOT NULL auto_increment,
+  `template` int(11) NOT NULL,
+  `question` int(11) NOT NULL,
+  `coefficient` decimal(2,1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of questionnaire_template_questions
 -- ----------------------------
 
 -- ----------------------------
