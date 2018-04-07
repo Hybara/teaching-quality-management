@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jsu.rjxy.mappers.QuestionnaireBankMapper">
+  <resultMap id="bankMap" type="QuestionnaireBank">
+    <id column="id" property="id" />
+    <result column="title" property="title"/>
+    <result column="remarks" property="remarks"/>
+    <result column="content_A" property="contentA"/>
+    <result column="result_A" property="resultA"/>
+    <result column="content_B" property="contentB"/>
+    <result column="result_B" property="resultB"/>
+    <result column="content_C" property="contentC"/>
+    <result column="result_C" property="resultC"/>
+    <result column="content_D" property="contentD"/>
+    <result column="result_D" property="resultD"/>
+    <association property="type" column="type" select="cn.edu.jsu.rjxy.mappers.QuestionnaireQuestionTypeMapper.getById" />
+  </resultMap>
+
+  <select id="getPageByType" resultMap="bankMap">
+    SELECT * FROM questionnaire_bank
+    WHERE type=#{type}
+    <if test="search!=null">
+      AND (`title` LIKE #{search} OR `remarks` LIKE #{search})
+    </if>
+    <if test="step!=null and size!=null">
+      LIMIT #{step},#{size}
+    </if>
+  </select>
+
+  <select id="getCountByType" resultType="Integer">
+    SELECT COUNT(*) FROM questionnaire_bank
+    WHERE type=#{type}
+    <if test="search!=null">
+      AND (`title` LIKE #{search} OR `remarks` LIKE #{search})
+    </if>
+  </select>
+</mapper>

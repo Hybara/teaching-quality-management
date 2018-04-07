@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="register/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a href="" th:href="@{/register/goQuestionnaire/{token}(token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回
+          </a>
+        </li>
+        <li>
+          <a href="" th:href="@{/register/goQuestionnaire/{token}(token=${token})}">
+            <i class="fa fa-dashboard"></i> 添加题目
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header" data-id="" th:attr="data-id=${type.id}">[[${type.name}]] 题库</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a th:href="@{/register/goQuestionnaire/{token}(token=${token})}">题库分类</a>
+        </li>
+        <li class="active">[[${type.name}]] 题库</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <div class="card-title">
+            <div class="title">[[${type.name}]] 题库</div>
+          </div>
+          <div style="margin-bottom: 0px">
+            <form method="post" action="javascript:void(0)" class="form-inline" id="search_form"
+                  style="margin: 10px 0 10px 5px;">
+              <div class="form-group">
+                <label style="font-size: 12px;">题目搜索：</label>
+                <input style="width: 160px;" type="text" class="form-control" id="search"
+                       placeholder="请输入关键字...">
+                <!--<span class="input-group-btn">-->
+                <button type="submit" class="btn btn-primary">搜索</button>
+                <!--</span>-->
+              </div>
+            </form>
+          </div>
+        </div>
+        <style>
+          .media p {
+            padding-top: 0px;
+          }
+
+          .evaluate a.list-group-item {
+            margin-bottom: 5px;
+          }
+
+          .evaluate a.list-group-item .media-body p a {
+            text-decoration: none;
+            color: black;
+          }
+
+          .evaluate a.list-group-item .media-body p a:hover {
+            color: lightslategrey;
+          }
+
+          .assessment, hr {
+            clear: both;
+          }
+
+          .checkbox3 label {
+            word-wrap: break-word;
+            word-break: break-all;
+          }
+        </style>
+        <div class="panel-body evaluate">
+          <ul class="list-group" th:if="${pageSize}">
+          <th:block th:each="page : ${#numbers.sequence(1, pageSize)}">
+            <a href="" class="list-group-item">
+              <div class="assessment">
+                <div class="sub-title">问题一 我有能力克服各种困难：</div>
+                <div class="sub-header">请选择一个和自己最切合的答案，但要尽可能少选中性答案，下同</div>
+                <div class="answer">
+                  <div class="a">
+                    <label>(10') A</label>&nbsp;&nbsp;和从前一样
+                  </div>
+                  <div class="b">
+                    <label>(08') B</label>&nbsp;&nbsp;和从前一样
+                  </div>
+                  <div class="c">
+                    <label>(06') C</label>&nbsp;&nbsp;和从前一样
+                  </div>
+                  <div class="d">
+                    <label>(04') D</label>&nbsp;&nbsp;和从前一样
+                  </div>
+                </div>
+              </div>
+            </a>
+          </th:block>
+          </ul>
+          <div class="row" th:if="${pageSize}">
+            <center>
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                  <li>
+                    <a href="javascript:void(0)" id="first">首页</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" id="back">&laquo;</a>
+                  </li>
+                  <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                    <li th:if="${page} eq 1" class="pageItem active" id="1">
+                      <a href="javascript:void(0)">1</a>
+                    </li>
+                    <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                      <a href="javascript:void(0)">[[${page}]]</a>
+                    </li>
+                  </th:block>
+                  <li>
+                    <a href="javascript:void(0)" id="nest">&raquo;</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" id="end">末页</a>
+                  </li>
+                </ul>
+              </nav>
+            </center>
+          </div>
+        </div>
+      </div>
+      <footer th:replace="include :: footer"></footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <script th:src="@{/js/register/bank.js}"></script>
+</th:block>
+</body>
+
+</html>

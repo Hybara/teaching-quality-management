@@ -87,7 +87,6 @@ $(function () {
   });
 
   $("form").on("submit", function (event) {
-    debugger;
     event.stopPropagation();
     event.preventDefault();
     let token = $("body").attr("data-token");

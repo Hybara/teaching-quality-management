@@ -27,7 +27,6 @@ $(function () {
       $(this).focus();
       return;
     }
-    console.log("11");
     var $input = $(this);
     $.post("/register/checkPassword", {
       token: token,
@@ -66,7 +65,6 @@ $(function () {
     });
 
     $("#password_form").on("submit", function (event) {
-      // debugger;
       event.stopPropagation();
       event.preventDefault();
       var password = $("#new_password").val();

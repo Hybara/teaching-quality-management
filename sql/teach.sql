@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-07 02:47:01
+Date: 2018-04-08 03:11:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -267,6 +267,9 @@ CREATE TABLE `questionnaire_bank` (
 -- ----------------------------
 -- Records of questionnaire_bank
 -- ----------------------------
+INSERT INTO `questionnaire_bank` VALUES ('1', '1', '教学责任心强，以身作则，为人师表', null, '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('2', '1', '引导学生端正学习态度，指导学生采用有效的学习方法', null, '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('3', '1', '注重学生个性发展，因材施教', null, '很好', '10', '好', '8', '一般', '6', '差', '4');
 
 -- ----------------------------
 -- Table structure for questionnaire_for_teacher
@@ -322,6 +325,7 @@ INSERT INTO `questionnaire_question_type` VALUES ('4', '教学方法');
 INSERT INTO `questionnaire_question_type` VALUES ('5', '教学管理');
 INSERT INTO `questionnaire_question_type` VALUES ('6', '教学效果');
 INSERT INTO `questionnaire_question_type` VALUES ('7', '教学准备');
+INSERT INTO `questionnaire_question_type` VALUES ('8', '师生互动');
 
 -- ----------------------------
 -- Table structure for questionnaire_template

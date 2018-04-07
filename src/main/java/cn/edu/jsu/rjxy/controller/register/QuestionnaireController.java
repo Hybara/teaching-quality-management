@@ -2,6 +2,8 @@ package cn.edu.jsu.rjxy.controller.register;
 
 import cn.edu.jsu.rjxy.entity.vo.Register;
 import cn.edu.jsu.rjxy.service.QuestionnaireService;
+import cn.edu.jsu.rjxy.util.JSONBaseUtil;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ public class QuestionnaireController {
 
   @Autowired
   private QuestionnaireService questionnaireService;
+
+  private static final int QUESTION_BANK_PAGE_SIZE = 1;
 
   @RequestMapping("/register/goQuestionnaire/{token}")
   public String goQuestionnaire(@PathVariable String token, HttpSession session, Model model) {
@@ -41,5 +45,35 @@ public class QuestionnaireController {
       return "ok";
     }
     return "failure";
+  }
+
+  @RequestMapping("/register/questionnaire/question/{type}/{token}")
+  public String goQuestionnaireBank(@PathVariable Long type, @PathVariable String token,
+      HttpSession session, Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/" + token;
+    }
+    if (type == null) {
+      return "redirect:/register/goQuestionnaire/" + token;
+    }
+    model.addAttribute("token", token);
+    model.addAttribute("type", questionnaireService.getQuestionTypeById(type));
+    model.addAttribute("pageSize", QUESTION_BANK_PAGE_SIZE);
+    return "/register/questionnaireBank";
+  }
+
+  @RequestMapping("/register/getQuestionBank")
+  @ResponseBody
+  public Map<String, Object> getQuestionBank(Long type, String token, Integer page, String search,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return JSONBaseUtil.structuralResponseMap("", 0);
+    }
+    int count = questionnaireService.getQuestionCountByType(type, search);
+    return JSONBaseUtil.structuralResponseMap(
+        questionnaireService.getQuestionListByType(type, page, QUESTION_BANK_PAGE_SIZE, search),
+        Math.ceil(((double) count)/QUESTION_BANK_PAGE_SIZE));
   }
 }
