@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-08 03:11:22
+Date: 2018-04-09 00:23:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -267,9 +267,9 @@ CREATE TABLE `questionnaire_bank` (
 -- ----------------------------
 -- Records of questionnaire_bank
 -- ----------------------------
-INSERT INTO `questionnaire_bank` VALUES ('1', '1', '教学责任心强，以身作则，为人师表', null, '很好', '10', '好', '8', '一般', '6', '差', '4');
-INSERT INTO `questionnaire_bank` VALUES ('2', '1', '引导学生端正学习态度，指导学生采用有效的学习方法', null, '很好', '10', '好', '8', '一般', '6', '差', '4');
-INSERT INTO `questionnaire_bank` VALUES ('3', '1', '注重学生个性发展，因材施教', null, '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('1', '1', '教学责任心强，以身作则，为人师表', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('2', '1', '引导学生端正学习态度，指导学生采用有效的学习方法', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('3', '1', '注重学生个性发展，因材施教', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 
 -- ----------------------------
 -- Table structure for questionnaire_for_teacher
@@ -344,6 +344,7 @@ CREATE TABLE `questionnaire_template` (
 -- ----------------------------
 -- Records of questionnaire_template
 -- ----------------------------
+INSERT INTO `questionnaire_template` VALUES ('1', '软件工程通用模板', '1', '2018-04-09 00:19:35', null, null);
 
 -- ----------------------------
 -- Table structure for questionnaire_template_questions

@@ -21,6 +21,7 @@ public class QuestionnaireController {
   private QuestionnaireService questionnaireService;
 
   private static final int QUESTION_BANK_PAGE_SIZE = 20;
+  private static final int QUESTION_TEMPLATE_PAGE_SIZE = 24;
 
   @RequestMapping("/register/goQuestionnaire/{token}")
   public String goQuestionnaire(@PathVariable String token, HttpSession session, Model model) {
@@ -111,7 +112,7 @@ public class QuestionnaireController {
     }
     bank.setTypeId(type);
     boolean flag = false;
-    if (bank.getId()==0) {
+    if (bank.getId() == 0) {
       flag = questionnaireService.addQuestionBank(bank);
     } else {
       flag = questionnaireService.updateQuestionBank(bank);
@@ -138,5 +139,29 @@ public class QuestionnaireController {
     } else {
       return "failure";
     }
+  }
+
+  @RequestMapping("/register/questionnaire/goTemplate/{token}")
+  public String goTemplate(@PathVariable String token, HttpSession session, Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/" + token;
+    }
+    model.addAttribute("token", token);
+    return "/register/questionnaireTemplate";
+  }
+
+  @RequestMapping("/register/questionnaire/getTemplate")
+  @ResponseBody
+  public Map<String, Object> getTemplate(String token, Integer page, String search,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return JSONBaseUtil.structuralResponseMap("", 0);
+    }
+    int count = questionnaireService.getTemplateCount(search);
+    return JSONBaseUtil.structuralResponseMap(
+        questionnaireService.getTemplatePage(page, QUESTION_TEMPLATE_PAGE_SIZE, search),
+        Math.ceil(((double) count) / QUESTION_TEMPLATE_PAGE_SIZE));
   }
 }
