@@ -12,12 +12,12 @@
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
         <li>
-          <a href="" th:href="@{/register/goQuestionnaire/{token}(token=${token})}">
+          <a th:href="@{/register/goQuestionnaire/{token}(token=${token})}">
             <i class="fa fa-dashboard"></i> 返回
           </a>
         </li>
         <li>
-          <a href="" th:href="@{/register/goQuestionnaire/{token}(token=${token})}">
+          <a th:href="@{/register/questionnaire/goAddQuestion/{type}/0/{token}(type=${type.id},token=${token})}">
             <i class="fa fa-dashboard"></i> 添加题目
           </a>
         </li>
@@ -86,7 +86,7 @@
         <div class="panel-body evaluate">
           <ul class="list-group" th:if="${pageSize}">
           <th:block th:each="page : ${#numbers.sequence(1, pageSize)}">
-            <a href="" class="list-group-item">
+            <a class="list-group-item">
               <div class="assessment">
                 <div class="sub-title">问题一 我有能力克服各种困难：</div>
                 <div class="sub-header">请选择一个和自己最切合的答案，但要尽可能少选中性答案，下同</div>

@@ -70,4 +70,32 @@ public class QuestionnaireService {
     return questionnaireBankMapper.getCountByType(typeId, search);
   }
 
+  public boolean addQuestionBank(QuestionnaireBankItemDTO bank) {
+    if ("".equals(bank.getContentC()) || bank.getResultC()==null || bank.getResultC()==0) {
+      bank.setContentC(null);
+      bank.setResultC(null);
+    }
+    if ("".equals(bank.getContentD()) || bank.getResultD()==null || bank.getResultD()==0) {
+      bank.setContentD(null);
+      bank.setResultD(null);
+    }
+    return questionnaireBankMapper.insertBank(bank);
+  }
+
+  public boolean updateQuestionBank(QuestionnaireBankItemDTO bank) {
+    if ("".equals(bank.getContentC()) || bank.getResultC()==null || bank.getResultC()==0) {
+      bank.setContentC(null);
+      bank.setResultC(null);
+    }
+    if ("".equals(bank.getContentD()) || bank.getResultD()==null || bank.getResultD()==0) {
+      bank.setContentD(null);
+      bank.setResultD(null);
+    }
+    return questionnaireBankMapper.updateBank(bank);
+  }
+
+  public boolean deleteQuestionBank(long id) {
+    return questionnaireBankMapper.deleteBank(id);
+  }
+
 }

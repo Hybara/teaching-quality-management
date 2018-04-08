@@ -1,172 +1,206 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<style>#wrapper {
-	min-height: 540px !important;
-}</style>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta content="" name="description" />
-		<meta content="webthemez" name="author" />
-		<title>Bootstrap HTML5 Admin Template</title>
-		<!-- Bootstrap Styles-->
-		<link href="../../static/plugins/assets/css/bootstrap.css" rel="stylesheet" />
-		<!-- FontAwesome Styles-->
-		<link href="../../static/plugins/assets/css/font-awesome.css" rel="stylesheet" />
-		<!-- Custom Styles-->
-		<link href="../../static/plugins/assets/css/custom-styles.css" rel="stylesheet" />
-		<!-- Google Fonts-->
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-		<link href="../../static/css/dashboard.css" rel="stylesheet">
-	</head>
+<html xmlns:th="http://www.thymeleaf.org">
 
-	<body>
-		<div id="wrapper">
-			<nav class="navbar navbar-default top-navbar" role="navigation">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> 教学质量管理系统</strong></a>
-					<!--<div id="sideNav" href=""><i class="fa fa-bars icon"></i></div>-->
-				</div>
+<head th:replace="include :: header(~{})"></head>
 
-				<ul class="nav navbar-top-links navbar-right">
-					<!-- /.dropdown -->
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-							<span style="color: gray;">20144206068 欧文惠 软件一班&nbsp;</span><i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
-						</a>
-						<ul class="dropdown-menu dropdown-user">
-							<li>
-								<a href="info.html"><i class="fa fa-user fa-fw"></i> 用户信息</a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="#"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
-							</li>
-						</ul>
-						<!-- /.dropdown-user -->
-					</li>
-					<!-- /.dropdown -->
-				</ul>
-			</nav>
-			<!--/. NAV TOP  -->
-			<nav class="navbar-default navbar-side" role="navigation">
-				<div class="sidebar-collapse">
-					<ul class="nav" id="main-menu">
-						<li>
-							<a href="questionBank.html"><i class="fa fa-dashboard"></i> 返回</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
-			<!-- /. NAV SIDE  -->
-			<div id="page-wrapper">
-				<div class="header">
-					<h1 class="page-header">教学质量管理系统</h1>
-					<ol class="breadcrumb">
-						<li><a href="index.html">首页</a></li>
-						<li><a href="questionBank.html">题库</a></li>
-						<li><a href="questionBank.html">课堂表现</a></li>
-						<li class="active">添加题目</li>
-					</ol>
-				</div>
-				<div id="page-inner">
-					<div class="row">
-						
-	                    <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
-							<div class="panel panel-default">
-		                        <div class="panel-heading"> 添加一个新题目 </div>
-		                        <div class="panel-body">
-		                        	请添加问题描述和至少两个答案以及每个答案的分数，其中最高的分数为该题的总分
-                                    <div class="sub-title">问题描述</div>
-                                    <div>
-                                        <textarea class="form-control" rows="3"></textarea>
-                                    </div>
-                                    <div class="row">
-                                    	<div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案一</div>
-	                                    <div class="col-md-10">
-												<input type="text" class="form-control" aria-label="...">
-	                                   </div>
-										<div class="col-md-2">
-											<div class="input-group">
-												<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-												<span class="input-group-addon">分</span>
-											</div>
-										</div>
-                                   </div>
-                                    <div class="row">
-                                    	<div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案二</div>
-	                                    <div class="col-md-10">
-												<input type="text" class="form-control" aria-label="...">
-	                                   </div>
-										<div class="col-md-2">
-											<div class="input-group">
-												<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-												<span class="input-group-addon">分</span>
-											</div>
-										</div>
-                                   </div>
-                                    <div class="row">
-                                    	<div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案三</div>
-	                                    <div class="col-md-10">
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="checkbox" aria-label="...">
-												</span>
-												<input type="text" class="form-control" aria-label="...">
-											</div>
-	                                   </div>
-										<div class="col-md-2">
-											<div class="input-group">
-												<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-												<span class="input-group-addon">分</span>
-											</div>
-										</div>
-                                   </div>
-                                    <div class="row">
-                                    	<div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案四</div>
-	                                    <div class="col-md-10">
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="checkbox" aria-label="...">
-												</span>
-												<input type="text" class="form-control" aria-label="...">
-											</div>
-	                                   </div>
-										<div class="col-md-2">
-											<div class="input-group">
-												<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-												<span class="input-group-addon">分</span>
-											</div>
-										</div>
-                                   </div>
-                                   <center style="margin-top: 15px;">
-										<a href="#" class="btn btn-danger">清空</a>
-										<a href="#" class="btn btn-success">提交</a>
-                                   </center>
-		                        </div>
-		                    </div>
-	                    </div>
-					</div>
-					<footer class="text-center">
-						<p>Copyright &copy; 2018 欧文惠 2014级软件一班,
-							<a target="_blank" href="http://rjxy.jsu.edu.cn/">吉首大学软件学院;</a>
-						</p>
-					</footer>
-				</div>
-				<!-- /. PAGE INNER  -->
-			</div>
-			<!-- /. PAGE WRAPPER  -->
-		</div>
-		<!-- /. WRAPPER  -->
-		<!-- JS Scripts-->
-		<!-- jQuery Js -->
-		<script src="../../static/plugins/assets/js/jquery-1.10.2.js"></script>
-		<!-- Bootstrap Js -->
-		<script src="../../static/plugins/assets/js/bootstrap.min.js"></script>
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="register/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a th:href="@{/register/questionnaire/question/{typeId}/{token}(typeId=${type.id},token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header" data-id="" th:attr="data-id=${type.id}">[[${type.name}]] 题库</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a th:href="@{/register/goQuestionnaire/{token}(token=${token})}">题库分类</a>
+        </li>
+        <li>
+          <a th:href="@{/register/questionnaire/question/{typeId}/{token}(typeId=${type.id},token=${token})}">
+            [[${type.name}]] 题库
+          </a>
+        </li>
+        <li class="active" th:if="${question}">题目详情</li>
+        <li class="active" th:unless="${question}">添加题目</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="row">
 
-	</body>
+        <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+          <form data-id="" th:if="${question}" th:attr="data-id=${question.id}">
+            <div class="panel panel-default">
+              <div class="panel-heading"> 题目详情</div>
+              <div class="panel-body">
+                请添加问题描述和至少两个答案以及每个答案的分数，其中最高的分数为10分
+                <div class="sub-title">问题简述</div>
+                <div>
+                  <textarea id="title" class="form-control" rows="2"
+                            required>[[${question.title}]]</textarea>
+                </div>
+                <div class="sub-title">问题描述</div>
+                <div>
+                  <textarea id="remarks" class="form-control"
+                            rows="1">[[${question.remarks}]]</textarea>
+                </div>
+                <div class="row">
+                  <div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案一</div>
+                  <div class="col-md-10">
+                    <input type="text" id="content_a" class="form-control" required
+                           th:value="${question.contentA}">
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input type="text" id="result_a" class="form-control" required
+                             th:value="${question.resultA}" pattern="(\d(\.\d)?|10)">
+                      <span class="input-group-addon">分</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案二</div>
+                  <div class="col-md-10">
+                    <input type="text" id="content_b" class="form-control" required
+                           th:value="${question.contentB}">
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input type="text" id="result_b" class="form-control" required
+                             th:value="${question.resultB}" pattern="(\d(\.\d)?|10)">
+                      <span class="input-group-addon">分</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案三</div>
+                  <div class="col-md-10">
+                    <input type="text" id="content_c" class="form-control"
+                           th:value="${question.contentC}">
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input type="text" id="result_c" class="form-control"
+                             th:value="${question.resultC}" pattern="(\d(\.\d)?|10)">
+                      <span class="input-group-addon">分</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案四</div>
+                  <div class="col-md-10">
+                    <input type="text" id="content_d" class="form-control"
+                           th:value="${question.contentD}">
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input type="text" id="result_d" class="form-control"
+                             th:value="${question.resultD}" pattern="(\d(\.\d)?|10)">
+                      <span class="input-group-addon">分</span>
+                    </div>
+                  </div>
+                </div>
+                <center style="margin-top: 15px;">
+                  <button type="reset" class="btn btn-warning">清空</button>
+                  <button type="submit" class="btn btn-success">提交</button>
+                  <button type="button" id="delete" class="btn btn-danger">删除</button>
+                </center>
+              </div>
+            </div>
+          </form>
+          <form data-id="0" th:unless="${question}">
+            <div class="panel panel-default">
+              <div class="panel-heading"> 添加一个新题目</div>
+              <div class="panel-body">
+                请添加问题描述和至少两个答案以及每个答案的分数，其中最高的分数为10分
+                <div class="sub-title">问题简述</div>
+                <div>
+                  <textarea id="title" class="form-control" rows="2" required></textarea>
+                </div>
+                <div class="sub-title">问题描述</div>
+                <div>
+                  <textarea id="remarks" class="form-control" rows="1"></textarea>
+                </div>
+                <div class="row">
+                  <div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案一</div>
+                  <div class="col-md-10">
+                    <input type="text" id="content_a" class="form-control" required>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input type="text" id="result_a" class="form-control" pattern="(\d(\.\d)?|10)" required>
+                      <span class="input-group-addon">分</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案二</div>
+                  <div class="col-md-10">
+                    <input type="text" id="content_b" class="form-control" required>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input type="text" id="result_b" class="form-control" pattern="(\d(\.\d)?|10)" required>
+                      <span class="input-group-addon">分</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案三</div>
+                  <div class="col-md-10">
+                    <input type="text" id="content_c" class="form-control">
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input type="text" id="result_c" class="form-control" pattern="(\d(\.\d)?|10)">
+                      <span class="input-group-addon">分</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="sub-title">&nbsp;&nbsp;&nbsp;&nbsp;答案四</div>
+                  <div class="col-md-10">
+                    <input type="text" id="content_d" class="form-control">
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input type="text" id="result_d" class="form-control" pattern="(\d(\.\d)?|10)">
+                      <span class="input-group-addon">分</span>
+                    </div>
+                  </div>
+                </div>
+                <center style="margin-top: 15px;">
+                  <button type="reset" class="btn btn-danger">清空</button>
+                  <button type="submit" class="btn btn-success">提交</button>
+                </center>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <footer th:replace="include :: footer"></footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <script th:src="@{/js/register/questionAdd.js}"></script>
+</th:block>
+
+</body>
 
 </html>

@@ -68,13 +68,24 @@ function initQuestionnaireBank(typeId, page, search) {
 }
 
 function initQuestionItem($li, data) {
+  $li.attr("href", "/register/questionnaire/goAddQuestion/"+type+"/"+data.id+"/"+token);
   $li.find("div.assessment").find("div.sub-title").text("问题"+data.id+"："+data.title);
   $li.find("div.assessment").find("div.sub-header").text(data['remarks']);
   let $answer = $li.find("div.assessment").find("div.answer");
   $answer.find("div.a").html("<label>("+data.resultA+"')&nbsp;&nbsp;A</label>&nbsp;&nbsp;"+data.contentA);
   $answer.find("div.b").html("<label>("+data.resultB+"')&nbsp;&nbsp;B</label>&nbsp;&nbsp;"+data.contentB);
-  $answer.find("div.c").html("<label>("+data.resultC+"')&nbsp;&nbsp;C</label>&nbsp;&nbsp;"+data.contentC);
-  $answer.find("div.d").html("<label>("+data.resultD+"')&nbsp;&nbsp;D</label>&nbsp;&nbsp;"+data.contentD);
+  if (data.resultC!=null && data.resultC!="null" || data.resultC!=undefined) {
+    $answer.find("div.c").show();
+    $answer.find("div.c").html("<label>("+data.resultC+"')&nbsp;&nbsp;C</label>&nbsp;&nbsp;"+data.contentC);
+  } else {
+    $answer.find("div.c").hide();
+  }
+  if (data.resultD!=null && data.resultD!="null" || data.resultD!=undefined) {
+    $answer.find("div.d").show();
+    $answer.find("div.d").html("<label>("+data.resultD+"')&nbsp;&nbsp;D</label>&nbsp;&nbsp;"+data.contentD);
+  } else {
+    $answer.find("div.d").hide();
+  }
 }
 
 function initPageButton(count, page) {
