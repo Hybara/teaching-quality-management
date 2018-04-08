@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-09 00:23:07
+Date: 2018-04-09 00:49:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -270,6 +270,19 @@ CREATE TABLE `questionnaire_bank` (
 INSERT INTO `questionnaire_bank` VALUES ('1', '1', '教学责任心强，以身作则，为人师表', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('2', '1', '引导学生端正学习态度，指导学生采用有效的学习方法', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('3', '1', '注重学生个性发展，因材施教', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('5', '2', '教姿教态端正', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('6', '2', '语言准确、生动，板书工整', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('7', '2', '讲授逻辑清楚、条理清晰，教学时间分配合理', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('8', '3', '讲授知识系统、准确，重点突出，说理充分', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('9', '3', '密切联系实际，内容熟练充实、信息量大，举例恰当', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('10', '3', '认真布置、批改作业，定期组织答疑', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('11', '4', '教法灵活，讲课通俗易懂，能引导、启发学生积极思维 ', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('12', '4', '合理运用现代化辅助教学手段 ', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('13', '5', '遵守学院规章制度，按时上下课', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('14', '5', '课堂教学组织严密，管理严格', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('15', '6', '能够完成教学任务，学生能够接受并掌握课程内容', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('16', '6', '学生能初步运用课程内容解决本学科或相关学科中的具体问题', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('17', '6', '促进了学生思维能力和学习能力的提高', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 
 -- ----------------------------
 -- Table structure for questionnaire_for_teacher
@@ -361,6 +374,22 @@ CREATE TABLE `questionnaire_template_questions` (
 -- ----------------------------
 -- Records of questionnaire_template_questions
 -- ----------------------------
+INSERT INTO `questionnaire_template_questions` VALUES ('1', '1', '1', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('2', '1', '2', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('3', '1', '3', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('4', '1', '5', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('5', '1', '6', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('6', '1', '7', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('7', '1', '8', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('8', '1', '9', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('9', '1', '10', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('10', '1', '11', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('11', '1', '12', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('12', '1', '13', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('13', '1', '14', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('14', '1', '15', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('15', '1', '16', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('16', '1', '17', '1.0');
 
 -- ----------------------------
 -- Table structure for receive_message
