@@ -38,7 +38,7 @@ $(function () {
 
 function initTemplateList(page, search) {
   let token = $("body").attr("data-token");
-  $.post("/register/questionnaire/getTemplate", {
+  $.post("/register/template/getTemplate", {
     token: token,
     page: page,
     search: search
@@ -56,8 +56,8 @@ function initTemplateList(page, search) {
       } else {
         $(div).show();
         $(div).find("a").css("font-size", "12px").attr(
-            "href", "/register/teacherList/" + response.data[index].id + "/"
-            + token);
+            "href", "/register/template/goQuestionnaire/"
+            + response.data[index].id + "/" + token);
         $(div).find("a").find("span.number").text(response.data[index].id);
         $(div).find("a").find("span.name").text(response.data[index].name);
       }
@@ -66,7 +66,6 @@ function initTemplateList(page, search) {
   }, "json");
 
 }
-
 
 function initPageButton(count, page) {
   let $pagination = $("ul.pagination");

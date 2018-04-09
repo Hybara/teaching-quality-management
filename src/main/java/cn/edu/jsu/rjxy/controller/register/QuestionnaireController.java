@@ -5,6 +5,8 @@ import cn.edu.jsu.rjxy.entity.vo.QuestionnaireBank;
 import cn.edu.jsu.rjxy.entity.vo.Register;
 import cn.edu.jsu.rjxy.service.QuestionnaireService;
 import cn.edu.jsu.rjxy.util.JSONBaseUtil;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("RegisterQuestionnaireController")
@@ -141,7 +144,7 @@ public class QuestionnaireController {
     }
   }
 
-  @RequestMapping("/register/questionnaire/goTemplate/{token}")
+  @RequestMapping("/register/template/goTemplate/{token}")
   public String goTemplate(@PathVariable String token, HttpSession session, Model model) {
     Register register = (Register) session.getAttribute(token);
     if (register == null) {
@@ -151,7 +154,7 @@ public class QuestionnaireController {
     return "/register/questionnaireTemplate";
   }
 
-  @RequestMapping("/register/questionnaire/getTemplate")
+  @RequestMapping("/register/template/getTemplate")
   @ResponseBody
   public Map<String, Object> getTemplate(String token, Integer page, String search,
       HttpSession session) {
@@ -163,5 +166,60 @@ public class QuestionnaireController {
     return JSONBaseUtil.structuralResponseMap(
         questionnaireService.getTemplatePage(page, QUESTION_TEMPLATE_PAGE_SIZE, search),
         Math.ceil(((double) count) / QUESTION_TEMPLATE_PAGE_SIZE));
+  }
+
+  @RequestMapping("/register/template/goQuestionnaire/{templateId}/{token}")
+  public String goTemplateQuestionnaire(@PathVariable Long templateId,
+      @PathVariable String token,
+      HttpSession session,
+      Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/" + token;
+    }
+    model.addAttribute("token", token);
+    model.addAttribute("template", questionnaireService.getTemplateById(templateId));
+    model.addAttribute("questions", questionnaireService.getTemplate(templateId));
+    model.addAttribute("types", questionnaireService.getTemplateQuestionType(templateId));
+    return "/register/template";
+  }
+
+  @RequestMapping("/register/template/changeTemplateName")
+  @ResponseBody
+  public String changeTemplateName(String name, long templateId,
+      String token,
+      HttpSession session,
+      Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    if (name == null || "".equals(name)) {
+      return "nodata";
+    }
+    System.out.println(templateId + "--" + name + "--" + token);
+    if (questionnaireService.updateTemplateName(templateId, name, register.getId())) {
+      return "ok";
+    }
+    return "failure";
+  }
+
+  @RequestMapping("/register/template/changeQuestionCoefficient")
+  @ResponseBody
+  public String changeTemplateName(@RequestParam(value = "questionIds[]") Long[] questionIds,
+      @RequestParam(value = "coefficients[]") Double[] coefficients,
+      String token,
+      HttpSession session,
+      Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    List<Long> questionIdList = Arrays.asList(questionIds);
+    List<Double> coefficientList = Arrays.asList(coefficients);
+    if (questionnaireService.updateCoefficients(questionIdList, coefficientList)) {
+      return "ok";
+    }
+    return "failure";
   }
 }

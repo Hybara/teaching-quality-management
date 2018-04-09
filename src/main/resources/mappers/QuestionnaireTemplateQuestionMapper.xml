@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jsu.rjxy.mappers.QuestionnaireTemplateQuestionMapper">
+  <resultMap id="templateQuestion" type="QuestionnaireTemplateQuestion">
+    <id column="id" property="id" />
+    <result column="template" property="templateId" />
+    <result column="coefficient" property="coefficient" />
+    <association property="question" column="question" select="cn.edu.jsu.rjxy.mappers.QuestionnaireBankMapper.getById" />
+  </resultMap>
+
+  <update id="updateQuestionCoefficients">
+    <foreach collection="params.keys" item="key" index="i" separator=";" open=" " close=" ">
+      UPDATE questionnaire_template_questions
+      SET coefficient = #{params.values[i]}
+      WHERE id = ${key}
+    </foreach>
+  </update>
+</mapper>

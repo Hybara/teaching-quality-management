@@ -4,12 +4,16 @@ import cn.edu.jsu.rjxy.entity.dto.QuestionnaireBankItemDTO;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireBank;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireQuestionType;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireTemplate;
+import cn.edu.jsu.rjxy.entity.vo.QuestionnaireTemplateQuestion;
 import cn.edu.jsu.rjxy.mappers.QuestionnaireBankMapper;
 import cn.edu.jsu.rjxy.mappers.QuestionnaireQuestionTypeMapper;
 import cn.edu.jsu.rjxy.mappers.QuestionnaireTemplateMapper;
+import cn.edu.jsu.rjxy.mappers.QuestionnaireTemplateQuestionMapper;
 import cn.edu.jsu.rjxy.util.QueryConditionsUitl;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +26,10 @@ public class QuestionnaireService {
   QuestionnaireBankMapper questionnaireBankMapper;
   @Autowired
   QuestionnaireTemplateMapper questionnaireTemplateMapper;
+  @Autowired
+  QuestionnaireTemplateQuestionMapper questionnaireTemplateQuestionMapper;
 
-  //QuestionnaireQuestionTypeMapper
+  // QuestionnaireQuestionTypeMapper
 
   public QuestionnaireQuestionType getQuestionTypeById(long id) {
     return questionnaireQuestionTypeMapper.getById(id);
@@ -106,7 +112,7 @@ public class QuestionnaireService {
     return questionnaireBankMapper.deleteBank(id);
   }
 
-  //QuestionnaireTemplateMapper
+  // QuestionnaireTemplateMapper
 
   public QuestionnaireTemplate getTemplateById(long id) {
     return questionnaireTemplateMapper.getById(id);
@@ -126,4 +132,47 @@ public class QuestionnaireService {
     return questionnaireTemplateMapper.getCount(search);
   }
 
+  public boolean updateTemplateName(long templateId, String name, long updaterId) {
+    if (name==null || "".equals(name)) {
+      return false;
+    }
+    return questionnaireTemplateMapper.updateTemplateName(templateId, name, updaterId);
+  }
+
+  // QuestionnaireTemplateQuestionMapper
+
+  public QuestionnaireTemplateQuestion getTemplateQuestionById(long questionId) {
+    return questionnaireTemplateQuestionMapper.getById(questionId);
+  }
+
+  public List<QuestionnaireTemplateQuestion> getTemplate(long templateId) {
+    return questionnaireTemplateQuestionMapper.getQuestionnaire(templateId);
+  }
+
+  public List<QuestionnaireQuestionType> getTemplateQuestionType(long templateId) {
+    List<QuestionnaireQuestionType> types = questionnaireQuestionTypeMapper.getAllType();
+    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper.getQuestionnaire(templateId);
+    for (int i=0; i<types.size(); i++) {
+      boolean flag = false;
+      for (QuestionnaireTemplateQuestion question : questions) {
+        if (types.get(i).getId() == question.getQuestion().getType().getId()) {
+          flag = true;
+          break;
+        }
+      }
+      if (!flag) {
+        types.remove(types.get(i));
+        i--;
+      }
+    }
+    return types;
+  }
+
+  public boolean updateCoefficients(List<Long> questionIds, List<Double> coefficients) {
+    Map<Long, Double> params = new HashMap<>();
+    for (int i=0; i<questionIds.size(); i++) {
+      params.put(questionIds.get(i), coefficients.get(i));
+    }
+    return questionnaireTemplateQuestionMapper.updateQuestionCoefficients(params);
+  }
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-09 00:49:06
+Date: 2018-04-10 03:31:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -357,7 +357,7 @@ CREATE TABLE `questionnaire_template` (
 -- ----------------------------
 -- Records of questionnaire_template
 -- ----------------------------
-INSERT INTO `questionnaire_template` VALUES ('1', '软件工程通用模板', '1', '2018-04-09 00:19:35', null, null);
+INSERT INTO `questionnaire_template` VALUES ('1', '软件工程通用模板', '1', '2018-04-09 00:19:35', '1', '2018-04-10 01:08:30');
 
 -- ----------------------------
 -- Table structure for questionnaire_template_questions
@@ -375,14 +375,14 @@ CREATE TABLE `questionnaire_template_questions` (
 -- Records of questionnaire_template_questions
 -- ----------------------------
 INSERT INTO `questionnaire_template_questions` VALUES ('1', '1', '1', '1.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('2', '1', '2', '0.5');
-INSERT INTO `questionnaire_template_questions` VALUES ('3', '1', '3', '0.5');
-INSERT INTO `questionnaire_template_questions` VALUES ('4', '1', '5', '0.5');
-INSERT INTO `questionnaire_template_questions` VALUES ('5', '1', '6', '0.5');
-INSERT INTO `questionnaire_template_questions` VALUES ('6', '1', '7', '0.5');
-INSERT INTO `questionnaire_template_questions` VALUES ('7', '1', '8', '1.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('8', '1', '9', '1.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('9', '1', '10', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('2', '1', '2', '2.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('3', '1', '3', '3.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('4', '1', '5', '4.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('5', '1', '6', '5.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('6', '1', '7', '6.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('7', '1', '8', '7.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('8', '1', '9', '8.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('9', '1', '10', '9.0');
 INSERT INTO `questionnaire_template_questions` VALUES ('10', '1', '11', '0.5');
 INSERT INTO `questionnaire_template_questions` VALUES ('11', '1', '12', '0.5');
 INSERT INTO `questionnaire_template_questions` VALUES ('12', '1', '13', '0.5');
