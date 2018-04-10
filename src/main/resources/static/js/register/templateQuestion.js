@@ -16,7 +16,18 @@ $(function () {
       coefficients: coefficients,
       token: token
     }, function (response) {
-      console.log(response);
+
+      if (response == "logout") {
+        window.location.href = "/logout/" + token;
+        return;
+      } else if (response == "ok") {
+        alert("修改成功");
+      } else {
+        alert("修改失败");
+      }
+      let templateId = $("h1.page-header").attr("data-id");
+      window.location.href = "/register/template/goQuestionnaire/" + templateId
+          + "/" + token;
     }, "text");
     return false;
   });

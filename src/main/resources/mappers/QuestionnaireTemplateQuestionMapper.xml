@@ -11,10 +11,10 @@
   </resultMap>
 
   <update id="updateQuestionCoefficients">
-    <foreach collection="params.keys" item="key" index="i" separator=";" open=" " close=" ">
+    <foreach collection="params" item="value" index="key" separator=";" open=" " close=" ">
       UPDATE questionnaire_template_questions
-      SET coefficient = #{params.values[i]}
-      WHERE id = ${key}
+      SET coefficient = #{value}
+      WHERE id = #{key}
     </foreach>
   </update>
 </mapper>
