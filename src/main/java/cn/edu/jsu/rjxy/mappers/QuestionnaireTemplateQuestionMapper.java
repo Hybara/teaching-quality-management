@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -26,4 +27,11 @@ public interface QuestionnaireTemplateQuestionMapper {
   List<QuestionnaireTemplateQuestion> getQuestionnaire(@Param("template") long template);
 
   boolean updateQuestionCoefficients(@Param("params") Map<Long, Double> params);
+
+  @Update("UPDATE questionnaire_template_questions"
+      + " SET question=#{newQuestion} "
+      + " WHERE template=#{templateId} AND question=#{oldQuestion}")
+  boolean updateQuestion(@Param("templateId") long templateId,
+      @Param("oldQuestion") long oldQuestion,
+      @Param("newQuestion") long newQuestion);
 }

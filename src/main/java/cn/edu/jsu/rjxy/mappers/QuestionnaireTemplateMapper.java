@@ -28,4 +28,10 @@ public interface QuestionnaireTemplateMapper {
       + "WHERE id=#{id}")
   boolean updateTemplateName(@Param("id") long templateId, @Param("name") String name,
       @Param("updater") long updaterId);
+
+  @Update("UPDATE questionnaire_template "
+      + " SET updater=#{updater}, "
+      + "  update_time=NOW() "
+      + "WHERE id=#{id}")
+  boolean updateTemplateUpdater(@Param("id") long templateId, @Param("updater") long updaterId);
 }

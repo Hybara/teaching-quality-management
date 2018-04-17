@@ -24,6 +24,12 @@
     <if test="search!=null">
       AND (`title` LIKE #{search} OR `remarks` LIKE #{search})
     </if>
+    <if test="exclusions!=null">
+      AND id NOT IN
+      <foreach collection="exclusions" item="id" open="(" close=")" separator=",">
+        #{id}
+      </foreach>
+    </if>
     <if test="step!=null and size!=null">
       LIMIT #{step},#{size}
     </if>
@@ -34,6 +40,12 @@
     WHERE type=#{type}
     <if test="search!=null">
       AND (`title` LIKE #{search} OR `remarks` LIKE #{search})
+    </if>
+    <if test="exclusions!=null">
+      AND id NOT IN
+      <foreach collection="exclusions" item="id" open="(" close=")" separator=",">
+        #{id}
+      </foreach>
     </if>
   </select>
 </mapper>

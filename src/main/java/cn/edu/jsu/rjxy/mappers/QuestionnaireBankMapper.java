@@ -23,9 +23,11 @@ public interface QuestionnaireBankMapper {
   List<QuestionnaireBank> getPageByType(@Param("type") long typeId,
       @Param("step") Integer step,
       @Param("size") Integer size,
-      @Param("search") String search);
+      @Param("search") String search,
+      @Param("exclusions") List<Long> exclusions);
 
-  int getCountByType(@Param("type") long typeId, @Param("search") String search);
+  int getCountByType(@Param("type") long typeId, @Param("search") String search,
+      @Param("exclusions") List<Long> exclusions);
 
   @Insert("INSERT INTO questionnaire_bank(title, remarks, type, "
       + "content_A, result_A, content_B, result_B, content_C, result_C, content_D, result_D) "

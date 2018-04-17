@@ -197,7 +197,6 @@ public class QuestionnaireController {
     if (name == null || "".equals(name)) {
       return "nodata";
     }
-    System.out.println(templateId + "--" + name + "--" + token);
     if (questionnaireService.updateTemplateName(templateId, name, register.getId())) {
       return "ok";
     }
@@ -221,5 +220,61 @@ public class QuestionnaireController {
       return "ok";
     }
     return "failure";
+  }
+
+  @RequestMapping("/register/template/goChangeTemplateQuestion/{templateId}/{questionId}/{token}")
+  public String goChangeTemplateQuestion(@PathVariable Long templateId,
+      @PathVariable Long questionId,
+      @PathVariable String token,
+      HttpSession session,
+      Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/"+token;
+    }
+    model.addAttribute("token", token);
+    model.addAttribute("template", questionnaireService.getTemplateById(templateId));
+    model.addAttribute("questionId", questionId);
+    model.addAttribute("types", questionnaireService.getAllQuestionType());
+    return "/register/template/changeQuestion";
+  }
+
+  @RequestMapping("/register/template/changeTemplateQuestion")
+  @ResponseBody
+  public String changeTemplateQuestion(Long templateId,
+      Long oldQuestion,
+      Long newQuestion,
+      String token,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    try {
+      if (questionnaireService.changeQuestion(templateId, oldQuestion,  newQuestion, register.getId())) {
+        return "ok";
+      } else {
+        return "failure";
+      }
+    } catch (Exception e) {
+      return "failure";
+    }
+  }
+
+  @RequestMapping("/register/template/getQuestionBank")
+  @ResponseBody
+  public Map<String, Object> getTemplateQuestionBank(Long type,
+      Long template,
+      String token,
+      Integer page,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return JSONBaseUtil.structuralResponseMap("", 0);
+    }
+    int count = questionnaireService.getQuestionCountByType(type, template);
+    return JSONBaseUtil.structuralResponseMap(
+        questionnaireService.getQuestionListByType(type, page, QUESTION_BANK_PAGE_SIZE, template),
+        Math.ceil(((double) count) / QUESTION_BANK_PAGE_SIZE));
   }
 }

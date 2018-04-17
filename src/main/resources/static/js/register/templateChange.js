@@ -1,10 +1,8 @@
 const INDEX_PAGE = 1;
-const NO_SEARCH = null;
 const PAGINATION_PAGINTEM_NUMBER = 5;
 
 let type;
 let token = $("body").attr("data-token");
-let search_status = NO_SEARCH;
 let page_count;
 
 $(function () {
@@ -23,31 +21,51 @@ $(function () {
     } else if ($(this).attr("id") == "end") {
       page = page_count;
     }
-    initQuestionnaireBank($("h1.page-header").attr("data-id"), page, search_status);
+    initQuestionnaireBank($("select[name=type]").val(), page);
   });
 
-  $("form").on("submit", function (event) {
-    event.stopPropagation();
-    event.preventDefault();
-    search_status = $("#search").val();
-    initQuestionnaireBank($("h1.page-header").attr("data-id"), INDEX_PAGE, search_status);
+  $("select[name=type]").on("change", function () {
+    let typeId = $(this).val();
+    initQuestionnaireBank($("select[name=type]").val(), INDEX_PAGE);
   });
 
-  initQuestionnaireBank($("h1.page-header").attr("data-id"), INDEX_PAGE, NO_SEARCH);
+  $("button.select").on("click", function () {
+    let oldQuestion = $("li#question").attr("data-id");
+    let newQuestion = $(this).attr("id");
+    let token = $("body").attr("data-token");
+    let templateId = $("h1.page-header").attr("data-id");
+
+    $.post("/register/template/changeTemplateQuestion", {
+      templateId: templateId,
+      oldQuestion: oldQuestion,
+      newQuestion: newQuestion,
+      token: token
+    }, function (response) {
+      if (response == "logout") {
+        window.location.href = "/logout/" + token;
+      } else if (response == "ok") {
+        alert("修改成功！");
+      } else if (response == "failure") {
+        alert("修改失败！");
+      }
+      window.location.href = "/register/template/goQuestionnaire/"
+          + templateId + "/" + token;
+    }, "text");
+  });
+
+  initQuestionnaireBank($("select[name=type]").val(), INDEX_PAGE);
 
 });
 
-function initQuestionnaireBank(typeId, page, search) {
-  $.post("/register/getQuestionBank", {
+function initQuestionnaireBank(typeId, page) {
+  $.post("/register/template/getQuestionBank", {
+    template: $("h1.page-header").attr("data-id"),
     type: typeId,
     token: token,
-    page: page,
-    search: search
+    page: page
   }, function (response) {
-    // alert(response);
-    // console.log("response", response);
+    console.log("response", response);
     type = typeId;
-    search_status = search;
     page_count = response.count;
     $("ul.list-group").hide();
     $("ul.pagination").hide();
@@ -55,7 +73,7 @@ function initQuestionnaireBank(typeId, page, search) {
       return;
     }
     $("ul.list-group").show();
-    $("ul.list-group").find("a.list-group-item").each(function (index) {
+    $("ul.list-group").find("li.list-group-item").each(function (index) {
       if (response.data[index]==undefined || response.data[index]==null) {
         $(this).hide();
       } else {
@@ -68,7 +86,6 @@ function initQuestionnaireBank(typeId, page, search) {
 }
 
 function initQuestionItem($li, data) {
-  $li.attr("href", "/register/questionnaire/goAddQuestion/"+type+"/"+data.id+"/"+token);
   $li.find("div.assessment").find("div.sub-title").text("#"+data.id+"："+data.title);
   $li.find("div.assessment").find("div.sub-header").text(data['remarks']);
   let $answer = $li.find("div.assessment").find("div.answer");
@@ -86,6 +103,7 @@ function initQuestionItem($li, data) {
   } else {
     $answer.find("div.d").hide();
   }
+  $answer.find("div.btn").find("button").attr("id", data.id);
 }
 
 function initPageButton(count, page) {

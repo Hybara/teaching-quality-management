@@ -63,7 +63,8 @@ public class QuestionnaireService {
     return questionnaireBankMapper.getById(id);
   }
 
-  public List<QuestionnaireBankItemDTO> getQuestionListByType(long typeId, Integer page, Integer size,
+  public List<QuestionnaireBankItemDTO> getQuestionListByType(long typeId, Integer page,
+      Integer size,
       String search) {
     Integer step = null;
     if (page != null && page > 0 && size != null && size > 0) {
@@ -71,9 +72,11 @@ public class QuestionnaireService {
     }
     search = QueryConditionsUitl.constructQueryConditions(search);
 
-    List<QuestionnaireBank> questionnaireBanks = questionnaireBankMapper.getPageByType(typeId, step, size, search);
-    List<QuestionnaireBankItemDTO> questionnaireBankItems = new ArrayList<>(questionnaireBanks.size());
-    for (QuestionnaireBank questionnaireBank: questionnaireBanks) {
+    List<QuestionnaireBank> questionnaireBanks = questionnaireBankMapper
+        .getPageByType(typeId, step, size, search, null);
+    List<QuestionnaireBankItemDTO> questionnaireBankItems = new ArrayList<>(
+        questionnaireBanks.size());
+    for (QuestionnaireBank questionnaireBank : questionnaireBanks) {
       questionnaireBankItems.add(new QuestionnaireBankItemDTO(questionnaireBank));
     }
     return questionnaireBankItems;
@@ -81,15 +84,15 @@ public class QuestionnaireService {
 
   public int getQuestionCountByType(long typeId, String search) {
     search = QueryConditionsUitl.constructQueryConditions(search);
-    return questionnaireBankMapper.getCountByType(typeId, search);
+    return questionnaireBankMapper.getCountByType(typeId, search, null);
   }
 
   public boolean addQuestionBank(QuestionnaireBankItemDTO bank) {
-    if ("".equals(bank.getContentC()) || bank.getResultC()==null || bank.getResultC()==0) {
+    if ("".equals(bank.getContentC()) || bank.getResultC() == null || bank.getResultC() == 0) {
       bank.setContentC(null);
       bank.setResultC(null);
     }
-    if ("".equals(bank.getContentD()) || bank.getResultD()==null || bank.getResultD()==0) {
+    if ("".equals(bank.getContentD()) || bank.getResultD() == null || bank.getResultD() == 0) {
       bank.setContentD(null);
       bank.setResultD(null);
     }
@@ -97,11 +100,11 @@ public class QuestionnaireService {
   }
 
   public boolean updateQuestionBank(QuestionnaireBankItemDTO bank) {
-    if ("".equals(bank.getContentC()) || bank.getResultC()==null || bank.getResultC()==0) {
+    if ("".equals(bank.getContentC()) || bank.getResultC() == null || bank.getResultC() == 0) {
       bank.setContentC(null);
       bank.setResultC(null);
     }
-    if ("".equals(bank.getContentD()) || bank.getResultD()==null || bank.getResultD()==0) {
+    if ("".equals(bank.getContentD()) || bank.getResultD() == null || bank.getResultD() == 0) {
       bank.setContentD(null);
       bank.setResultD(null);
     }
@@ -120,8 +123,8 @@ public class QuestionnaireService {
 
   public List<QuestionnaireTemplate> getTemplatePage(Integer page, Integer size, String search) {
     Integer step = null;
-    if (page!=null && page>1 && size!=null) {
-      step = (page-1)*size;
+    if (page != null && page > 1 && size != null) {
+      step = (page - 1) * size;
     }
     search = QueryConditionsUitl.constructQueryConditions(search);
     return questionnaireTemplateMapper.getPage(step, size, search);
@@ -133,7 +136,7 @@ public class QuestionnaireService {
   }
 
   public boolean updateTemplateName(long templateId, String name, long updaterId) {
-    if (name==null || "".equals(name)) {
+    if (name == null || "".equals(name)) {
       return false;
     }
     return questionnaireTemplateMapper.updateTemplateName(templateId, name, updaterId);
@@ -151,8 +154,9 @@ public class QuestionnaireService {
 
   public List<QuestionnaireQuestionType> getTemplateQuestionType(long templateId) {
     List<QuestionnaireQuestionType> types = questionnaireQuestionTypeMapper.getAllType();
-    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper.getQuestionnaire(templateId);
-    for (int i=0; i<types.size(); i++) {
+    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper
+        .getQuestionnaire(templateId);
+    for (int i = 0; i < types.size(); i++) {
       boolean flag = false;
       for (QuestionnaireTemplateQuestion question : questions) {
         if (types.get(i).getId() == question.getQuestion().getType().getId()) {
@@ -170,9 +174,54 @@ public class QuestionnaireService {
 
   public boolean updateCoefficients(List<Long> questionIds, List<Double> coefficients) {
     Map<Long, Double> params = new HashMap<>();
-    for (int i=0; i<questionIds.size(); i++) {
+    for (int i = 0; i < questionIds.size(); i++) {
       params.put(questionIds.get(i), coefficients.get(i));
     }
     return questionnaireTemplateQuestionMapper.updateQuestionCoefficients(params);
+  }
+
+  public boolean changeQuestion(long templateId, long oldQuestionId, long newQuestionId,
+      long updater) throws Exception {
+    if (questionnaireTemplateMapper.updateTemplateUpdater(templateId, updater)) {
+      if (questionnaireTemplateQuestionMapper
+          .updateQuestion(templateId, oldQuestionId, newQuestionId)) {
+        return true;
+      }
+    }
+    throw new Exception("error");
+  }
+
+  public List<QuestionnaireBankItemDTO> getQuestionListByType(long typeId, Integer page,
+      Integer size,
+      long templateId) {
+    Integer step = null;
+    if (page != null && page > 0 && size != null && size > 0) {
+      step = (page - 1) * size;
+    }
+
+    List<Long> exclusions = new ArrayList<>();
+    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper.getQuestionnaire(templateId);
+    for (QuestionnaireTemplateQuestion question: questions) {
+      exclusions.add(question.getQuestion().getId());
+    }
+
+    List<QuestionnaireBank> questionnaireBanks = questionnaireBankMapper
+        .getPageByType(typeId, step, size, null, exclusions);
+    List<QuestionnaireBankItemDTO> questionnaireBankItems = new ArrayList<>(
+        questionnaireBanks.size());
+    for (QuestionnaireBank questionnaireBank : questionnaireBanks) {
+      questionnaireBankItems.add(new QuestionnaireBankItemDTO(questionnaireBank));
+    }
+    return questionnaireBankItems;
+  }
+
+  public int getQuestionCountByType(long typeId, long templateId) {
+
+    List<Long> exclusions = new ArrayList<>();
+    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper.getQuestionnaire(templateId);
+    for (QuestionnaireTemplateQuestion question: questions) {
+      exclusions.add(question.getQuestion().getId());
+    }
+    return questionnaireBankMapper.getCountByType(typeId, null, exclusions);
   }
 }
