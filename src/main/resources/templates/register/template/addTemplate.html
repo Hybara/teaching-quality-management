@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="register/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a th:href="@{/register/template/goTemplate/{token}(token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">题库</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a th:href="@{/register/template/goTemplate/{token}(token=${token})}">问卷模板</a>
+        </li>
+        <li>创建新模板</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="card-title">
+            <div class="title">创建新模板</div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div style="margin-top: 10px; margin-bottom: 0px; width: 200px;">
+                <div class="form-group">
+                  <lable style="font-size: 12px;" class="text-danger">模板名称：</lable>
+                  <input type="text" class="form-control template" name="name"
+                    id="name" placeholder="请输入模板名称..." required="required"
+                  />
+                  <span class="message" for="name"></span>
+                </div>
+              </div>
+              <div style="margin-bottom: 0px; width: 200px;">
+                <div class="form-group">
+                  <label style="font-size: 12px;">题目搜索：</label>
+                  <select class="form-control" name="type">
+                    <th:block th:each="type,typeStat : ${types}">
+                      <option th:if="${typeStat.count eq 1}" th:value="${type.id}"
+                              selected="selected">
+                        [[${type.name}]]
+                      </option>
+                      <option th:unless="${typeStat.count eq 1}" th:value="${type.id}">
+                        [[${type.name}]]
+                      </option>
+                    </th:block>
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-info submit" disabled="disabled">提交</button>
+              <span class="btn-message"></span>
+            </div>
+            <div class="col-md-9" style="font-size: 12px;">
+              <label class="text-danger">已选择的题目：</label>
+              <div class="row">
+                <th:block th:each="type,typeStat : ${types}">
+                  <div class="col-md-2">[[${type.name}]]</div>
+                  <div class="col-md-4 type_div" th:id="${type.id}">无</div>
+                </th:block>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          .media p {
+            padding-top: 0px;
+          }
+
+          .question a.list-group-item {
+            margin-bottom: 5px;
+          }
+
+          .assessment, hr {
+            clear: both;
+          }
+
+          .checkbox3 label {
+            word-wrap: break-word;
+            word-break: break-all;
+          }
+        </style>
+        <div class="panel-body question">
+          <ul class="list-group">
+            <th:block th:each="page : ${#numbers.sequence(1, 15)}">
+              <li class="list-group-item">
+                <div class="answers">
+                  <div class="sub-title">问题一 我有能力克服各种困难：</div>
+                  <div class="sub-header">请选择一个和自己最切合的答案，但要尽可能少选中性答案，下同</div>
+                  <div class="answer">
+                    <div class="a">
+                      <label>(10') A</label>&nbsp;&nbsp;和从前一样
+                    </div>
+                    <div class="b">
+                      <label>(08') B</label>&nbsp;&nbsp;和从前一样
+                    </div>
+                    <div class="c">
+                      <label>(06') C</label>&nbsp;&nbsp;和从前一样
+                    </div>
+                    <div class="d">
+                      <label>(04') D</label>&nbsp;&nbsp;和从前一样
+                    </div>
+                    <div class="btn">
+                      <button type="button" class="btn btn-success select">选择</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </th:block>
+          </ul>
+          <div class="row">
+            <center>
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                  <li>
+                    <a href="javascript:void(0)" id="first">首页</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" id="back">&laquo;</a>
+                  </li>
+                  <th:block th:each="page : ${#numbers.sequence(1, 5)}">
+                    <li th:if="${page} eq 1" class="pageItem active" id="1">
+                      <a href="javascript:void(0)">1</a>
+                    </li>
+                    <li th:if="${page} ge 2" class="pageItem" id="2" th:id="${page}">
+                      <a href="javascript:void(0)">[[${page}]]</a>
+                    </li>
+                  </th:block>
+                  <li>
+                    <a href="javascript:void(0)" id="nest">&raquo;</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" id="end">末页</a>
+                  </li>
+                </ul>
+              </nav>
+            </center>
+          </div>
+        </div>
+      </div>
+      <footer th:replace="include :: footer"></footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <script th:src="@{/js/register/templateAdd.js}"></script>
+</th:block>
+</body>
+
+</html>

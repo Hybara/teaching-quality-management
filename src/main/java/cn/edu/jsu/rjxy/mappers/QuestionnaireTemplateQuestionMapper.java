@@ -32,6 +32,8 @@ public interface QuestionnaireTemplateQuestionMapper {
       + "VALUES(#{templateId}, #{questionId}, 1)")
   boolean addQuestion(@Param("templateId") long templateId, @Param("questionId") long questionId);
 
+  boolean addTemplateQuestions(@Param("templateId") long templateId, @Param("questionIds") List<Long> questionIds);
+
   boolean updateQuestionCoefficients(@Param("params") Map<Long, Double> params);
 
   @Update("UPDATE questionnaire_template_questions"

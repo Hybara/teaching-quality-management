@@ -184,6 +184,59 @@ public class QuestionnaireController {
     return "/register/template";
   }
 
+  @RequestMapping("/register/template/goAddTemplate/{token}")
+  public String goAddTemplate(
+      @PathVariable String token,
+      HttpSession session,
+      Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/"+token;
+    }
+    model.addAttribute("token", token);
+    model.addAttribute("types", questionnaireService.getAllQuestionType());
+    return "/register/template/addTemplate";
+  }
+
+  @RequestMapping("/register/template/checkTemplateName")
+  @ResponseBody
+  public String checkTemplateName(String templateName,
+      String token,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    if (templateName==null || "".equals(templateName)) {
+      return "failure";
+    }
+    if (questionnaireService.templateNameIsExist(templateName)) {
+      return "failure";
+    } else {
+      return "ok";
+    }
+  }
+
+  @RequestMapping("/register/template/addTemplate")
+  @ResponseBody
+  public String checkTemplateName(@RequestParam(value = "questionIds[]") Long[] questionIds,
+      String templateName,
+      String token,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    if (questionIds.length==0) {
+      return "failure";
+    }
+    if (questionnaireService.addTemplate(templateName, Arrays.asList(questionIds), register.getId())) {
+      return "ok";
+    } else {
+      return "failure";
+    }
+  }
+
   @RequestMapping("/register/template/changeTemplateName")
   @ResponseBody
   public String changeTemplateName(String name, long templateId,

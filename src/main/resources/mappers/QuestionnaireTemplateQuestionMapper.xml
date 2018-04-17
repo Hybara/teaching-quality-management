@@ -10,6 +10,13 @@
     <association property="question" column="question" select="cn.edu.jsu.rjxy.mappers.QuestionnaireBankMapper.getById" />
   </resultMap>
 
+  <insert id="addTemplateQuestions">
+    <foreach collection="questionIds" item="id" separator=";" open=" " close=" ">
+    INSERT INTO questionnaire_template_questions(template, question, coefficient)
+    VALUE (#{templateId}, #{id}, 1)
+    </foreach>
+  </insert>
+
   <update id="updateQuestionCoefficients">
     <foreach collection="params" item="value" index="key" separator=";" open=" " close=" ">
       UPDATE questionnaire_template_questions

@@ -142,6 +142,28 @@ public class QuestionnaireService {
     return questionnaireTemplateMapper.updateTemplateName(templateId, name, updaterId);
   }
 
+  public boolean templateNameIsExist(String templateName) {
+    if (questionnaireTemplateMapper.getByName(templateName) != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean addTemplate(String templateName, List<Long> questionIds, long creater) {
+    QuestionnaireTemplate template = new QuestionnaireTemplate();
+    template.setName(templateName);
+    template.setCreater(creater);
+    template.setUpdater(creater);
+    if (questionnaireTemplateMapper.insertTemplate(template)) {
+      template = questionnaireTemplateMapper.getByName(templateName);
+      if (questionnaireTemplateQuestionMapper.addTemplateQuestions(template.getId(), questionIds)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   // QuestionnaireTemplateQuestionMapper
 
   public QuestionnaireTemplateQuestion getTemplateQuestionById(long questionId) {
