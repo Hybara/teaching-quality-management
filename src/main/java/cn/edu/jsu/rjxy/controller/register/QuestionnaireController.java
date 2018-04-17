@@ -299,4 +299,41 @@ public class QuestionnaireController {
       return "failure";
     }
   }
+
+  @RequestMapping("/register/template/goAddTemplateQuestion/{templateId}/{token}")
+  public String goAddTemplateQuestion(@PathVariable Long templateId,
+      @PathVariable String token,
+      HttpSession session,
+      Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/"+token;
+    }
+    model.addAttribute("token", token);
+    model.addAttribute("template", questionnaireService.getTemplateById(templateId));
+    model.addAttribute("questionId", 0);
+    model.addAttribute("types", questionnaireService.getAllQuestionType());
+    return "/register/template/changeQuestion";
+  }
+
+  @RequestMapping("/register/template/addTemplateQuestion")
+  @ResponseBody
+  public String addTemplateQuestion(Long templateId,
+      Long question,
+      String token,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    try {
+      if (questionnaireService.addQuestion(templateId, question, register.getId())) {
+        return "ok";
+      } else {
+        return "failure";
+      }
+    } catch (Exception e) {
+      return "failure";
+    }
+  }
 }

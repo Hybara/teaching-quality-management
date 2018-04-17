@@ -32,7 +32,8 @@
             [[${template.name}]]
           </a>
         </li>
-        <li id="question" data-id="" th:attr="data-id=${questionId}">替换题目</li>
+        <li id="question" th:unless="questionId eq 0" data-id="" th:attr="data-id=${questionId}">替换题目</li>
+        <li id="question" th:if="questionId eq 0" data-id="" th:attr="data-id=${questionId}">添加题目</li>
       </ol>
     </div>
     <div id="page-inner">

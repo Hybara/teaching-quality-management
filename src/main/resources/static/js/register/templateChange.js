@@ -30,32 +30,62 @@ $(function () {
   });
 
   $("button.select").on("click", function () {
-    let oldQuestion = $("li#question").attr("data-id");
-    let newQuestion = $(this).attr("id");
-    let token = $("body").attr("data-token");
-    let templateId = $("h1.page-header").attr("data-id");
+    let question = $("li#question").attr("data-id");
+    if (question == 0) {
+      addQuestion($(this));
+    } else {
+      changeQuestion($(this));
+    }
 
-    $.post("/register/template/changeTemplateQuestion", {
-      templateId: templateId,
-      oldQuestion: oldQuestion,
-      newQuestion: newQuestion,
-      token: token
-    }, function (response) {
-      if (response == "logout") {
-        window.location.href = "/logout/" + token;
-      } else if (response == "ok") {
-        alert("修改成功！");
-      } else if (response == "failure") {
-        alert("修改失败！");
-      }
-      window.location.href = "/register/template/goQuestionnaire/"
-          + templateId + "/" + token;
-    }, "text");
   });
 
   initQuestionnaireBank($("select[name=type]").val(), INDEX_PAGE);
 
 });
+
+function addQuestion($select) {
+  let question = $select.attr("id");
+  let token = $("body").attr("data-token");
+  let templateId = $("h1.page-header").attr("data-id");
+  $.post("/register/template/addTemplateQuestion", {
+    templateId: templateId,
+    question: question,
+    token: token
+  }, function (response) {
+    if (response == "logout") {
+      window.location.href = "/logout/" + token;
+    } else if (response == "ok") {
+      alert("添加成功！");
+    } else if (response == "failure") {
+      alert("添加失败！");
+    }
+    window.location.href = "/register/template/goQuestionnaire/"
+        + templateId + "/" + token;
+  }, "text");
+}
+
+function changeQuestion($select) {
+  let oldQuestion = $("li#question").attr("data-id");
+  let newQuestion = $select.attr("id");
+  let token = $("body").attr("data-token");
+  let templateId = $("h1.page-header").attr("data-id");
+  $.post("/register/template/changeTemplateQuestion", {
+    templateId: templateId,
+    oldQuestion: oldQuestion,
+    newQuestion: newQuestion,
+    token: token
+  }, function (response) {
+    if (response == "logout") {
+      window.location.href = "/logout/" + token;
+    } else if (response == "ok") {
+      alert("修改成功！");
+    } else if (response == "failure") {
+      alert("修改失败！");
+    }
+    window.location.href = "/register/template/goQuestionnaire/"
+        + templateId + "/" + token;
+  }, "text");
+}
 
 function initQuestionnaireBank(typeId, page) {
   $.post("/register/template/getQuestionBank", {

@@ -97,4 +97,14 @@ $(function () {
     }, "text");
   });
 
+  $("button.add-question").on("click", function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    let templateId = $("h1.page-header").attr("data-id");
+    let token = $("body").attr("data-token");
+    window.location.href = "/register/template/goAddTemplateQuestion/"
+        + templateId + "/"
+        + token;
+  });
+
 });

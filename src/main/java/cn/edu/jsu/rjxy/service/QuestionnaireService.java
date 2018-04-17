@@ -202,6 +202,15 @@ public class QuestionnaireService {
     throw new Exception("error");
   }
 
+  public boolean addQuestion(long templateId, long questionId, long updater) throws Exception {
+    if (questionnaireTemplateMapper.updateTemplateUpdater(templateId, updater)) {
+      if (questionnaireTemplateQuestionMapper.addQuestion(templateId, questionId)) {
+        return true;
+      }
+    }
+    throw new Exception("error");
+  }
+
   public List<QuestionnaireBankItemDTO> getQuestionListByType(long typeId, Integer page,
       Integer size,
       long templateId) {
