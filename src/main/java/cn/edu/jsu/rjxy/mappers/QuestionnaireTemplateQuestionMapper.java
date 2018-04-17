@@ -4,6 +4,7 @@ import cn.edu.jsu.rjxy.entity.vo.QuestionnaireTemplate;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireTemplateQuestion;
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
@@ -34,4 +35,9 @@ public interface QuestionnaireTemplateQuestionMapper {
   boolean updateQuestion(@Param("templateId") long templateId,
       @Param("oldQuestion") long oldQuestion,
       @Param("newQuestion") long newQuestion);
+
+  @Delete("DELETE FROM questionnaire_template_questions "
+      + "WHERE template=#{templateId} AND question=#{question}")
+  boolean deleteQuestion(@Param("templateId") long templateId,
+      @Param("question") long question);
 }

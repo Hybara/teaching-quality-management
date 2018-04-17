@@ -277,4 +277,26 @@ public class QuestionnaireController {
         questionnaireService.getQuestionListByType(type, page, QUESTION_BANK_PAGE_SIZE, template),
         Math.ceil(((double) count) / QUESTION_BANK_PAGE_SIZE));
   }
+
+
+  @RequestMapping("/register/template/removeTemplateQuestion")
+  @ResponseBody
+  public String removeTemplateQuestion(Long templateId,
+      Long questionId,
+      String token,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    try {
+      if (questionnaireService.removeQuestion(templateId, questionId, register.getId())) {
+        return "ok";
+      } else {
+        return "failure";
+      }
+    } catch (Exception e) {
+      return "failure";
+    }
+  }
 }

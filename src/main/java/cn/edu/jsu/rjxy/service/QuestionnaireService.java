@@ -191,6 +191,17 @@ public class QuestionnaireService {
     throw new Exception("error");
   }
 
+  public boolean removeQuestion(long templateId, long questionId,
+      long updater) throws Exception {
+    if (questionnaireTemplateMapper.updateTemplateUpdater(templateId, updater)) {
+      if (questionnaireTemplateQuestionMapper
+          .deleteQuestion(templateId, questionId)) {
+        return true;
+      }
+    }
+    throw new Exception("error");
+  }
+
   public List<QuestionnaireBankItemDTO> getQuestionListByType(long typeId, Integer page,
       Integer size,
       long templateId) {

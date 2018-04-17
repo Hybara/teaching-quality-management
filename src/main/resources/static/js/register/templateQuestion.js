@@ -73,4 +73,28 @@ $(function () {
         + token;
   });
 
+  $("button.remove-question").on("click", function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    let templateId = $("h1.page-header").attr("data-id");
+    let questionId = $(this).attr("data-id");
+    let token = $("body").attr("data-token");
+    $.post("/register/template/removeTemplateQuestion", {
+      templateId: templateId,
+      questionId: questionId,
+      token: token
+    }, function (response) {
+      if (response == "logout") {
+        window.location.href = "/logout/" + token;
+        return ;
+      } else if (response == "ok") {
+        alert("移除成功！");
+      } else if (response == "failure") {
+        alert("移除失败！");
+      }
+      window.location.href = "/register/template/goQuestionnaire/" + templateId
+          + "/" + token;
+    }, "text");
+  });
+
 });
