@@ -7,6 +7,7 @@ import cn.edu.jsu.rjxy.entity.vo.Score;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
 import cn.edu.jsu.rjxy.service.MajorService;
+import cn.edu.jsu.rjxy.service.QuestionnaireService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
 import cn.edu.jsu.rjxy.service.TeacherService;
@@ -32,6 +33,8 @@ public class ScoreController {
   private ScoreService scoreService;
   @Autowired
   private ScoreTypeService scoreTypeService;
+  @Autowired
+  private QuestionnaireService questionnaireService;
 
   private static final String ALL_SCORE_TYPE = null;
   private static final String NO_SEARCH = null;
@@ -181,6 +184,7 @@ public class ScoreController {
     Teacher teacher = teacherService.getById(teacherId);
     ScoreInfoDTO scoreInfoDTO = scoreService.getScoreByScoreForTeacherId(scoreId);
 
+    model.addAttribute("questionnaire", questionnaireService.teacherQuestionnaireIsExist(scoreId));
     model.addAttribute("type", type);
     model.addAttribute("token", token);
     model.addAttribute("teacher", teacherService.getById(teacherId));

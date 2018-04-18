@@ -14,6 +14,8 @@ $(function () {
     var id = $("h1.page-header").attr("data-id");
     if (title == '评价') {
       url = '/register/goEvaluate/'+urltype+"/"+majorId+"/"+teacherId+"/"+scoreId+"/"+token;
+    } else if (title == "发布问卷") {
+      url = '/register/score/questionnaire/'+urltype+"/"+majorId+"/"+teacherId+"/"+scoreId+"/"+token;
     }
     window.location.href = url;
   })

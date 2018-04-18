@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-10 03:31:23
+Date: 2018-04-19 06:48:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,6 +81,24 @@ INSERT INTO `evaluate` VALUES ('8', '1', null, '很能带动学生学习积极�
 INSERT INTO `evaluate` VALUES ('9', '1', null, '挺好', '90.00', '1', '2018-03-05 18:04:45', 'student', '1');
 INSERT INTO `evaluate` VALUES ('10', '1', null, '很好', '90.00', '1', '2018-03-28 18:08:30', 'student', '1');
 INSERT INTO `evaluate` VALUES ('12', '1', null, '很棒哦', '80.00', '1', '2018-04-04 21:26:42', 'register', '0');
+
+-- ----------------------------
+-- Table structure for fill_in_questionnaire
+-- ----------------------------
+DROP TABLE IF EXISTS `fill_in_questionnaire`;
+CREATE TABLE `fill_in_questionnaire` (
+  `id` int(11) NOT NULL auto_increment,
+  `questionnaire` int(11) NOT NULL,
+  `result` decimal(4,1) NOT NULL,
+  `creater` int(11) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `creater_type` varchar(32) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of fill_in_questionnaire
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for for_question
@@ -270,6 +288,7 @@ CREATE TABLE `questionnaire_bank` (
 INSERT INTO `questionnaire_bank` VALUES ('1', '1', '教学责任心强，以身作则，为人师表', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('2', '1', '引导学生端正学习态度，指导学生采用有效的学习方法', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('3', '1', '注重学生个性发展，因材施教', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('4', '3', '电子课件设计清晰、简明，图文并茂', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('5', '2', '教姿教态端正', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('6', '2', '语言准确、生动，板书工整', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('7', '2', '讲授逻辑清楚、条理清晰，教学时间分配合理', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
@@ -283,6 +302,7 @@ INSERT INTO `questionnaire_bank` VALUES ('14', '5', '课堂教学组织严密，
 INSERT INTO `questionnaire_bank` VALUES ('15', '6', '能够完成教学任务，学生能够接受并掌握课程内容', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('16', '6', '学生能初步运用课程内容解决本学科或相关学科中的具体问题', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 INSERT INTO `questionnaire_bank` VALUES ('17', '6', '促进了学生思维能力和学习能力的提高', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
+INSERT INTO `questionnaire_bank` VALUES ('18', '2', '普通话授课，语言准确、生动，板书工整', '', '很好', '10', '好', '8', '一般', '6', '差', '4');
 
 -- ----------------------------
 -- Table structure for questionnaire_for_teacher
@@ -295,12 +315,15 @@ CREATE TABLE `questionnaire_for_teacher` (
   `create_time` datetime NOT NULL,
   `updater` int(11) default NULL,
   `update_time` datetime default NULL,
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of questionnaire_for_teacher
 -- ----------------------------
+INSERT INTO `questionnaire_for_teacher` VALUES ('3', '1', '1', '2018-04-19 06:34:38', null, null, '2018-04-19 06:34:38', '2018-04-21 00:00:00');
 
 -- ----------------------------
 -- Table structure for questionnaire_for_teacher_questions
@@ -317,6 +340,22 @@ CREATE TABLE `questionnaire_for_teacher_questions` (
 -- ----------------------------
 -- Records of questionnaire_for_teacher_questions
 -- ----------------------------
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('33', '1', '1', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('34', '1', '2', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('35', '1', '3', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('36', '1', '5', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('37', '1', '6', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('38', '1', '7', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('39', '1', '8', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('40', '1', '9', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('41', '1', '10', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('42', '1', '11', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('43', '1', '12', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('44', '1', '13', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('45', '1', '14', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('46', '1', '15', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('47', '1', '16', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('48', '1', '17', '1.0');
 
 -- ----------------------------
 -- Table structure for questionnaire_question_type
@@ -357,7 +396,8 @@ CREATE TABLE `questionnaire_template` (
 -- ----------------------------
 -- Records of questionnaire_template
 -- ----------------------------
-INSERT INTO `questionnaire_template` VALUES ('1', '软件工程通用模板', '1', '2018-04-09 00:19:35', '1', '2018-04-10 01:08:30');
+INSERT INTO `questionnaire_template` VALUES ('1', '软件工程通用模板', '1', '2018-04-09 00:19:35', '1', '2018-04-17 20:51:19');
+INSERT INTO `questionnaire_template` VALUES ('9', '软件工程通用模板二', '1', '2018-04-18 01:27:01', '1', '2018-04-18 01:27:01');
 
 -- ----------------------------
 -- Table structure for questionnaire_template_questions
@@ -375,21 +415,30 @@ CREATE TABLE `questionnaire_template_questions` (
 -- Records of questionnaire_template_questions
 -- ----------------------------
 INSERT INTO `questionnaire_template_questions` VALUES ('1', '1', '1', '1.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('2', '1', '2', '2.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('3', '1', '3', '3.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('4', '1', '5', '4.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('5', '1', '6', '5.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('6', '1', '7', '6.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('7', '1', '8', '7.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('8', '1', '9', '8.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('9', '1', '10', '9.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('2', '1', '2', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('3', '1', '3', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('4', '1', '5', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('5', '1', '6', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('6', '1', '7', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('7', '1', '8', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('8', '1', '9', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('9', '1', '10', '0.5');
 INSERT INTO `questionnaire_template_questions` VALUES ('10', '1', '11', '0.5');
 INSERT INTO `questionnaire_template_questions` VALUES ('11', '1', '12', '0.5');
 INSERT INTO `questionnaire_template_questions` VALUES ('12', '1', '13', '0.5');
-INSERT INTO `questionnaire_template_questions` VALUES ('13', '1', '14', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('13', '1', '14', '1.0');
 INSERT INTO `questionnaire_template_questions` VALUES ('14', '1', '15', '1.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('15', '1', '16', '1.0');
-INSERT INTO `questionnaire_template_questions` VALUES ('16', '1', '17', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('15', '1', '16', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('16', '1', '17', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('17', '9', '1', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('18', '9', '2', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('19', '9', '3', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('20', '9', '5', '0.5');
+INSERT INTO `questionnaire_template_questions` VALUES ('21', '9', '6', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('22', '9', '7', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('23', '9', '18', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('24', '9', '4', '1.0');
+INSERT INTO `questionnaire_template_questions` VALUES ('25', '9', '8', '1.0');
 
 -- ----------------------------
 -- Table structure for receive_message

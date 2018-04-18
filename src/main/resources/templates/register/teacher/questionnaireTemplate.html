@@ -4,7 +4,7 @@
 <head th:replace="include :: header(~{})"></head>
 
 <body data-token="" th:attr="data-token=${token}">
-<div id="wrapper">
+<div id="wrapper" data-url="" th:attr="data-url=${type}">
   <nav class="navbar navbar-default top-navbar" role="navigation"
        th:replace="register/header :: nav"></nav>
   <!--/. NAV TOP  -->
@@ -12,13 +12,8 @@
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
         <li>
-          <a href="" th:href="@{/register/goQuestionnaire/{token}(token=${token})}">
-            <i class="fa fa-dashboard"></i> 题库分类
-          </a>
-        </li>
-        <li>
-          <a href="" th:href="@{/register/template/goAddTemplate/{token}(token=${token})}">
-            <i class="fa fa-dashboard"></i> 添加模板
+          <a th:href="@{/register/goScore/{type}/{majorId}/{teacherId}/{scoreId}/{token}(type=${type},majorId=${teacher.major.id},teacherId=${teacher.id},scoreId=${score.id},token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回
           </a>
         </li>
       </ul>
@@ -29,7 +24,39 @@
     <div class="header">
       <h1 class="page-header">问卷模板</h1>
       <ol class="breadcrumb">
-        <li class="active">问卷模板</li>
+        <li>
+          <a href="" th:href="@{/register/login/{token}(token=${token})}">专业列表</a>
+        </li>
+        <th:block th:if="${type} eq 'teacher'">
+          <li class="major" data-id="" th:attr="data-id=${teacher.major.id}">
+            <a href="" th:href="@{/register/teacherList/{majorId}/{token}(majorId=${teacher.major.id},token=${token})}">
+              [[${teacher.major.name}]]·教师列表
+            </a>
+          </li>
+          <li class="teacher" data-id="" th:attr="data-id=${teacher.id}">
+            <a th:href="@{/register/goScores/{majorId}/{teacherId}/{token}(majorId=${teacher.major.id},teacherId=${teacher.id},token=${token})}">
+              [[${teacher.name}]]·课程列表
+            </a>
+          </li>
+        </th:block>
+        <th:block th:if="${type} eq 'score'">
+          <li class="major" data-id="" th:attr="data-id=${teacher.major.id}">
+            <a href="" th:href="@{/register/majorScores/{majorId}/{token}(majorId=${teacher.major.id},token=${token})}">
+              专业课程
+            </a>
+          </li>
+          <li class="teacher" data-id="" th:attr="data-id=${teacher.id}">
+            <a th:href="@{/register/goMajorScores/{majorId}/{scoreId}/{token}(majorId=${teacher.major.id},scoreId=${score.id},token=${token})}">
+              [[${score.scoreName}]]·课程列表
+            </a>
+          </li>
+        </th:block>
+        <li class="score" data-id="" th:attr="data-id=${score.id}">
+          <a th:href="@{/register/goScore/{type}/{majorId}/{teacherId}/{scoreId}/{token}(type=${type},majorId=${teacher.major.id},teacherId=${teacher.id},scoreId=${score.id},token=${token})}">
+            [[${score.scoreName}]]
+          </a>
+        </li>
+        <li class="active">选择模板</li>
       </ol>
     </div>
     <div id="page-inner">
@@ -113,7 +140,7 @@
 <!-- /. WRAPPER  -->
 <th:block th:replace="include :: scripte_domain(~{::script})">
   <!-- My Js -->
-  <script th:src="@{/js/register/template.js}"></script>
+  <script th:src="@{/js/register/teacher-template.js}"></script>
 </th:block>
 
 </body>

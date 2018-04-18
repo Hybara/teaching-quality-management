@@ -1,11 +1,13 @@
 package cn.edu.jsu.rjxy.controller.register;
 
 import cn.edu.jsu.rjxy.entity.dto.QuestionnaireBankItemDTO;
-import cn.edu.jsu.rjxy.entity.vo.QuestionnaireBank;
 import cn.edu.jsu.rjxy.entity.vo.Register;
 import cn.edu.jsu.rjxy.service.QuestionnaireService;
+import cn.edu.jsu.rjxy.service.ScoreService;
+import cn.edu.jsu.rjxy.service.TeacherService;
 import cn.edu.jsu.rjxy.util.JSONBaseUtil;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -22,6 +24,10 @@ public class QuestionnaireController {
 
   @Autowired
   private QuestionnaireService questionnaireService;
+  @Autowired
+  private TeacherService teacherService;
+  @Autowired
+  private ScoreService scoreService;
 
   private static final int QUESTION_BANK_PAGE_SIZE = 20;
   private static final int QUESTION_TEMPLATE_PAGE_SIZE = 24;
@@ -386,6 +392,92 @@ public class QuestionnaireController {
         return "failure";
       }
     } catch (Exception e) {
+      return "failure";
+    }
+  }
+
+
+  @RequestMapping("/register/score/questionnaire/{urltype}/{majorId}/{teacherId}/{scoreId}/{token}")
+  public String goTeacherQuestionaire(@PathVariable String urltype,
+      @PathVariable Long majorId,
+      @PathVariable Long teacherId,
+      @PathVariable Long scoreId,
+      @PathVariable String token,
+      HttpSession session,
+      Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/" + token;
+    }
+    if (majorId == null) {
+      return "redirect:/register/login/" + token;
+    }
+    if (teacherId == null) {
+      return "redirect:/register/teacherList/" + token;
+    }
+    if (scoreId == null) {
+      return "/register/goScores/" + majorId + "/" + teacherId + "/" + token;
+    }
+    if (urltype == null) {
+      urltype = "teacher";
+    }
+    model.addAttribute("type", urltype);
+    model.addAttribute("token", token);
+    model.addAttribute("teacher", teacherService.getById(teacherId));
+    model.addAttribute("score", scoreService.getScoreByScoreForTeacherId(scoreId));
+    return "/register/teacher/questionnaireTemplate";
+  }
+
+
+  @RequestMapping("/register/score/template/goQuestionnaire/{urltype}/{majorId}/{teacherId}/{scoreId}/{templateId}/{token}")
+  public String goTeacherTemplate(@PathVariable String urltype,
+      @PathVariable Long majorId,
+      @PathVariable Long teacherId,
+      @PathVariable Long scoreId,
+      @PathVariable Long templateId,
+      @PathVariable String token,
+      HttpSession session,
+      Model model) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "redirect:/logout/" + token;
+    }
+    if (majorId == null) {
+      return "redirect:/register/login/" + token;
+    }
+    if (teacherId == null) {
+      return "redirect:/register/teacherList/" + token;
+    }
+    if (scoreId == null) {
+      return "/register/goScores/" + majorId + "/" + teacherId + "/" + token;
+    }
+    if (urltype == null) {
+      urltype = "teacher";
+    }
+    model.addAttribute("urltype", urltype);
+    model.addAttribute("teacher", teacherService.getById(teacherId));
+    model.addAttribute("score", scoreService.getScoreByScoreForTeacherId(scoreId));
+    model.addAttribute("token", token);
+    model.addAttribute("template", questionnaireService.getTemplateById(templateId));
+    model.addAttribute("questions", questionnaireService.getTemplate(templateId));
+    model.addAttribute("types", questionnaireService.getTemplateQuestionType(templateId));
+    return "/register/teacher/template";
+  }
+
+  @RequestMapping("/register/score/questionnaire/createQuestionnaire")
+  @ResponseBody
+  public String createQuestionnaire(Long scoreId,
+      Long templateId,
+      Date endTime,
+      String token,
+      HttpSession session) {
+    Register register = (Register) session.getAttribute(token);
+    if (register == null) {
+      return "logout";
+    }
+    if (questionnaireService.createTeacherQuestionnaire(scoreId, templateId, register.getId(), endTime)) {
+      return "ok";
+    } else {
       return "failure";
     }
   }

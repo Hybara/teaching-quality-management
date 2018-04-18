@@ -2,15 +2,20 @@ package cn.edu.jsu.rjxy.service;
 
 import cn.edu.jsu.rjxy.entity.dto.QuestionnaireBankItemDTO;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireBank;
+import cn.edu.jsu.rjxy.entity.vo.QuestionnaireForTeacher;
+import cn.edu.jsu.rjxy.entity.vo.QuestionnaireForTeacherQuestion;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireQuestionType;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireTemplate;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireTemplateQuestion;
 import cn.edu.jsu.rjxy.mappers.QuestionnaireBankMapper;
+import cn.edu.jsu.rjxy.mappers.QuestionnaireForTeacherMapper;
+import cn.edu.jsu.rjxy.mappers.QuestionnaireForTeacherQuestionMapper;
 import cn.edu.jsu.rjxy.mappers.QuestionnaireQuestionTypeMapper;
 import cn.edu.jsu.rjxy.mappers.QuestionnaireTemplateMapper;
 import cn.edu.jsu.rjxy.mappers.QuestionnaireTemplateQuestionMapper;
 import cn.edu.jsu.rjxy.util.QueryConditionsUitl;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +33,11 @@ public class QuestionnaireService {
   QuestionnaireTemplateMapper questionnaireTemplateMapper;
   @Autowired
   QuestionnaireTemplateQuestionMapper questionnaireTemplateQuestionMapper;
+
+  @Autowired
+  QuestionnaireForTeacherMapper questionnaireForTeacherMapper;
+  @Autowired
+  QuestionnaireForTeacherQuestionMapper questionnaireForTeacherQuestionMapper;
 
   // QuestionnaireQuestionTypeMapper
 
@@ -242,8 +252,9 @@ public class QuestionnaireService {
     }
 
     List<Long> exclusions = new ArrayList<>();
-    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper.getQuestionnaire(templateId);
-    for (QuestionnaireTemplateQuestion question: questions) {
+    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper
+        .getQuestionnaire(templateId);
+    for (QuestionnaireTemplateQuestion question : questions) {
       exclusions.add(question.getQuestion().getId());
     }
 
@@ -260,10 +271,36 @@ public class QuestionnaireService {
   public int getQuestionCountByType(long typeId, long templateId) {
 
     List<Long> exclusions = new ArrayList<>();
-    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper.getQuestionnaire(templateId);
-    for (QuestionnaireTemplateQuestion question: questions) {
+    List<QuestionnaireTemplateQuestion> questions = questionnaireTemplateQuestionMapper
+        .getQuestionnaire(templateId);
+    for (QuestionnaireTemplateQuestion question : questions) {
       exclusions.add(question.getQuestion().getId());
     }
     return questionnaireBankMapper.getCountByType(typeId, null, exclusions);
+  }
+
+  //QuestionnaireForTeacherMapper && QuestionnaireForTeacherQuestionMapper
+  public QuestionnaireForTeacher teacherQuestionnaireIsExist(long scoreForTeacherId) {
+    return questionnaireForTeacherMapper.getTeacherQuestionnaire(scoreForTeacherId);
+  }
+
+  public boolean createTeacherQuestionnaire(long scoreForTeacherId,
+      long templateId,
+      long creater,
+      Date endTime) {
+    QuestionnaireForTeacher questionnaireForTeacher =
+        new QuestionnaireForTeacher(scoreForTeacherId, creater, new Date(), new Date(), endTime);
+    if (questionnaireForTeacherMapper.insertQuestionnaireForTeacher(questionnaireForTeacher)) {
+      List<QuestionnaireTemplateQuestion> templateQuestions =
+          questionnaireTemplateQuestionMapper.getQuestionnaire(templateId);
+      List<Long> questionIds = new ArrayList<>();
+      for (QuestionnaireTemplateQuestion question : templateQuestions) {
+        questionIds.add(question.getQuestion().getId());
+      }
+      if (questionnaireForTeacherQuestionMapper.insertQuestionnaireForTeacherQuestion(templateId, questionIds)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

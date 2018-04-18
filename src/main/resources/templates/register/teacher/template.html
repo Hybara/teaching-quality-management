@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper" data-url="" th:attr="data-url=${urltype}">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="register/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a th:href="@{/register/score/questionnaire/{type}/{majorId}/{teacherId}/{scoreId}/{token}(type=${urltype},majorId=${teacher.major.id},teacherId=${teacher.id},scoreId=${score.id},token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header" data-id="" th:attr="data-id=${template.id}">[[${template.name}]]</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="" th:href="@{/register/login/{token}(token=${token})}">专业列表</a>
+        </li>
+        <th:block th:if="${urltype} eq 'teacher'">
+          <li class="major" data-id="" th:attr="data-id=${teacher.major.id}">
+            <a href="" th:href="@{/register/teacherList/{majorId}/{token}(majorId=${teacher.major.id},token=${token})}">
+              [[${teacher.major.name}]]·教师列表
+            </a>
+          </li>
+          <li class="teacher" data-id="" th:attr="data-id=${teacher.id}">
+            <a th:href="@{/register/goScores/{majorId}/{teacherId}/{token}(majorId=${teacher.major.id},teacherId=${teacher.id},token=${token})}">
+              [[${teacher.name}]]·课程列表
+            </a>
+          </li>
+        </th:block>
+        <th:block th:if="${urltype} eq 'score'">
+          <li class="major" data-id="" th:attr="data-id=${teacher.major.id}">
+            <a href="" th:href="@{/register/majorScores/{majorId}/{token}(majorId=${teacher.major.id},token=${token})}">
+              专业课程
+            </a>
+          </li>
+          <li class="teacher" data-id="" th:attr="data-id=${teacher.id}">
+            <a th:href="@{/register/goMajorScores/{majorId}/{scoreId}/{token}(majorId=${teacher.major.id},scoreId=${score.id},token=${token})}">
+              [[${score.scoreName}]]·课程列表
+            </a>
+          </li>
+        </th:block>
+        <li class="score" data-id="" th:attr="data-id=${score.id}">
+          <a th:href="@{/register/goScore/{type}/{majorId}/{teacherId}/{scoreId}/{token}(type=${urltype},majorId=${teacher.major.id},teacherId=${teacher.id},scoreId=${score.id},token=${token})}">
+            [[${score.scoreName}]]
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/register/score/questionnaire/{type}/{majorId}/{teacherId}/{scoreId}/{token}(type=${urltype},majorId=${teacher.major.id},teacherId=${teacher.id},scoreId=${score.id},token=${token})}">
+            模板列表
+          </a>
+        </li>
+        <li class="active">[[${template.name}]]</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <div class="card-title">
+            <div class="title">[[${template.name}]]</div>
+            <div class="row">
+              <div class="col-md-5">
+                <div style="margin-top: 10px; margin-bottom: 0px; width: 200px;">
+                  <div class="form-group">
+                    <lable style="font-size: 12px;" class="text-danger">结束时间：</lable>
+                    <input type="text" class="form-control template" name="endTime"
+                           id="endTime" placeholder="格式：yyyy/MM/dd" required="required"
+                    />
+                    <span class="message-endTime" for="endTime"></span>
+                  </div>
+                </div>
+                <button class="btn btn-info submit" disabled="disabled">创建</button>
+                <span class="btn-message"></span>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <style>
+          .media p {
+            padding-top: 0px;
+          }
+
+          .evaluate li.list-group-item {
+            margin-bottom: 5px;
+          }
+
+          .evaluate li.list-group-item .media-body p a {
+            text-decoration: none;
+            color: black;
+          }
+
+          .evaluate li.list-group-item .media-body p a:hover {
+            color: lightslategrey;
+          }
+
+          .assessment, hr {
+            clear: both;
+          }
+
+          .checkbox3 label {
+            word-wrap: break-word;
+            word-break: break-all;
+          }
+        </style>
+        <div class="panel-body evaluate">
+          <form method="post" action="" id="coefficient">
+            <th:block th:each="type,typeStat : ${types}">
+              <li class="list-group-item">
+                <h5 class="panel-header">第[[${typeStat.count}]]部分：[[${type.name}]]</h5>
+                <th:block th:each="question,questionStat : ${questions}">
+                  <div class="assessment" th:if="${type.id eq question.question.type.id}">
+                    <div class="sub-title">[[${questionStat.count}]]
+                      [[${question.question.title}]]
+                    </div>
+                    <div class="sub-header remarks">[[${question.question.remarks}]]</div>
+                    <div class="answer" style="margin-top: 5px;">
+                      <div class="a" th:if="${question.question.resultA}">
+                        <label>&nbsp;&nbsp;([[${#numbers.formatInteger(question.question.resultA,
+                          2)}]]') A</label>
+                        &nbsp;&nbsp;[[${question.question.contentA}]]
+                      </div>
+                      <div class="b" th:if="${question.question.resultB}">
+                        <label>&nbsp;&nbsp;([[${#numbers.formatInteger(question.question.resultB,
+                          2)}]]') B</label>
+                        &nbsp;&nbsp;[[${question.question.contentB}]]
+                      </div>
+                      <div class="c" th:if="${question.question.resultC}">
+                        <label>&nbsp;&nbsp;([[${#numbers.formatInteger(question.question.resultC,
+                          2)}]]') C</label>
+                        &nbsp;&nbsp;[[${question.question.contentC}]]
+                      </div>
+                      <div class="d" th:if="${question.question.resultC}">
+                        <label>&nbsp;&nbsp;([[${#numbers.formatInteger(question.question.resultD,
+                          2)}]]') D</label>
+                        &nbsp;&nbsp;[[${question.question.contentD}]]
+                      </div>
+                    </div>
+                    <div class="sub-header coefficient">
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">成绩系数：[[${question.coefficient}]]</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                  </div>
+                  <hr th:if="${type.id eq question.question.type.id}"/>
+                </th:block>
+                <div class="assessment"></div>
+              </li>
+            </th:block>
+          </form>
+        </div>
+      </div>
+      <footer th:replace="include :: footer"></footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script th:src="@{/js/register/teacher-create-template.js}"></script>
+</th:block>
+
+</body>
+
+</html>
