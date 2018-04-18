@@ -86,41 +86,40 @@ $(function () {
         }
       }, "text");
     }
+  });
 
-    $("button.submit").on("click", function (event) {
-      event.stopPropagation();
-      event.preventDefault();
-      let name = $("input[name=name]").val();
-      let reg = /[^\u4E00-\u9FA5]+$/g;
-      if (name == "") {
-        $("span.message").text("请输入模板名称").addClass("text-danger").removeClass(
-            "text-success");
-        $("button.submit").attr("disabled", true);
-        return;
-      }
-      if (reg.test(name)) {
-        $("input[name='name']").focus();
-        $("span.message").text("请输入中文").addClass("text-danger").removeClass(
-            "text-success");
-        $("button.submit").attr("disabled", true);
-        return;
-      }
-      if (questions.length == 0 || questions.length < 8) {
-        $("span.btn-message").text("请选择题目，至少8道题").addClass(
-            "text-danger").removeClass("text-success");
-        $("button.submit").attr("disabled", true);
-        return;
-      } else {
-        $.post("/register/template/addTemplate", {
-          templateName: name,
-          questionIds: questions,
-          token: token
-        }, function (response) {
-          window.location.href = "/register/template/goTemplate/" + token;
-        }, "text");
-      }
-    });
-
+  $("button.submit").on("click", function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    let name = $("input[name=name]").val();
+    let reg = /[^\u4E00-\u9FA5]+$/g;
+    if (name == "") {
+      $("span.message").text("请输入模板名称").addClass("text-danger").removeClass(
+          "text-success");
+      $("button.submit").attr("disabled", true);
+      return;
+    }
+    if (reg.test(name)) {
+      $("input[name='name']").focus();
+      $("span.message").text("请输入中文").addClass("text-danger").removeClass(
+          "text-success");
+      $("button.submit").attr("disabled", true);
+      return;
+    }
+    if (questions.length == 0 || questions.length < 8) {
+      $("span.btn-message").text("请选择题目，至少8道题").addClass(
+          "text-danger").removeClass("text-success");
+      $("button.submit").attr("disabled", true);
+      return;
+    } else {
+      $.post("/register/template/addTemplate", {
+        templateName: name,
+        questionIds: questions,
+        token: token
+      }, function (response) {
+        window.location.href = "/register/template/goTemplate/" + token;
+      }, "text");
+    }
   });
 
   initQuestionnaireBank($("select[name=type]").val(), INDEX_PAGE);

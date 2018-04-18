@@ -44,66 +44,67 @@ $(function () {
       }
     });
 
-    $("#check_password").on("keyup", function () {
-      var newPassword = $("#new_password").val();
-      var checkPassword = $(this).val();
-      if (checkPassword == "") {
-        $($(this).siblings("span").get(0)).text("该项不能为空").addClass(
-            "text-danger").removeClass("text-success");
-        $(this).focus();
-        return;
-      } else if (newPassword != "" && checkPassword == newPassword) {
-        $($(this).siblings("span").get(0)).text("密码正确").addClass(
-            "text-success").removeClass("text-danger");
-        return;
-      } else {
-        $($(this).siblings("span").get(0)).text("密码不匹配").addClass(
-            "text-danger").removeClass("text-success");
-        $(this).focus();
-        return;
-      }
-    });
+  });
 
-    $("#password_form").on("submit", function (event) {
-      event.stopPropagation();
-      event.preventDefault();
-      var password = $("#new_password").val();
-      var check_password = $("#check_password").val();
-      if (password == "") {
-        $($("#new_password").siblings("span").get(0)).text("该项不能为空").addClass(
+  $("#check_password").on("keyup", function () {
+    var newPassword = $("#new_password").val();
+    var checkPassword = $(this).val();
+    if (checkPassword == "") {
+      $($(this).siblings("span").get(0)).text("该项不能为空").addClass(
+          "text-danger").removeClass("text-success");
+      $(this).focus();
+      return;
+    } else if (newPassword != "" && checkPassword == newPassword) {
+      $($(this).siblings("span").get(0)).text("密码正确").addClass(
+          "text-success").removeClass("text-danger");
+      return;
+    } else {
+      $($(this).siblings("span").get(0)).text("密码不匹配").addClass(
+          "text-danger").removeClass("text-success");
+      $(this).focus();
+      return;
+    }
+  });
+
+  $("#password_form").on("submit", function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var password = $("#new_password").val();
+    var check_password = $("#check_password").val();
+    if (password == "") {
+      $($("#new_password").siblings("span").get(0)).text("该项不能为空").addClass(
+          "text-danger").removeClass("text-success");
+      $("#new_password").focus();
+      return false;
+    } else if (check_password == "") {
+      $($("#check_password").siblings("span").get(0)).text("该项不能为空").addClass(
+          "text-danger").removeClass("text-success");
+      $("#check_password").focus();
+      return false;
+    } else if (password != check_password) {
+      $($("#check_password").siblings("span").get(0)).text("密码不匹配").addClass(
+          "text-danger").removeClass("text-success");
+      $("#check_password").focus();
+      return false;
+    } else {
+      var token = $("body").attr("data-token");
+      $.post("/teacher/changePassword", {
+        token: token,
+        password: password
+      }, function (response) {
+        if (response == "ok") {
+          alert("修改成功");
+        } else if (response == "error") {
+          alert("修改失败");
+        } else if (response == "logout") {
+          window.location.href = "/logout/" + token;
+        }
+        $("input").val("");
+        $("input").siblings("span").text("").removeClass(
             "text-danger").removeClass("text-success");
-        $("#new_password").focus();
-        return false;
-      } else if (check_password == "") {
-        $($("#check_password").siblings("span").get(0)).text("该项不能为空").addClass(
-            "text-danger").removeClass("text-success");
-        $("#check_password").focus();
-        return false;
-      } else if (password != check_password) {
-        $($("#check_password").siblings("span").get(0)).text("密码不匹配").addClass(
-            "text-danger").removeClass("text-success");
-        $("#check_password").focus();
-        return false;
-      } else {
-        var token = $("body").attr("data-token");
-        $.post("/teacher/changePassword", {
-          token: token,
-          password: password
-        }, function (response) {
-          if (response == "ok") {
-            alert("修改成功");
-          } else if (response == "error") {
-            alert("修改失败");
-          } else if (response == "logout") {
-            window.location.href = "/logout/" + token;
-          }
-          $("input").val("");
-          $("input").siblings("span").text("").removeClass(
-              "text-danger").removeClass("text-success");
-        });
-        return false;
-      }
-    });
+      });
+      return false;
+    }
   });
 
   $("#info_form").on("submit", function (event) {
