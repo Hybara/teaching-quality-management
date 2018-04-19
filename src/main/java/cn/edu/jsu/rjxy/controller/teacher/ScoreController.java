@@ -157,15 +157,17 @@ public class ScoreController {
   @RequestMapping("/teacher/goScore/{teacherId}/{id}/{token}")
   public String goScore(@PathVariable long teacherId, @PathVariable Long id,
       @PathVariable String token, HttpSession session, Model model) {
-    if (session.getAttribute(token) == null) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
       return "redirect:/logout/" + token;
     } else if (id == null) {
       return "/teacher/getScores/all/" + token;
     }
     QuestionnaireForTeacher questionnaire = questionnaireService.teacherQuestionnaireIsExist(id);
     model.addAttribute("questionnaire", questionnaire);
+    System.out.println(fillInQuestionnaireService.getByQuestionnaireAndCreater(questionnaire.getId(), teacherId, EVALUATE_CREATER_TYPE));
     if (questionnaire != null) {
-      model.addAttribute("result", fillInQuestionnaireService.getByQuestionnaireAndCreater(questionnaire.getId(), teacherId, EVALUATE_CREATER_TYPE));
+      model.addAttribute("result", fillInQuestionnaireService.getByQuestionnaireAndCreater(questionnaire.getId(), teacher.getId(), EVALUATE_CREATER_TYPE));
     }
     model.addAttribute("teacher", teacherId);
     model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
