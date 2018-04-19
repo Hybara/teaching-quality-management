@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jsu.rjxy.mappers.FillInQuestionnaireMapper">
+  <resultMap id="result" type="FillInQuestionnaire">
+    <id column="id" property="id"></id>
+    <result property="questionnaire" column="questionnaire" />
+    <result property="result" column="result"/>
+    <result property="creater" column="creater"/>
+    <result property="createTime" column="create_time" javaType="java.util.Date" />
+    <result property="createrType" column="createrType"/>
+  </resultMap>
+</mapper>

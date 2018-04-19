@@ -1,6 +1,7 @@
 package cn.edu.jsu.rjxy.service;
 
 import cn.edu.jsu.rjxy.entity.dto.QuestionnaireBankItemDTO;
+import cn.edu.jsu.rjxy.entity.vo.FillInQuestionnaire;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireBank;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireForTeacherQuestion;
@@ -297,10 +298,60 @@ public class QuestionnaireService {
       for (QuestionnaireTemplateQuestion question : templateQuestions) {
         questionIds.add(question.getQuestion().getId());
       }
-      if (questionnaireForTeacherQuestionMapper.insertQuestionnaireForTeacherQuestion(templateId, questionIds)) {
+      if (questionnaireForTeacherQuestionMapper
+          .insertQuestionnaireForTeacherQuestion(templateId, questionIds)) {
         return true;
       }
     }
     return false;
+  }
+
+  public List<QuestionnaireForTeacherQuestion> getQuestionnaireQuestions(long questionnaireId) {
+    return questionnaireForTeacherQuestionMapper.getByQuestionnaireId(questionnaireId);
+  }
+
+  public List<QuestionnaireQuestionType> getQuestionnaireQuestionType(long questionnaireId) {
+    List<QuestionnaireQuestionType> types = questionnaireQuestionTypeMapper.getAllType();
+    List<QuestionnaireForTeacherQuestion> questions = questionnaireForTeacherQuestionMapper
+        .getByQuestionnaireId(questionnaireId);
+    for (int i = 0; i < types.size(); i++) {
+      boolean flag = false;
+      for (QuestionnaireForTeacherQuestion question : questions) {
+        if (types.get(i).getId() == question.getQuestion().getType().getId()) {
+          flag = true;
+          break;
+        }
+      }
+      if (!flag) {
+        types.remove(types.get(i));
+        i--;
+      }
+    }
+    return types;
+  }
+
+  public double getQuestionnaireResult(long questionnaireId,
+      List<Long> questionIds,
+      List<Double> results) {
+
+    List<QuestionnaireForTeacherQuestion> questions = questionnaireForTeacherQuestionMapper
+        .getByQuestionnaireId(questionnaireId);
+
+    double count_result = 0;
+    double count_questionnaire = 0;
+    for (Long id : questionIds) {
+      for (QuestionnaireForTeacherQuestion question : questions) {
+        if (id == question.getQuestion().getId()) {
+          QuestionnaireBank bank = question.getQuestion();
+          double max = Math
+              .max(Math.max(Math.max(bank.getResultA(), bank.getResultB()), bank.getResultC()),
+                  bank.getResultD());
+          count_questionnaire += max * question.getCoefficient();
+          count_result += results.get(questionIds.indexOf(id)) * question.getCoefficient();
+          break;
+        }
+      }
+    }
+    return count_result / count_questionnaire * 100;
   }
 }

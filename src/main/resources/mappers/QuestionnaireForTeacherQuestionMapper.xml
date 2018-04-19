@@ -4,6 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.jsu.rjxy.mappers.QuestionnaireForTeacherQuestionMapper">
 
+  <resultMap id="result" type="QuestionnaireForTeacherQuestion">
+    <id column="id" property="id" />
+    <result column="questionnaire" property="questionnaireId" />
+    <result column="coefficient" property="coefficient" />
+    <association property="question" column="question" select="cn.edu.jsu.rjxy.mappers.QuestionnaireBankMapper.getById" />
+  </resultMap>
+
   <insert id="insertQuestionnaireForTeacherQuestion">
     <foreach collection="questionIds" item="questionId" separator=";" close=" " open=" ">
       INSERT INTO questionnaire_for_teacher_questions(questionnaire, question, coefficient)

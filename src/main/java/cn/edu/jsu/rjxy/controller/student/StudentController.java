@@ -1,10 +1,13 @@
 package cn.edu.jsu.rjxy.controller.student;
 
+import cn.edu.jsu.rjxy.entity.vo.QuestionnaireForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.Student;
 import cn.edu.jsu.rjxy.mappers.QuestionMapper;
 import cn.edu.jsu.rjxy.service.EvaluateService;
+import cn.edu.jsu.rjxy.service.FillInQuestionnaireService;
 import cn.edu.jsu.rjxy.service.MessageService;
 import cn.edu.jsu.rjxy.service.QuestionService;
+import cn.edu.jsu.rjxy.service.QuestionnaireService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
 import cn.edu.jsu.rjxy.service.StudentService;
@@ -44,6 +47,10 @@ public class StudentController {
   private EvaluateService evaluateService;
   @Autowired
   private QuestionService questionService;
+  @Autowired
+  private QuestionnaireService questionnaireService;
+  @Autowired
+  private FillInQuestionnaireService fillInQuestionnaireService;
 
   private static final int NO_DATA = 0;
   private static final int SCORES_PAGE_SIZE = 8;
@@ -80,10 +87,16 @@ public class StudentController {
   @RequestMapping("/student/goScore/{id}/{token}")
   public String goScore(@PathVariable Long id, @PathVariable String token, HttpSession session,
       Model model) {
-    if (session.getAttribute(token) == null) {
+    Student student = (Student) session.getAttribute(token);
+    if (student == null) {
       return "forward:/logout/" + token;
     } else if (id == null) {
       return "/student/getScores/all/" + token;
+    }
+    QuestionnaireForTeacher questionnaire = questionnaireService.teacherQuestionnaireIsExist(id);
+    model.addAttribute("questionnaire", questionnaire);
+    if (questionnaire != null) {
+      model.addAttribute("result", fillInQuestionnaireService.getByQuestionnaireAndCreater(questionnaire.getId(), student.getId(), EVALUATE_CREATER_TYPE));
     }
     model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
     model.addAttribute("token", token);

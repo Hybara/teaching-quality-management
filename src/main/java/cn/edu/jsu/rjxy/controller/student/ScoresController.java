@@ -2,6 +2,7 @@ package cn.edu.jsu.rjxy.controller.student;
 
 import cn.edu.jsu.rjxy.entity.dto.ScoreDTO;
 import cn.edu.jsu.rjxy.entity.vo.Student;
+import cn.edu.jsu.rjxy.service.QuestionnaireService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.util.JSONBaseUtil;
 import java.util.List;

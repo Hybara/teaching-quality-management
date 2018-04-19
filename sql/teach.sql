@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-19 06:48:25
+Date: 2018-04-19 22:41:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS `fill_in_questionnaire`;
 CREATE TABLE `fill_in_questionnaire` (
   `id` int(11) NOT NULL auto_increment,
   `questionnaire` int(11) NOT NULL,
-  `result` decimal(4,1) NOT NULL,
+  `result` decimal(5,2) NOT NULL,
   `creater` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
   `creater_type` varchar(32) NOT NULL,
@@ -99,6 +99,7 @@ CREATE TABLE `fill_in_questionnaire` (
 -- ----------------------------
 -- Records of fill_in_questionnaire
 -- ----------------------------
+INSERT INTO `fill_in_questionnaire` VALUES ('1', '3', '77.25', '1', '2018-04-19 22:23:27', 'student');
 
 -- ----------------------------
 -- Table structure for for_question
@@ -340,22 +341,22 @@ CREATE TABLE `questionnaire_for_teacher_questions` (
 -- ----------------------------
 -- Records of questionnaire_for_teacher_questions
 -- ----------------------------
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('33', '1', '1', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('34', '1', '2', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('35', '1', '3', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('36', '1', '5', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('37', '1', '6', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('38', '1', '7', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('39', '1', '8', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('40', '1', '9', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('41', '1', '10', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('42', '1', '11', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('43', '1', '12', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('44', '1', '13', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('45', '1', '14', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('46', '1', '15', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('47', '1', '16', '1.0');
-INSERT INTO `questionnaire_for_teacher_questions` VALUES ('48', '1', '17', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('33', '3', '1', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('34', '3', '2', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('35', '3', '3', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('36', '3', '5', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('37', '3', '6', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('38', '3', '7', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('39', '3', '8', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('40', '3', '9', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('41', '3', '10', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('42', '3', '11', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('43', '3', '12', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('44', '3', '13', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('45', '3', '14', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('46', '3', '15', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('47', '3', '16', '1.0');
+INSERT INTO `questionnaire_for_teacher_questions` VALUES ('48', '3', '17', '1.0');
 
 -- ----------------------------
 -- Table structure for questionnaire_question_type
@@ -568,7 +569,7 @@ CREATE TABLE `score_for_teacher` (
 -- ----------------------------
 -- Records of score_for_teacher
 -- ----------------------------
-INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '79.50', '00000940.00', '00000000011', '00000170.00', '00000000002', '00000000.00', '00000000000', '');
+INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '79.50', '00000940.00', '00000000011', '00000170.00', '00000000002', '00000077.25', '00000000001', '');
 INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);

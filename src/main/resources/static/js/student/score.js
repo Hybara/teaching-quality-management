@@ -9,13 +9,12 @@ $(function () {
     // console.log(title);
     var id = $("h1.page-header").attr("data-id");
     if (title == '评价') {
-      url = '/student/goEvaluate/'+id+"/"+token;
+      window.location.href = '/student/goEvaluate/'+id+"/"+token;
     } else if (title == '提问') {
-      url = '/student/goQuestions/'+id+"/"+token;
-    } else {
-      url = 'assessment.html';
+      window.location.href = '/student/goQuestions/'+id+"/"+token;
+    } else if (title == '填写问卷') {
+      window.location.href = '/student/goQuestionnaire/'+id+"/"+token;
     }
-    window.location.href = url;
   })
 
 });
