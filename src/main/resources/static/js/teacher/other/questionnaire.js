@@ -25,7 +25,8 @@ $(function () {
     let questionnaireId = $("h1.page-header").attr("data-id");
     let token = $("body").attr("data-token");
     let scoreId = $("li#score").attr("data-id");
-    $.post("/student/fillInQuestionnaire", {
+    let teacherId = $("li#teacher").attr("data-id");
+    $.post("/teacher/fillInQuestionnaire", {
       questionnaireId: questionnaireId,
       scoreId: scoreId,
       results: results,
@@ -39,7 +40,7 @@ $(function () {
       } else if (!isNaN(response)) {
         alert("本次评教的得分是： " + response + " 分！");
       }
-      window.location.href = "/student/goScore/" + scoreId + "/" + token;
+      window.location.href = "/teacher/goScore/"+teacherId+"/"+scoreId+"/"+token;
     }, "text");
 
   });

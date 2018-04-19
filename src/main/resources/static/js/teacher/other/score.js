@@ -13,8 +13,8 @@ $(function () {
       url = "/teacher/goEvaluate/"+teacherId+"/"+id+"/"+token;
     } else if (title == '提问') {
       url = '/teacher/goQuestions/'+teacherId+"/"+id+"/"+token;
-    } else {
-      url = 'assessment.html';
+    } else if (title == "填写问卷") {
+      url = "/teacher/goQuestionnaire/"+teacherId+"/"+id+"/"+token;
     }
     window.location.href = url;
   })

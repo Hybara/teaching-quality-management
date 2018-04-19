@@ -1,8 +1,11 @@
 package cn.edu.jsu.rjxy.controller.teacher;
 
+import cn.edu.jsu.rjxy.entity.vo.QuestionnaireForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.ScoreForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.Teacher;
+import cn.edu.jsu.rjxy.service.FillInQuestionnaireService;
 import cn.edu.jsu.rjxy.service.MessageService;
+import cn.edu.jsu.rjxy.service.QuestionnaireService;
 import cn.edu.jsu.rjxy.service.ScoreService;
 import cn.edu.jsu.rjxy.service.ScoreTypeService;
 import cn.edu.jsu.rjxy.util.JSONBaseUtil;
@@ -25,6 +28,10 @@ public class ScoreController {
   private ScoreTypeService scoreTypeService;
   @Autowired
   private MessageService messageService;
+  @Autowired
+  private QuestionnaireService questionnaireService;
+  @Autowired
+  private FillInQuestionnaireService fillInQuestionnaireService;
 
   private static final int NO_DATA = 0;
   private static final int SCORES_PAGE_SIZE = 8;
@@ -154,6 +161,11 @@ public class ScoreController {
       return "redirect:/logout/" + token;
     } else if (id == null) {
       return "/teacher/getScores/all/" + token;
+    }
+    QuestionnaireForTeacher questionnaire = questionnaireService.teacherQuestionnaireIsExist(id);
+    model.addAttribute("questionnaire", questionnaire);
+    if (questionnaire != null) {
+      model.addAttribute("result", fillInQuestionnaireService.getByQuestionnaireAndCreater(questionnaire.getId(), teacherId, EVALUATE_CREATER_TYPE));
     }
     model.addAttribute("teacher", teacherId);
     model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));

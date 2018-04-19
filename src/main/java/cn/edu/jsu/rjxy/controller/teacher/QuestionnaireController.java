@@ -1,7 +1,8 @@
-package cn.edu.jsu.rjxy.controller.student;
+package cn.edu.jsu.rjxy.controller.teacher;
 
 import cn.edu.jsu.rjxy.entity.vo.QuestionnaireForTeacher;
 import cn.edu.jsu.rjxy.entity.vo.Student;
+import cn.edu.jsu.rjxy.entity.vo.Teacher;
 import cn.edu.jsu.rjxy.service.FillInQuestionnaireService;
 import cn.edu.jsu.rjxy.service.QuestionnaireService;
 import cn.edu.jsu.rjxy.service.ScoreService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller("StudentQuestionnaireController")
+@Controller("TeacherQuestionnaireController")
 public class QuestionnaireController {
 
   @Autowired
@@ -25,25 +26,27 @@ public class QuestionnaireController {
   @Autowired
   FillInQuestionnaireService fillInQuestionnaireService;
 
-  @RequestMapping("/student/goQuestionnaire/{id}/{token}")
-  public String goQuestionnaire(@PathVariable long id,
+  @RequestMapping("/teacher/goQuestionnaire/{teacherId}/{id}/{token}")
+  public String goQuestionnaire(@PathVariable long teacherId,
+      @PathVariable long id,
       @PathVariable String token,
       HttpSession session, Model model) {
-    Student student = (Student) session.getAttribute(token);
-    if (student == null) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
       return "redirect:/logout/" + token;
     }
     model.addAttribute("id", id);
     model.addAttribute("token", token);
+    model.addAttribute("teacher", teacherId);
     QuestionnaireForTeacher questionnaire = questionnaireService.teacherQuestionnaireIsExist(id);
     model.addAttribute("template", questionnaire);
     model.addAttribute("types", questionnaireService.getQuestionnaireQuestionType(questionnaire.getId()));
     model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));
     model.addAttribute("questions", questionnaireService.getQuestionnaireQuestions(questionnaire.getId()));
-    return "/student/questionnaire";
+    return "/teacher/other/questionnaire";
   }
 
-  @RequestMapping("/student/fillInQuestionnaire")
+  @RequestMapping("/teacher/fillInQuestionnaire")
   @ResponseBody
   public String fillInQuestionnaire(long scoreId,
       long questionnaireId,
@@ -51,12 +54,12 @@ public class QuestionnaireController {
       @RequestParam(value = "ids[]") Long[] ids,
       String token,
       HttpSession session, Model model) {
-    Student student = (Student) session.getAttribute(token);
-    if (student == null) {
+    Teacher teacher = (Teacher) session.getAttribute(token);
+    if (teacher == null) {
       return "logout";
     }
     double result = questionnaireService.getQuestionnaireResult(questionnaireId, Arrays.asList(ids), Arrays.asList(results));
-    if (fillInQuestionnaireService.fillInQuestionnaire(questionnaireId, result, student.getId(), "student", scoreId)) {
+    if (fillInQuestionnaireService.fillInQuestionnaire(questionnaireId, result, teacher.getId(), "teacher", scoreId)) {
       return Double.toString(result);
     }
     return "failure";

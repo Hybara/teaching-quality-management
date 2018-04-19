@@ -28,7 +28,7 @@
       </h1>
       <ol class="breadcrumb">
         <li>
-          <a href="teachers.html" th:href="@{/teacher/teacherList/{token}(token=${token})}">教师列表</a>
+          <a th:href="@{/teacher/teacherList/{token}(token=${token})}">教师列表</a>
         </li>
         <li>
           <a href="/student/login/{token}"
@@ -130,10 +130,13 @@
               <div class="board">
                 <div class="panel panel-primary">
                   <div class="number">
-                    <h3>
-                      <h4>问卷</h4>
-                      <small>问卷数 [[${scoreInfo.assessmentCount}]] <br/>评分 <span id="assessment">[[${scoreInfo.assessmentGrade}]]</span>
-                      </small>
+                    <h3 th:if="${questionnaire}">
+                      <h4 th:if="${result}">已填写问卷 <small>[[${result.result}]]分</small></h4>
+                      <h4 th:unless="${result}" data-id="" th:attr="data-id=${questionnaire.id}">填写问卷</h4>
+                      <small>问卷数 [[${scoreInfo.assessmentCount}]] <br/>评分 <span id="assessment">[[${scoreInfo.assessmentGrade}]]</span></small>
+                    </h3>
+                    <h3 th:unless="${questionnaire}">
+                      <h4>未发布问卷</h4>
                     </h3>
                   </div>
                   <div class="icon">

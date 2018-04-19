@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="include :: header(~{})"></head>
+
+<body data-token="" th:attr="data-token=${token}">
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation"
+       th:replace="teacher/header :: nav"></nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li>
+          <a th:href="@{/teacher/goScore/{teacherId}/{id}/{token}(teacherId=${teacher},id=${scoreInfo.id},token=${token})}">
+            <i class="fa fa-dashboard"></i> 返回</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header" th:attr="data-id=${template.id}">问卷</h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="teachers.html" th:href="@{/teacher/teacherList/{token}(token=${token})}">教师列表</a>
+        </li>
+        <li id="teacher" th:attr="data-id=${teacher}">
+          <a th:href="@{/teacher/goScores/{id}/{token}(id=${teacher},token=${token})}">课程列表</a>
+        </li>
+        <li id="score" th:attr="data-id=${scoreInfo.id}">
+          <a th:href="@{/teacher/goScore/{teacherId}/{id}/{token}(teacherId=${teacher},id=${scoreInfo.id},token=${token})}">
+            [[${scoreInfo.scoreName}]]
+          </a>
+        </li>
+        <li class="active">调查问卷</li>
+      </ol>
+    </div>
+    <div id="page-inner">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <div class="card-title">
+            <div class="title">
+              问卷
+              <p><small>问卷采用匿名只记总分形式，可以放心填写</small></p>
+            </div>
+          </div>
+        </div>
+        <style>
+          .media p {
+            padding-top: 0px;
+          }
+
+          .evaluate li.list-group-item {
+            margin-bottom: 5px;
+          }
+
+          .evaluate li.list-group-item .media-body p a {
+            text-decoration: none;
+            color: black;
+          }
+
+          .evaluate li.list-group-item .media-body p a:hover {
+            color: lightslategrey;
+          }
+
+          .assessment, hr {
+            clear: both;
+          }
+
+          .checkbox3 label {
+            word-wrap: break-word;
+            word-break: break-all;
+          }
+        </style>
+        <div class="panel-body evaluate" th:attr="data-id=${#arrays.length(questions)}">
+          <form method="post" action="" id="coefficient">
+            <th:block th:each="type,typeStat : ${types}">
+              <li class="list-group-item">
+                <h5 class="panel-header">第[[${typeStat.count}]]部分：[[${type.name}]]</h5>
+                <th:block th:each="question,questionStat : ${questions}">
+                  <div class="assessment" th:if="${type.id eq question.question.type.id}">
+                    <div class="sub-title">[[${questionStat.count}]]
+                      [[${question.question.title}]]
+                    </div>
+                    <div class="sub-header remarks">[[${question.question.remarks}]]</div>
+                    <div class="answer" style="margin-top: 5px;">
+                      <div class="radio3">
+                        <input type="radio" th:name="${question.question.id}" th:class="${question.question.id}"
+                               th:id="|${question.question.id}_A|" th:value="${question.question.resultA}">
+                        <label th:attr="for=|${question.question.id}_A|">
+                          A&nbsp;&nbsp;[[${question.question.contentA}]]
+                        </label>
+                      </div>
+                      <div class="radio3">
+                        <input type="radio" th:name="${question.question.id}" th:class="${question.question.id}"
+                               th:id="|${question.question.id}_B|" th:value="${question.question.resultB}">
+                        <label th:attr="for=|${question.question.id}_B|">
+                          B&nbsp;&nbsp;[[${question.question.contentB}]]
+                        </label>
+                      </div>
+                      <div class="radio3">
+                        <input type="radio" th:name="${question.question.id}" th:class="${question.question.id}"
+                               th:id="|${question.question.id}_C|" th:value="${question.question.resultC}">
+                        <label th:attr="for=|${question.question.id}_C|">
+                          C&nbsp;&nbsp;[[${question.question.contentC}]]
+                        </label>
+                      </div>
+                      <div class="radio3">
+                        <input type="radio" th:name="${question.question.id}" th:class="${question.question.id}"
+                               th:id="|${question.question.id}_D|" th:value="${question.question.resultD}">
+                        <label th:attr="for=|${question.question.id}_D|">
+                          D&nbsp;&nbsp;[[${question.question.contentD}]]
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <hr th:if="${type.id eq question.question.type.id}"/>
+                </th:block>
+                <div class="assessment"></div>
+              </li>
+            </th:block>
+            <center>
+              <button type="button" class="submit btn btn-success">提交</button>
+              <span class="message"></span>
+            </center>
+          </form>
+        </div>
+      </div>
+      <footer th:replace="include :: footer"></footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<th:block th:replace="include :: scripte_domain(~{::script})">
+  <!-- My Js -->
+  <script th:src="@{/js/teacher/other/questionnaire.js}"></script>
+</th:block>
+
+</body>
+
+</html>
