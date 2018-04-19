@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50018
 File Encoding         : 65001
 
-Date: 2018-04-19 22:41:04
+Date: 2018-04-20 04:37:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,6 +81,7 @@ INSERT INTO `evaluate` VALUES ('8', '1', null, '很能带动学生学习积极�
 INSERT INTO `evaluate` VALUES ('9', '1', null, '挺好', '90.00', '1', '2018-03-05 18:04:45', 'student', '1');
 INSERT INTO `evaluate` VALUES ('10', '1', null, '很好', '90.00', '1', '2018-03-28 18:08:30', 'student', '1');
 INSERT INTO `evaluate` VALUES ('12', '1', null, '很棒哦', '80.00', '1', '2018-04-04 21:26:42', 'register', '0');
+INSERT INTO `evaluate` VALUES ('13', '1', null, '还不错哦', '90.00', '3', '2018-04-20 02:47:33', 'teacher', '0');
 
 -- ----------------------------
 -- Table structure for fill_in_questionnaire
@@ -100,6 +101,7 @@ CREATE TABLE `fill_in_questionnaire` (
 -- Records of fill_in_questionnaire
 -- ----------------------------
 INSERT INTO `fill_in_questionnaire` VALUES ('1', '3', '77.25', '1', '2018-04-19 22:23:27', 'student');
+INSERT INTO `fill_in_questionnaire` VALUES ('2', '3', '76.25', '3', '2018-04-20 00:28:14', 'teacher');
 
 -- ----------------------------
 -- Table structure for for_question
@@ -125,6 +127,8 @@ INSERT INTO `for_question` VALUES ('3', '2', '你说呢', '1', '2018-03-28 22:35
 INSERT INTO `for_question` VALUES ('5', '2', '我也不知道啊', '1', '2018-03-28 23:09:03', 'student', '0');
 INSERT INTO `for_question` VALUES ('6', '2', '那怎么办呢', '1', '2018-03-28 23:09:55', 'student', '1');
 INSERT INTO `for_question` VALUES ('7', '2', '接着问呗', '1', '2018-03-28 23:10:04', 'student', '1');
+INSERT INTO `for_question` VALUES ('8', '1', '你说呢', '3', '2018-04-20 02:52:13', 'teacher', '0');
+INSERT INTO `for_question` VALUES ('9', '1', '哈哈', '3', '2018-04-20 02:54:57', 'teacher', '0');
 
 -- ----------------------------
 -- Table structure for major
@@ -503,10 +507,7 @@ CREATE TABLE `report` (
   `reported_id` int(11) NOT NULL,
   `reported_type` varchar(64) NOT NULL,
   `reason` varchar(255) NOT NULL,
-  `reporter_id` int(11) NOT NULL,
-  `reporter_type` varchar(64) NOT NULL,
   `creater` int(11) NOT NULL,
-  `creater_type` varchar(64) NOT NULL,
   `create_time` datetime NOT NULL,
   `handler` int(11) default NULL,
   `handle_time` datetime default NULL,
@@ -516,6 +517,8 @@ CREATE TABLE `report` (
 -- ----------------------------
 -- Records of report
 -- ----------------------------
+INSERT INTO `report` VALUES ('1', '13', 'evaluate', '不知道为什么', '1', '2018-04-20 04:35:36', null, null);
+INSERT INTO `report` VALUES ('2', '8', 'evaluate', '瞎点的', '1', '2018-04-20 04:36:59', null, null);
 
 -- ----------------------------
 -- Table structure for score
@@ -569,7 +572,7 @@ CREATE TABLE `score_for_teacher` (
 -- ----------------------------
 -- Records of score_for_teacher
 -- ----------------------------
-INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '79.50', '00000940.00', '00000000011', '00000170.00', '00000000002', '00000077.25', '00000000001', '');
+INSERT INTO `score_for_teacher` VALUES ('1', '1', '1', '79.50', '00001030.00', '00000000012', '00000170.00', '00000000002', '00000153.50', '00000000002', '');
 INSERT INTO `score_for_teacher` VALUES ('2', '2', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 INSERT INTO `score_for_teacher` VALUES ('3', '3', '1', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);
 INSERT INTO `score_for_teacher` VALUES ('4', '4', '2', null, '00000000.00', '00000000000', '00000000.00', '00000000000', '00000000.00', '00000000000', null);

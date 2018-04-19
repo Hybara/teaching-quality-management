@@ -148,10 +148,14 @@ function initPageButton(count, page) {
 }
 
 function initQuestionPanel($li, data) {
+  let token = $("body").attr("data-token");
   $li.find("img").attr("src", data.userHeader);
   $li.find("div.media-left span").text(data.userName);
   $li.find("div.media-body p").text(data.text);
-  $li.find("div.media-body div").text(format(new Date(data.createTime)));
+  $li.find("div.media-body div.time").text(format(new Date(data.createTime)));
+  $li.find("div.media-body div.report").attr("id", data.id);
+  $li.find("div.media-body div.report").find("a")
+      .attr("href", "/teacher/report/question/" + data.id + "/" + token);
 }
 
 function format(date) {

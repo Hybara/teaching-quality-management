@@ -183,24 +183,26 @@ function initQuestionPanel($li, data) {
       data.title == null ? "" : data.title);
   $li.find("div.media-body p").find("a").attr("href", "/teacher/goMyQuestion/"
       + scoreId + "/" + data.id + "/" + token).text(data.text);
+  $li.find("div.media-body div.report").find("a")
+      .attr("href", "/teacher/report/questions/" + data.id + "/" + token);
   structuralResult($li, data.result);
 }
 
 function structuralResult($li, result) {
   if (result == QUESTION_PERFECT_TYPE) {
-    $li.find("div.media-body div").text("评价：优").addClass(
+    $li.find("div.media-body div.evaluate").text("评价：优").addClass(
         "text-success").removeClass("text-info text-warning text-danger");
   } else if (result == QUESTION_GOOD_TYPE) {
-    $li.find("div.media-body div").text("评价：良").addClass(
+    $li.find("div.media-body div.evaluate").text("评价：良").addClass(
         "text-info").removeClass("text-success text-warning text-danger");
   } else if (result == QUESTION_MEDIUM_TYPE) {
-    $li.find("div.media-body div").text("评价：中").addClass(
+    $li.find("div.media-body div.evaluate").text("评价：中").addClass(
         "text-warning").removeClass("text-info text-success text-danger");
   } else if (result == QUESTION_DISSATISFACTORY_TYPE) {
-    $li.find("div.media-body div").text("评价：不够理想").addClass(
+    $li.find("div.media-body div.evaluate").text("评价：不够理想").addClass(
         "text-danger").removeClass("text-info text-warning text-success");
   } else if (result == QUESTION_NOTANSWER_TYPE) {
-    $li.find("div.media-body div").text("未终止的问答").addClass(
+    $li.find("div.media-body div.evaluate").text("未终止的问答").addClass(
         "text-danger").removeClass("text-info text-warning text-success");
   }
 }

@@ -67,6 +67,11 @@
           .question li.child {
             margin-left: 5%;
           }
+
+         .panel-body hr {
+           margin-top: 4px;
+           margin-bottom: 4px;
+         }
         </style>
         <div class="panel-body question">
           <li class="list-group-item">
@@ -82,6 +87,9 @@
               <div class="media-body">
                 <h4 class="media-heading">[[${question.title}]]</h4>
                 <p>[[${question.text}]]</p>
+                <hr/>
+                <div class="roport" th:id="${question.id}">
+                  <a th:href="@{/teacher/report/question/{id}/{token}(id=${question.id},token=${token})}" target="view_window">举报</a></div>
               </div>
             </div>
           </li>
@@ -97,7 +105,9 @@
                 </div>
                 <div class="media-body">
                   <p>我也不知道该写什么只是乱写而已为了凑字数好麻烦怎么办不知道写什么了好烦呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃呃...</p>
-                  <div class="media-bottom text-default">2018-1-2 10:12:34</div>
+                  <div class="time media-bottom text-default">2018-1-2 10:12:34</div>
+                  <hr/>
+                  <div class="report"><a target="view_window" href="javascript:void(0)">举报</a></div>
                 </div>
               </div>
             </li>

@@ -91,6 +91,11 @@
                       .evaluate li.list-group-item .media-body p a:hover {
                         color: lightslategrey;
                       }
+
+                      .panel-body hr {
+                        margin-top: 4px;
+                        margin-bottom: 4px;
+                      }
                     </style>
                     <div class="panel-body question">
                       <th:block th:each="page : ${#numbers.sequence(1, 8)}">
@@ -108,7 +113,9 @@
                               <p>
                                 <a href="question.html">1</a>
                               </p>
-                              <div class="media-bottom text-success">评价：优|良|中|不够理想</div>
+                              <div class="evaluate media-bottom text-success">评价：优|良|中|不够理想</div>
+                              <hr/>
+                              <div class="report"><a target="view_window" href="javascript:void(0)">举报</a></div>
                             </div>
                           </div>
                         </li>
@@ -185,7 +192,9 @@
                               <p>
                                 <a href="question.html">1</a>
                               </p>
-                              <div class="media-bottom text-success">评价：优|良|中|不够理想|未答</div>
+                              <div class="evaluate media-bottom text-success">评价：优|良|中|不够理想</div>
+                              <hr/>
+                              <div class="report"><a target="view_window" href="javascript:void(0)">举报</a></div>
                             </div>
                           </div>
                         </li>
@@ -240,7 +249,9 @@
                               <p>
                                 <a href="question.html">1</a>
                               </p>
-                              <div class="media-bottom text-success">评价：优|良|中|不够理想|未答</div>
+                              <div class="evaluate media-bottom text-success">评价：优|良|中|不够理想</div>
+                              <hr/>
+                              <div class="report"><a target="view_window" href="javascript:void(0)">举报</a></div>
                             </div>
                           </div>
                         </li>
@@ -295,7 +306,9 @@
                               <p>
                                 <a href="question.html">1</a>
                               </p>
-                              <div class="media-bottom text-success">评价：优|良|中|不够理想|未答</div>
+                              <div class="evaluate media-bottom text-success">评价：优|良|中|不够理想</div>
+                              <hr/>
+                              <div class="report"><a target="view_window" href="javascript:void(0)">举报</a></div>
                             </div>
                           </div>
                         </li>
@@ -350,7 +363,9 @@
                               <p>
                                 <a href="question.html">1</a>
                               </p>
-                              <div class="media-bottom text-success">评价：优|良|中|不够理想|未答</div>
+                              <div class="evaluate media-bottom text-success">评价：优|良|中|不够理想</div>
+                              <hr/>
+                              <div class="report"><a target="view_window" href="javascript:void(0)">举报</a></div>
                             </div>
                           </div>
                         </li>
@@ -405,7 +420,9 @@
                               <p>
                                 <a href="question.html">1</a>
                               </p>
-                              <div class="media-bottom text-success">评价：优|良|中|不够理想|未答</div>
+                              <div class="evaluate media-bottom text-success">评价：优|良|中|不够理想</div>
+                              <hr/>
+                              <div class="report"><a target="view_window" href="javascript:void(0)">举报</a></div>
                             </div>
                           </div>
                         </li>
@@ -447,39 +464,6 @@
           </div>
         </div>
       </div>
-      <!--<li class="list-group-item">
-        <div class="media">
-          <div class="media-left media-middle">
-            <center>
-              <img class="media-object" height="50px" width="50px" src="../../static/img/header.jpg"
-                   alt="还没有图片..."/>
-              <span>欧文惠</span>
-            </center>
-          </div>
-          <div class="media-body">
-            <div class="panel panel-default">
-              <form class="panel-body" action="index.html">
-                <div class="sub-title">标题</div>
-                <div>
-                  <input type="text" class="form-control" placeholder="Text input" width="100%">
-                </div>
-                <div class="sub-title">问题</div>
-                <div>
-                  <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <div class="sub-title">
-                  <a href="#" class="btn btn-danger">清空</a>
-                  <a href="#" class="btn btn-success">提交</a>
-                  <span class="checkbox3 checkbox-round">
-											  <input type="checkbox" id="checkbox">
-											  <label for="checkbox"> 匿名提交 </label>
-											</span>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </li>-->
     </div>
     <footer th:replace="include :: footer"></footer>
   </div>

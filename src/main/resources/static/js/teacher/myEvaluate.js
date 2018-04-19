@@ -53,7 +53,6 @@ $(function () {
     type = type.substring(1, type.length);
     initEvaluateList(type, INDEX_PAGE);
   });
-
 });
 
 function initEvaluateList(type, page) {
@@ -162,25 +161,28 @@ function structuralEvaluateLiDOM(type) {
 }
 
 function initEvaluatePanel($li, data) {
+  let token = $("body").attr("data-token");
   $li.find("img").attr("src", data.userHeader);
   $li.find("div.media-left span").text(data.userName);
   $li.find("div.media-body h4").text(data.title == null ? "" : data.title);
   $li.find("div.media-body p").text(data.text);
+  $li.find("div.media-body div.report").find("a")
+      .attr("href", "/teacher/report/evaluate/" + data.id + "/" + token);
   structuralResult($li, data.result);
 }
 
 function structuralResult($li, result) {
   if (result == EVALUATE_PERFECT_TYPE) {
-    $li.find("div.media-body div").text("评价：优").addClass(
+    $li.find("div.media-body div.evaluate").text("评价：优").addClass(
         "text-success").removeClass("text-info text-warning text-danger");
   } else if (result == EVALUATE_GOOD_TYPE) {
-    $li.find("div.media-body div").text("评价：良").addClass(
+    $li.find("div.media-body div.evaluate").text("评价：良").addClass(
         "text-info").removeClass("text-success text-warning text-danger");
   } else if (result == EVALUATE_MEDIUM_TYPE) {
-    $li.find("div.media-body div").text("评价：中").addClass(
+    $li.find("div.media-body div.evaluate").text("评价：中").addClass(
         "text-warning").removeClass("text-info text-success text-danger");
   } else if (result == EVALUATE_DISSATISFACTORY_TYPE) {
-    $li.find("div.media-body div").text("评价：不够理想").addClass(
+    $li.find("div.media-body div.evaluate").text("评价：不够理想").addClass(
         "text-danger").removeClass("text-info text-warning text-success");
   }
 }

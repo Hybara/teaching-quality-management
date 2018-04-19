@@ -8,10 +8,7 @@ public class Report {
   private long reportedId;
   private String reportedType;
   private String reason;
-  private long reporterId;
-  private String reporterType;
   private long creater;
-  private String createrType;
   private Date createTime;
   private int handler;
   private Date handlerTime;
@@ -23,29 +20,22 @@ public class Report {
     this.id = id;
   }
 
-  public Report(long reportedId, String reportedType, String reason, long reporterId,
-      String reporterType, long creater, String createrType, Date createTime) {
+  public Report(long reportedId, String reportedType, String reason, long creater,
+      Date createTime) {
     this.reportedId = reportedId;
     this.reportedType = reportedType;
     this.reason = reason;
-    this.reporterId = reporterId;
-    this.reporterType = reporterType;
     this.creater = creater;
-    this.createrType = createrType;
     this.createTime = createTime;
   }
 
-  public Report(long id, long reportedId, String reportedType, String reason, long reporterId,
-      String reporterType, long creater, String createrType, Date createTime, int handler,
-      Date handlerTime) {
+  public Report(long id, long reportedId, String reportedType, String reason, long creater,
+      Date createTime, int handler, Date handlerTime) {
     this.id = id;
     this.reportedId = reportedId;
     this.reportedType = reportedType;
     this.reason = reason;
-    this.reporterId = reporterId;
-    this.reporterType = reporterType;
     this.creater = creater;
-    this.createrType = createrType;
     this.createTime = createTime;
     this.handler = handler;
     this.handlerTime = handlerTime;
@@ -83,36 +73,12 @@ public class Report {
     this.reason = reason;
   }
 
-  public long getReporterId() {
-    return reporterId;
-  }
-
-  public void setReporterId(long reporterId) {
-    this.reporterId = reporterId;
-  }
-
-  public String getReporterType() {
-    return reporterType;
-  }
-
-  public void setReporterType(String reporterType) {
-    this.reporterType = reporterType;
-  }
-
   public long getCreater() {
     return creater;
   }
 
   public void setCreater(long creater) {
     this.creater = creater;
-  }
-
-  public String getCreaterType() {
-    return createrType;
-  }
-
-  public void setCreaterType(String createrType) {
-    this.createrType = createrType;
   }
 
   public Date getCreateTime() {
@@ -146,10 +112,7 @@ public class Report {
         ", reportedId=" + reportedId +
         ", reportedType='" + reportedType + '\'' +
         ", reason='" + reason + '\'' +
-        ", reporterId=" + reporterId +
-        ", reporterType='" + reporterType + '\'' +
         ", creater=" + creater +
-        ", createrType='" + createrType + '\'' +
         ", createTime=" + createTime +
         ", handler=" + handler +
         ", handlerTime=" + handlerTime +
