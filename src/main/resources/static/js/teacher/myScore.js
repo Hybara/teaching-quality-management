@@ -13,8 +13,6 @@ $(function () {
       url = '/teacher/goMyEvaluate/'+id+"/"+token;
     } else if (title == '答疑') {
       url = '/teacher/goMyQuestions/'+id+"/"+token;
-    } else {
-      url = 'assessment.html';
     }
     window.location.href = url;
   })

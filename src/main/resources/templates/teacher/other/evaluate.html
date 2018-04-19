@@ -28,7 +28,7 @@
         </small>
       </h1>
       <ol class="breadcrumb">
-        <li>
+        <li id="teacher" th:attr="data-id=${teacher}">
           <a href="teachers.html" th:href="@{/teacher/teacherList/{token}(token=${token})}">教师列表</a>
         </li>
         <li>

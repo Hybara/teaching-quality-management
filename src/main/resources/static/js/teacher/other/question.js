@@ -72,7 +72,7 @@ $(function () {
         window.location.href = "/logout/" + token;
       } else {
         window.location.href = "/teacher/goQuestion/" + $("div.header").attr(
-            "data-id") + "/" + $("#score").attr(
+            "data-id") + "/" + $("li#score").attr(
             "data-id") + "/" + questionId + "/" + token;
       }
     }, "text");

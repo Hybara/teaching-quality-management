@@ -110,8 +110,9 @@ $(function () {
     };
     $.post("/teacher/evaluate", data, function (response) {
       if (response == "ok") {
-        window.location.href = '/teacher/goEvaluate/' + $(
-            "h1.page-header").attr("data-id") + "/" + token;
+        window.location.href = '/teacher/goEvaluate/'
+            + $("li#teacher").attr("data-id")
+            + $("h1.page-header").attr("data-id") + "/" + token;
       } else if (response == "logout") {
         window.location.href = "/logout/" + token;
       } else {

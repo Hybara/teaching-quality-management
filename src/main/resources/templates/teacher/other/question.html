@@ -33,7 +33,7 @@
           <a href=""
              th:href="@{/teacher/goScores/{id}/{token}(id=${teacher},token=${token})}">课程列表</a>
         </li>
-        <li>
+        <li id="score" th:attr="data-id=${scoreInfo.id}">
           <a th:href="@{/teacher/goScore/{teacherId}/{id}/{token}(teacherId=${teacher},id=${scoreInfo.id},token=${token})}">
             [[${scoreInfo.scoreName}]]
           </a>
