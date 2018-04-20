@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -38,4 +39,9 @@ public interface ForQuestionMapper {
       + " #{forQuestion.createrType},"
       + " #{forQuestion.flag})")
   boolean insertForQuestion(@Param("forQuestion") ForQuestion forQuestion);
+
+  @Update("UPDATE for_question "
+      + "SET text=#{forQuestion.text} "
+      + "WHERE id=#{forQuestion.id}")
+  boolean updateForQuestionText(@Param("forQuestion") ForQuestion forQuestion);
 }

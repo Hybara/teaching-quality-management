@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="include :: header(~{})"></head>
 
@@ -22,7 +22,7 @@
           </a>
         </li>
         <li>
-          <a th:href="@{/register/goReport/{token}(token=${token})}"><i class="fa fa-dashboard"></i> 举报</a>
+          <a href="index.html"><i class="fa fa-dashboard"></i> 举报</a>
         </li>
         <li>
           <a href="index.html"><i class="fa fa-dashboard"></i> 公告</a>
@@ -33,57 +33,59 @@
   <!-- /. NAV SIDE  -->
   <div id="page-wrapper">
     <div class="header">
-      <h1 class="page-header">专业列表</h1>
+      <h1 class="page-header">举报信息列表</h1>
       <ol class="breadcrumb">
-        <li class="active">专业列表</li>
+        <li class="active">举报信息列表</li>
       </ol>
     </div>
-    <div id="page-inner">
-      <div class="row">
-        <div class="col-md-12">
-          <!-- Advanced Tables -->
-          <div class="panel panel-default">
-            <div class="panel-heading"> 专业列表</div>
-            <div class="panel-body">
+    <div class="row" style="width: 100%">
+      <div class="col-md-offset-2 col-md-8">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+          <div class="panel-heading"> 举报信息列表
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive" style="margin-top: 10px;">
               <style>
-                .col-sm-3, .col-sm-6 {
-                  margin-bottom: 1%;
-                }
-
-                .col-sm-3 a {
-                  font-size: 10px;
+                .table-hover tr td {
+                  cursor: pointer;
                 }
               </style>
-              <div class="row">
-                <div class="col-sm-6">
-                  <form class="form-inline">
-                    <div class="form-group">
-                      <input type="text" class="form-control" id="search" placeholder="专业编号、专业名称...">
-                    </div>
-                    <button type="submit" class="btn btn-primary">搜索</button>
-                    <button type="button" class="btn btn-success">全部</button>
-                  </form>
-                </div>
-              </div>
-              <div class="row" id="major">
-                <th:block th:each="page : ${#numbers.sequence(1, 24)}">
-                  <div class="col-sm-3">
-                    <a href="" class="list-group-item">
-                      <span class="number"></span>&emsp;&emsp;&emsp;
-                      <span class="name"></span>
-                    </a>
-                  </div>
+              <table class="table table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>内容</th>
+                  <th>举报原因</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="page,iterState : ${#numbers.sequence(1, 12)}">
+                  <tr>
+                    <td class="report">[[${iterState.count}]]</td>
+                    <td class="content">content</td>
+                    <td class="reason">reason</td>
+                    <td width="120px;">
+                      <a class="allow text-danger">处理</a>&nbsp;&nbsp;&nbsp;
+                      <a class="notAllowed text-info">略过</a>
+                    </td>
+                  </tr>
                 </th:block>
-              </div>
+                </tbody>
+              </table>
             </div>
-            <div class="row" th:if="${count}" style="margin-top: -15px;">
+            <div class="row">
               <center>
                 <nav aria-label="Page navigation">
-                  <ul class="pagination" data-count="1" th:attr="data-count=${count}">
+                  <ul class="pagination">
+                    <li>
+                      <a href="javascript:void(0)" id="first">首页</a>
+                    </li>
                     <li>
                       <a href="javascript:void(0)" id="back">&laquo;</a>
                     </li>
-                    <th:block th:each="page : ${#numbers.sequence(1, count)}">
+                    <th:block th:each="page : ${#numbers.sequence(1, 5)}">
                       <li th:if="${page} eq 1" class="pageItem active" id="1">
                         <a href="javascript:void(0)">1</a>
                       </li>
@@ -94,28 +96,31 @@
                     <li>
                       <a href="javascript:void(0)" id="nest">&raquo;</a>
                     </li>
+                    <li>
+                      <a href="javascript:void(0)" id="end">末页</a>
+                    </li>
                   </ul>
                 </nav>
               </center>
             </div>
           </div>
-          <!--End Advanced Tables -->
-
         </div>
+        <!--End Advanced Tables -->
+        <div style="clear: both"></div>
+        <footer th:replace="include :: footer"></footer>
       </div>
-
-      <footer th:replace="include :: footer"></footer>
     </div>
     <!-- /. PAGE INNER  -->
   </div>
   <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
+
+<!-- /. WRAPPER  -->
 <th:block th:replace="include :: scripte_domain(~{::script})">
   <!-- My Js -->
-  <script src="../../static/js/register/major.js" th:src="@{/js/register/major.js}"></script>
+  <script src="../../../static/js/register/teachers.js" th:src="@{/js/register/report.js}"></script>
 </th:block>
-
 </body>
 
 </html>

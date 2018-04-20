@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface EvaluateMapper {
 
   @Select("SELECT * FROM evaluate WHERE id=#{id}")
+  @ResultMap("result")
   Evaluate getById(@Param("id") long id);
 
   List<Evaluate> getScoreEvaluates(@Param("scoreForTeacherId") long scoreForTeacherId,
@@ -40,5 +43,12 @@ public interface EvaluateMapper {
       + "#{evaluate.createrType},"
       + "#{evaluate.flag})")
   boolean insertScoreEvaluate(@Param("evaluate") Evaluate evaluate);
+
+  @Update("UPDATE evaluate "
+      + "SET title=#{evaluate.title},"
+      + "  text=#{evaluate.text},"
+      + "  result=#{evaluate.result} "
+      + " WHERE id=#{evaluate.id}")
+  boolean updateScoreEvaluate(@Param("evaluate") Evaluate evaluate);
 
 }
