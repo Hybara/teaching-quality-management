@@ -14,7 +14,13 @@ public class Major {
     this.id = id;
   }
 
-  public Major(int id, String number, String name, Integer schooling) {
+  public Major(String number, String name, Integer schooling) {
+    this.number = number;
+    this.name = name;
+    this.schooling = schooling;
+  }
+
+  public Major(long id, String number, String name, Integer schooling) {
     this.id = id;
     this.number = number;
     this.name = name;

@@ -118,14 +118,18 @@ public class QuestionService {
     question.setScoreForTeacher(new ScoreForTeacher(scoreForTeacherId));
     question.setTitle("".equals(title) ? null : title);
     question.setText(text);
-    question.setResult(metadataMapper.getQuestionResultByKey(result).getValue());
+    if (result != null) {
+      question.setResult(metadataMapper.getQuestionResultByKey(result).getValue());
+    }
     question.setCreater(createrId);
     question.setCreaterType(createrType);
     question.setFlag(flag);
     if (questionMapper.insertScoreQuestion(question)) {
       ScoreForTeacher scoreForTeacher = scoreForTeacherMapper.getById(scoreForTeacherId);
-      scoreForTeacher.setQuestionGrade(scoreForTeacher.getQuestionGrade() + question.getResult());
-      scoreForTeacher.setQuestionCount(scoreForTeacher.getQuestionCount() + 1);
+      if (question.getResult() != null) {
+        scoreForTeacher.setQuestionGrade(scoreForTeacher.getQuestionGrade() + question.getResult());
+        scoreForTeacher.setQuestionCount(scoreForTeacher.getQuestionCount() + 1);
+      }
       if (scoreForTeacherMapper.updateScoreForTeacher(scoreForTeacher)) {
         return true;
       }

@@ -11,11 +11,8 @@ import cn.edu.jsu.rjxy.mappers.ForQuestionMapper;
 import cn.edu.jsu.rjxy.mappers.QuestionMapper;
 import cn.edu.jsu.rjxy.mappers.ReportMapper;
 import cn.edu.jsu.rjxy.mappers.ScoreForTeacherMapper;
-import groovy.util.IFileNameFinder;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.ibatis.annotations.Update;
-import org.codehaus.groovy.runtime.dgmimpl.arrays.FloatArrayGetAtMetaMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

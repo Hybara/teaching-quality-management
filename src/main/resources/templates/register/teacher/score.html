@@ -130,7 +130,7 @@
                     <h3>
                       <h4 th:unless="${questionnaire}">发布问卷</h4>
                       <h4 th:if="${questionnaire}">已发布问卷</h4>
-                      <small>结束时间：[[${#dates.format(questionnaire.endTime, 'yyyy/MM/dd')}]]</small>
+                      <small th:if="${questionnaire}">结束时间：[[${#dates.format(questionnaire.endTime, 'yyyy/MM/dd')}]]</small>
                     </h3>
                   </div>
                   <div class="icon">

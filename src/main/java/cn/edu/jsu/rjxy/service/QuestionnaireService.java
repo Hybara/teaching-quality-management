@@ -298,8 +298,9 @@ public class QuestionnaireService {
       for (QuestionnaireTemplateQuestion question : templateQuestions) {
         questionIds.add(question.getQuestion().getId());
       }
+      QuestionnaireForTeacher questionnaireForTeacher1 = questionnaireForTeacherMapper.getTeacherQuestionnaire(scoreForTeacherId);
       if (questionnaireForTeacherQuestionMapper
-          .insertQuestionnaireForTeacherQuestion(templateId, questionIds)) {
+          .insertQuestionnaireForTeacherQuestion(questionnaireForTeacher1.getId(), questionIds)) {
         return true;
       }
     }

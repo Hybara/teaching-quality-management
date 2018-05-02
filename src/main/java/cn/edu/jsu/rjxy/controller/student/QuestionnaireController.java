@@ -36,6 +36,8 @@ public class QuestionnaireController {
     model.addAttribute("id", id);
     model.addAttribute("token", token);
     QuestionnaireForTeacher questionnaire = questionnaireService.teacherQuestionnaireIsExist(id);
+    System.out.println(id);
+    System.out.println(questionnaire);
     model.addAttribute("template", questionnaire);
     model.addAttribute("types", questionnaireService.getQuestionnaireQuestionType(questionnaire.getId()));
     model.addAttribute("scoreInfo", scoreService.getScoreByScoreForTeacherId(id));

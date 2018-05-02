@@ -31,4 +31,15 @@ public class MajorService {
     return majorMapper.getCount(search);
   }
 
+  public boolean deleteMajor(long majorId) {
+    return majorMapper.deleteMajor(majorId);
+  }
+
+  public boolean insertMajor(Major major) {
+    return majorMapper.insertMajor(major);
+  }
+
+  public boolean updateMajor(Major major) {
+    return majorMapper.updateMajor(major);
+  }
 }

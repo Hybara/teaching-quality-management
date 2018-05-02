@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jsu.rjxy.mappers.MetadataMapper">
+
+  <update id="updateMetadatas">
+    <foreach collection="metadatas" item="value" index="key" separator=";" open=" " close=" ">
+      UPDATE metadata
+      SET `value` = #{value}
+      WHERE id = #{key}
+    </foreach>
+  </update>
+</mapper>

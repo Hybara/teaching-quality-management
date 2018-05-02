@@ -1,6 +1,8 @@
 package cn.edu.jsu.rjxy.mappers;
 
 import cn.edu.jsu.rjxy.entity.vo.Metadata;
+import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -30,5 +32,10 @@ public interface MetadataMapper {
 
   @Select("SELECT * FROM metadata WHERE `key`='question.cycle'")
   Metadata getQuestionCycle();
+
+  @Select("SELECT * FROM metadata ORDER BY id")
+  List<Metadata> getAll();
+
+  boolean updateMetadatas(@Param("metadatas")Map<String, String> metadatas);
 
 }

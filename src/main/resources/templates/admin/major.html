@@ -6,23 +6,25 @@
 <body data-token="" th:attr="data-token=${token}">
 <div id="wrapper">
   <nav class="navbar navbar-default top-navbar" role="navigation"
-       th:replace="register/header :: nav"></nav>
+       th:replace="admin/header :: nav"></nav>
   <!--/. NAV TOP  -->
   <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
         <li>
-          <a href="" th:href="@{/register/majors/{token}(token=${token})}">
-            <i class="fa fa-dashboard"></i> 专业列表
+          <a>
+            <i class="fa fa-dashboard"></i> 学期管理
           </a>
         </li>
         <li>
-          <a href="" th:href="@{/register/goQuestionnaire/{token}(token=${token})}">
-            <i class="fa fa-dashboard"></i> 题库
+          <a>
+            <i class="fa fa-dashboard"></i> 专业管理
           </a>
         </li>
         <li>
-          <a th:href="@{/register/goReport/{token}(token=${token})}"><i class="fa fa-dashboard"></i> 举报</a>
+          <a th:href="@{/admin/goMetadata/{token}(token=${token})}">
+            <i class="fa fa-dashboard"></i> 系统参数管理
+          </a>
         </li>
       </ul>
     </div>
@@ -30,18 +32,30 @@
   <!-- /. NAV SIDE  -->
   <div id="page-wrapper">
     <div class="header">
-      <h1 class="page-header">举报信息列表</h1>
+      <h1 class="page-header">专业管理</h1>
       <ol class="breadcrumb">
-        <li class="active">举报信息列表</li>
+        <li class="active">专业管理</li>
       </ol>
     </div>
     <div class="row" style="width: 100%">
       <div class="col-md-offset-2 col-md-8">
         <!-- Advanced Tables -->
         <div class="panel panel-default">
-          <div class="panel-heading"> 举报信息列表
+          <div class="panel-heading"> 专业管理
           </div>
           <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <form class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="search" placeholder="专业编号、专业名称...">
+                  </div>
+                  <button type="submit" class="btn btn-primary">搜索</button>
+                  <button type="button" class="btn btn-success all">全部</button>
+                  <button type="button" class="btn btn-info add">添加专业</button>
+                </form>
+              </div>
+            </div>
             <div class="table-responsive" style="margin-top: 10px;">
               <style>
                 .table-hover tr td {
@@ -52,20 +66,20 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>内容</th>
-                  <th>举报原因</th>
+                  <th>专业编号</th>
+                  <th>专业名称</th>
                   <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <th:block th:each="page,iterState : ${#numbers.sequence(1, 12)}">
                   <tr>
-                    <td class="report">[[${iterState.count}]]</td>
-                    <td class="content">content</td>
-                    <td class="reason">reason</td>
+                    <td>[[${iterState.count}]]</td>
+                    <td class="number">content</td>
+                    <td class="name">reason</td>
                     <td width="120px;">
-                      <a class="allow text-danger">处理</a>&nbsp;&nbsp;&nbsp;
-                      <a class="notAllowed text-info">略过</a>
+                      <a class="update text-warning">修改</a>&nbsp;&nbsp;&nbsp;
+                      <a class="delete text-danger">删除</a>
                     </td>
                   </tr>
                 </th:block>
@@ -116,7 +130,7 @@
 <!-- /. WRAPPER  -->
 <th:block th:replace="include :: scripte_domain(~{::script})">
   <!-- My Js -->
-  <script src="../../../static/js/register/teachers.js" th:src="@{/js/register/report.js}"></script>
+  <script th:src="@{/js/admin/major.js}"></script>
 </th:block>
 </body>
 
